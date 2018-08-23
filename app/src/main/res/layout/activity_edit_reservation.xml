@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    tools:context="com.example.alexander.halalappv1.activities.EditReservationActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_reservation_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_edit_reservation_activity_restaurant_image"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_search_header"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_edit_reservation_activity_favourite"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_favourite_empty"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="@dimen/screen_right_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_edit_reservation_activity_arrow_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_left_white"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="@dimen/screen_left_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_edit_reservation_activity_gallery_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_restaurant_instagram"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="@dimen/screen_right_margin"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_edit_reservation_activity_restaurant_image"
+            app:layout_constraintRight_toRightOf="@+id/iv_edit_reservation_activity_restaurant_image"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_edit_reservation_activity_restaurant_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Pepenero"
+            android:textColor="@color/black_2A2C34"
+            android:textSize="22sp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="left"
+            android:includeFontPadding="false"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_edit_reservation_activity_restaurant_image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/rb_edit_reservation_activity_restaurant_rate"/>
+
+        <com.whinc.widget.ratingbar.RatingBar
+            android:id="@+id/rb_edit_reservation_activity_restaurant_rate"
+            android:layout_width="90dp"
+            android:layout_height="24dp"
+            app:rb_empty="@drawable/ic_rate_empty_gray"
+            app:rb_fill="@drawable/ic_rate_full_gray"
+            app:rb_click_rating="false"
+            app:rb_touch_rating="false"
+            app:rb_count="3"
+            app:rb_max_count="4"
+            app:rb_space="2dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_edit_reservation_activity_restaurant_image"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <!--date_time_number_of_people_layout-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/edit_reservation_activity_date_time_number_of_people_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="@dimen/screen_left_margin"
+            android:layout_marginRight="@dimen/screen_right_margin"
+            android:background="@drawable/shape_bg_transparent_b_pink_br_8"
+            app:layout_constraintTop_toBottomOf="@+id/tv_edit_reservation_activity_restaurant_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <!--Date Layout-->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="@dimen/screen_left_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_date_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_reserve_pink"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="16/01/2014"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:layout_marginLeft="4dp"
+                    app:layout_constraintTop_toTopOf="@+id/iv_date_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_date_icon"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_date_icon" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <!--Number Of People Layout-->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_number_of_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="@dimen/screen_left_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_number_of_people_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_number_of_people"
+                    android:layout_marginRight="4dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_number_of_people_text"/>
+
+                <TextView
+                    android:id="@+id/tv_number_of_people_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/opensans_semibold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <!--Time Layout-->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/layout_date"
+                app:layout_constraintRight_toLeftOf="@id/layout_number_of_people">
+
+                <ImageView
+                    android:id="@+id/iv_time_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_time"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_time_label_text"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:layout_marginLeft="4dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/iv_time_icon"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--calendar_layout-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/edit_reservation_activity_calendar_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/edit_reservation_activity_date_time_number_of_people_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/month_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/grey_F4F4F4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_month_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="January 2018"
+                    android:textSize="@dimen/app_text_size"
+                    android:textColor="@color/black_2A2C34"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="left"
+                    android:layout_marginLeft="@dimen/screen_left_margin"
+                    android:layout_marginRight="@dimen/screen_right_margin"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_D3D3D3"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendar_view"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:mcv_tileWidth="match_parent"
+                app:mcv_tileHeight="match_parent"
+                android:background="@color/grey_F4F4F4"
+                app:mcv_showOtherDates="out_of_range"
+                app:mcv_headerTextAppearance="@style/CustomTextAppearance"
+                app:layout_constraintTop_toBottomOf="@+id/month_layout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_calendar_time_list"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/calendar_view"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_calendar_layout_restaurant_is_closed_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_calendar_layout_restaurant_is_closed_message_text"
+                android:textSize="12sp"
+                android:textColor="@color/grey_777777"
+                android:fontFamily="@font/opensans_bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/calendar_view"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <View
+                android:id="@+id/calendar_layout_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_D6D6D6"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_calendar_time_list"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_calendar_layout_number_of_people_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_calendar_layout_number_of_people_label_text"
+                android:textSize="12sp"
+                android:textColor="@color/grey_777777"
+                android:fontFamily="@font/opensans_bold"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/calendar_layout_line"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_calendar_number_of_people_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_calendar_layout_number_of_people_label"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/grey_F4F4F4"
+                android:layout_marginTop="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_calendar_number_of_people_list"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/order_linear_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <Button
+                        android:id="@+id/btn_calendar_layout_reserve"
+                        android:layout_width="130dp"
+                        android:layout_height="40dp"
+                        android:text="@string/btn_calendar_layout_reserve_text"
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/opensans_light"
+                        android:textAllCaps="false"
+                        android:background="@drawable/shape_bg_pink_b_pink_br_4"
+                        android:layout_marginRight="8dp"/>
+
+                    <Button
+                        android:id="@+id/btn_calendar_layout_place_an_order"
+                        android:layout_width="130dp"
+                        android:layout_height="40dp"
+                        android:text="@string/btn_calendar_layout_place_an_order_text"
+                        android:textSize="12sp"
+                        android:textColor="@color/pink"
+                        android:fontFamily="@font/opensans_light"
+                        android:textAllCaps="false"
+                        android:background="@drawable/shape_bg_transparent_b_pink_br_4"
+                        android:layout_marginLeft="8dp"/>
+
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

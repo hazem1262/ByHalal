@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="260dp"
+    android:layout_height="130dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginBottom="16dp">
+
+    <ImageView
+        android:id="@+id/iv_home_restaurant_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_search_header"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_gradient"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_home_restaurant_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Italian"
+        android:textSize="12sp"
+        android:textColor="@color/pink"
+        android:fontFamily="@font/opensans_regular"
+        android:includeFontPadding="false"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_home_restaurant_name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Pepenero"
+        android:textSize="13dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/opensans_semibold"
+        android:includeFontPadding="false"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_home_restaurant_category"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_home_restaurant_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marseille"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:fontFamily="@font/opensans_regular"
+        android:includeFontPadding="false"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:drawableLeft="@drawable/ic_list_item_location_white"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <com.whinc.widget.ratingbar.RatingBar
+        android:id="@+id/rb_home_restaurant_rate"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        app:rb_empty="@drawable/ic_list_item_rate_bar_empty"
+        app:rb_fill="@drawable/ic_list_item_rate_bar_full"
+        app:rb_count="3"
+        app:rb_max_count="4"
+        app:rb_space="1dp"
+        app:rb_touch_rating="false"
+        app:rb_click_rating="false"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_home_restaurant_location"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

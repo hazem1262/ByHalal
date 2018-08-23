@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    tools:context="com.example.alexander.halalappv1.activities.TableRestaurantsActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/table_restaurants_activity_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_header_max_height"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/tv_table_restaurants_activity_table_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/app_text_size"
+            android:textColor="@color/black_2A2C34"
+            android:fontFamily="@font/montserrat_semibold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <ImageView
+            android:id="@+id/iv_table_restaurants_activity_arrow_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_left_black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_D9D9D9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_table_restaurants_activity_restaurants_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/table_restaurants_activity_header_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <!--=========================================================================================-->
+    <com.google.android.gms.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/table_restaurants_activity_map"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/table_restaurants_activity_header_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_table_restaurants_activity_restaurants_map_list"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:overScrollMode="never"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+    <!--=========================================================================================-->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/rv_table_restaurants_activity_restaurants_map_list"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <Button
+            android:id="@+id/btn_table_restaurants_activity_map"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_bg_black_b_black_br_left_4"
+            android:drawableLeft="@drawable/ic_map"
+            android:drawablePadding="4dp"
+            android:padding="8dp"
+            android:text="@string/btn_search_fragment_map_text"
+            android:textColor="@color/white"
+            android:fontFamily="@font/opensans_semibold"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <View
+            android:id="@+id/table_restaurants_activity_line_vertical"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="@+id/btn_table_restaurants_activity_map"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_table_restaurants_activity_map"
+            app:layout_constraintLeft_toRightOf="@+id/btn_table_restaurants_activity_map" />
+
+        <Button
+            android:id="@+id/btn_table_restaurants_activity_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_bg_black_b_black_br_right_4"
+            android:drawablePadding="4dp"
+            android:padding="8dp"
+            android:drawableStart="@drawable/ic_filter"
+            android:textAllCaps="false"
+            android:text="@string/btn_search_fragment_filter_text"
+            android:fontFamily="@font/opensans_semibold"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_table_restaurants_activity_map"
+            app:layout_constraintLeft_toRightOf="@+id/table_restaurants_activity_line_vertical" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/pb_table_restaurants_activity_loading_indicator"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        layout="@layout/layout_progress_bar"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

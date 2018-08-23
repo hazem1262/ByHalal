@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:paddingTop="12dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp">
+
+    <ImageView
+        android:id="@+id/iv_search_restaurant_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_search_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_restaurant_gradient"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_search_restaurant_catrgory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Italian"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="@dimen/screen_left_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_search_restaurant_name"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="Sha3ban"
+        android:textColor="@color/white"
+        android:textSize="@dimen/app_text_size"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="@dimen/screen_left_margin"
+        app:layout_constraintBottom_toTopOf="@+id/tv_search_restaurant_catrgory"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_search_restaurant_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marsille"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="@dimen/screen_right_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_search_restaurant_location_icon"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/ic_list_item_location_white"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_search_restaurant_location"
+        app:layout_constraintEnd_toStartOf="@+id/tv_search_restaurant_location"
+        app:layout_constraintTop_toTopOf="@+id/tv_search_restaurant_location" />
+
+    <com.whinc.widget.ratingbar.RatingBar
+        android:id="@+id/rb_search_restaurant_rate"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        app:rb_click_rating="false"
+        app:rb_count="3"
+        app:rb_empty="@drawable/ic_list_item_rate_bar_empty"
+        app:rb_fill="@drawable/ic_list_item_rate_bar_full"
+        app:rb_max_count="4"
+        app:rb_space="1dp"
+        app:rb_touch_rating="false"
+        android:layout_marginRight="@dimen/screen_right_margin"
+        app:layout_constraintTop_toTopOf="@+id/tv_search_restaurant_name"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_search_restaurant_name"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_search_restaurant_favourite"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="24dp"
+        android:src="@drawable/ic_favourite_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
