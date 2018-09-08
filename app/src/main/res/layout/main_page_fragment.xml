@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:background="@color/modifiedPrimaryColor">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:weightSum="2">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/tv_good_morning_label_text"
+				android:textColor="@color/white"
+				android:layout_alignParentLeft="true"
+				/>
+			<ImageView
+				android:id="@+id/iv_home_fragment_search_icon"
+				android:layout_width="16dp"
+				android:layout_height="16dp"
+				android:src="@drawable/ic_text_view_search"
+				android:layout_marginRight="8dp"
+				android:layout_alignParentRight="true"
+				/>
+		</RelativeLayout>
+		<!--Current Location Button-->
+		<Button
+			android:id="@+id/btn_home_fragment_current_location"
+			android:layout_width="wrap_content"
+			android:layout_height="32dp"
+			android:text="@string/btn_home_current_location_text"
+			android:textAllCaps="false"
+			android:includeFontPadding="false"
+			android:textColor="@color/white"
+			android:fontFamily="@font/opensans_regular"
+			android:drawableRight="@drawable/ic_button_arrow_down"
+			android:drawablePadding="8dp"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:layout_marginTop="12dp"
+			android:background="@color/transparentColor"
+			/>
+
+	</LinearLayout>
+
+	<!--Tables Recycler View-->
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/rv_home_fragment_tables_list"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		/>
+	<include
+		android:id="@+id/pb_home_fragment_loading_indicator"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_progress_bar"
+		android:visibility="gone"
+		/>
+
+	<include
+		android:id="@+id/home_fragment_permission_not_granted_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_permission_not_granted"
+		android:visibility="gone"
+		/>
+
+	<include
+		android:id="@+id/home_fragment_gps_disabled_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_gps_disabled"
+		android:visibility="gone"
+		/>
+
+	<include
+		android:id="@+id/home_fragment_data_not_found_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_data_not_found_for_current_location"
+		android:visibility="gone"
+		/>
+
+	<include
+		android:id="@+id/home_fragment_location_not_detected_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_location_not_detected"
+		android:visibility="gone"
+		/>
+
+	<TextView
+		android:id="@+id/tv_home_fragment_error_message"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="@dimen/app_text_size"
+		android:textColor="@color/black_2A2C34"
+		android:fontFamily="@font/opensans_regular"
+		android:gravity="center"
+		android:visibility="gone"
+		/>
+
+</LinearLayout>

@@ -220,6 +220,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/restaurant_profile_calendar_layout"
             android:layout_width="0dp"
+            tools:visibility="visible"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:layout_marginTop="16dp"
@@ -417,6 +418,7 @@
 
         <!--Restaurant Information Layout-->
         <android.support.constraint.ConstraintLayout
+            tools:visibility="gone"
             android:id="@+id/restaurant_profile_information_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

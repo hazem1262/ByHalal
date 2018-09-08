@@ -14,9 +14,15 @@ public class RestaurantsList1 implements Parcelable
     @SerializedName("listId")
     @Expose
     private Integer listId;
+
+    @SerializedName("listType")
+    @Expose
+    private String listType;
+
     @SerializedName("listNameEn")
     @Expose
     private String listNameEn;
+
     @SerializedName("listNameFr")
     @Expose
     private String listNameFr;
@@ -45,9 +51,18 @@ public class RestaurantsList1 implements Parcelable
         this.listNameEn = in.readString();
         this.listNameFr = in.readString();
         this.restaurants = in.createTypedArrayList(Restaurant.CREATOR);
+        this.listType = in.readString();
     }
 
     public RestaurantsList1() {
+    }
+
+    public String getListType() {
+        return listType;
+    }
+
+    public void setListType(String listType) {
+        this.listType = listType;
     }
 
     public Integer getListId() {
@@ -87,6 +102,7 @@ public class RestaurantsList1 implements Parcelable
         dest.writeString(this.listNameEn);
         dest.writeString(this.listNameFr);
         dest.writeTypedList(this.restaurants);
+        dest.writeString(this.listType);
     }
 
     public int describeContents() {

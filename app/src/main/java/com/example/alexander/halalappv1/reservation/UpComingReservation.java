@@ -3,7 +3,7 @@ package com.example.alexander.halalappv1.reservation;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.alexander.halalappv1.model.Restaurant;
+import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

@@ -27,6 +27,8 @@ public class ConstantsHelper {
 
     // base url
     public static final String BASE_URL = "http://www.by-halal.fr/api/";
+//    public static final String BASE_URL = "https://7222bae5-4323-4479-b698-6866c10577e1.mock.pstmn.io/";
+//    public static final String BASE_URL = "https://b3d6d312-8c6b-4a2c-a7b4-97c69fe2c51e.mock.pstmn.io/";
     // sign in
     public static final String SIGN_IN_END_POINT = "login";
     // sign up
@@ -71,4 +73,10 @@ public class ConstantsHelper {
     public static final String CANCEL_RESERVATION = "deleteReservation";
 
     public static final String GALLERY_IMAGES = "gallery";
+
+    public static final String RESTAURANTS_LIST_HEADER = "list-header";
+    public static final String RESTAURANTS_LIST_BODY = "list-body";
+    public static final String RESTAURANTS_LIST_FOOTER = "list-footer";
+
+
 }

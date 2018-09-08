@@ -6,5 +6,5 @@
         android:state_selected="true" />
 
     <item
-        android:drawable="@drawable/ic_profile_black" />
+        android:drawable="@drawable/ic_profile_white" />
 </selector>

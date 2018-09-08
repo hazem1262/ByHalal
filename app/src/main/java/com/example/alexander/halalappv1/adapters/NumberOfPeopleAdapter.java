@@ -47,7 +47,7 @@ public class NumberOfPeopleAdapter extends RecyclerView.Adapter<NumberOfPeopleAd
             holder.numberOfPeopleTextView.setTextColor(Color.parseColor("#FFFFFF"));
         } else {
             holder.numberOfPeopleTextView.setBackgroundResource(R.drawable.shape_circle_bg_transparent);
-            holder.numberOfPeopleTextView.setTextColor(Color.parseColor("#000000"));
+            holder.numberOfPeopleTextView.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
 

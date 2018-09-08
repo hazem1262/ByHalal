@@ -5,7 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/modifiedPrimaryColor"
+    tools:background="@color/white">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/menu_activity_header_layout"
@@ -27,18 +29,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-
-            <TextView
-                android:id="@+id/tv_menu_activity_restaurant_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pepenero"
-                android:textSize="@dimen/app_text_size"
-                android:textColor="@color/black_2A2C34"
-                android:fontFamily="@font/montserrat_semibold"
-                android:layout_gravity="center"
-                android:gravity="center"/>
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="left">
 
             <TextView
                 android:id="@+id/tv_menu_activity_menu_label"
@@ -48,8 +40,18 @@
                 android:textSize="@dimen/app_text_size"
                 android:textColor="@color/pink"
                 android:fontFamily="@font/opensans_regular"
-                android:layout_gravity="center"
                 android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/tv_menu_activity_restaurant_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pepenero"
+                android:textSize="@dimen/app_sub_header"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center"/>
+
 
         </LinearLayout>
 
@@ -60,7 +62,8 @@
             android:src="@drawable/ic_arrow_left_black"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="gone"/>
 
         <View
             android:layout_width="match_parent"
@@ -79,7 +82,8 @@
         app:layout_constraintTop_toBottomOf="@+id/menu_activity_header_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        tools:visibility="gone"/>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/checkout_order_layout"
@@ -87,6 +91,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_bg_pink_b_pink_br_4"
         android:visibility="gone"
+        tools:visibility="visible"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="@dimen/screen_left_margin"
         android:layout_marginRight="@dimen/screen_right_margin"

@@ -21,10 +21,9 @@ import com.example.alexander.halalappv1.adapters.NumberOfPeopleAdapter;
 import com.example.alexander.halalappv1.adapters.TimeAdapter;
 import com.example.alexander.halalappv1.fragments.ReserveFragment;
 import com.example.alexander.halalappv1.model.Gallery;
-import com.example.alexander.halalappv1.model.Menu;
-import com.example.alexander.halalappv1.model.MenuItem;
-import com.example.alexander.halalappv1.model.Restaurant;
-import com.example.alexander.halalappv1.model.WorkDay;
+import com.example.alexander.halalappv1.model.modifiedmodels.MenuItem;
+import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
+import com.example.alexander.halalappv1.model.modifiedmodels.WorkDay;
 import com.example.alexander.halalappv1.reservation.UpComingReservation;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
@@ -123,7 +122,7 @@ public class EditReservationActivity extends AppCompatActivity {
                 mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_empty);
             }
             mRestaurantNameTextView.setText(mRestaurant.getName());
-            mRestaurantRateRatingBar.setCount(Integer.parseInt(mRestaurant.getRate()));
+            mRestaurantRateRatingBar.setCount((mRestaurant.getRate()));
         }
     }
 
@@ -491,7 +490,7 @@ public class EditReservationActivity extends AppCompatActivity {
                         List<MenuItem> menuItemsList = mUpComingReservation.getRestaurant().getMenus().get(i).getMenuItems();
                         for (int j = 0; j < menuItemsList.size(); j ++) {
                             MenuItem menuItem = menuItemsList.get(j);
-                            menuItem.setQuantity(0);
+//                            menuItem.setQuantity(0);
                         }
                     }
                 }
@@ -586,7 +585,7 @@ public class EditReservationActivity extends AppCompatActivity {
                 List<MenuItem> menuItemsList = mUpComingReservation.getRestaurant().getMenus().get(i).getMenuItems();
                 for (int j = 0; j < menuItemsList.size(); j ++) {
                     MenuItem menuItem = menuItemsList.get(j);
-                    mTotalQuantity += menuItem.getQuantity();
+//                    mTotalQuantity += menuItem.getQuantity();
                 }
             }
             if (mTotalQuantity > 0) {

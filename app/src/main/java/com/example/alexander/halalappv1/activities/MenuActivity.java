@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.RestaurantMenuAdapter;
-import com.example.alexander.halalappv1.model.Menu;
-import com.example.alexander.halalappv1.model.MenuItem;
 import com.example.alexander.halalappv1.model.ReservationOrder;
-import com.example.alexander.halalappv1.model.Restaurant;
+import com.example.alexander.halalappv1.model.modifiedmodels.Menu;
+import com.example.alexander.halalappv1.model.modifiedmodels.MenuItem;
+import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.reservation.UpComingReservation;
 
 import java.util.ArrayList;
@@ -76,6 +76,10 @@ public class MenuActivity extends AppCompatActivity {
 
         mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild);
         mMenuListView.setAdapter(mMenuAdapter);
+
+        for (int i = 0; i < mMenuList.size(); i ++){
+            mMenuListView.expandGroup(i);
+        }
         mMenuListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
@@ -128,7 +132,7 @@ public class MenuActivity extends AppCompatActivity {
         //==========================================================================================
         dishNameTextView.setText(menuItem.getName());
         dishPriceTextView.setText(String.valueOf(menuItem.getPrice()) + " €");
-        quantityTextView.setText(String.valueOf(menuItem.getQuantity()));
+//        quantityTextView.setText(String.valueOf(menuItem.getQuantity()));
         //==========================================================================================
         plusSignImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +140,7 @@ public class MenuActivity extends AppCompatActivity {
                 int quantity = Integer.parseInt(quantityTextView.getText().toString());
                 quantity ++;
                 if (quantity > 0) {
-                    menuItem.setQuantity(quantity);
+//                    menuItem.setQuantity(quantity);
                     quantityTextView.setText(String.valueOf(quantity));
                     dishPriceTextView.setText(String.valueOf(quantity * Double.parseDouble(menuItem.getPrice())) + " €");
 
@@ -158,7 +162,7 @@ public class MenuActivity extends AppCompatActivity {
                     quantity = 0;
                 }
                 if (quantity > 0) {
-                    menuItem.setQuantity(quantity);
+//                    menuItem.setQuantity(quantity);
                     quantityTextView.setText(String.valueOf(quantity));
                     dishPriceTextView.setText(String.valueOf(quantity * Double.parseDouble(menuItem.getPrice())) + " €");
 
@@ -271,12 +275,12 @@ public class MenuActivity extends AppCompatActivity {
                         List<MenuItem> menuItemsList = mMenuList.get(i).getMenuItems();
                         for (int j = 0; j < menuItemsList.size(); j ++) {
                             MenuItem menuItem = menuItemsList.get(j);
-                            if (menuItem.getQuantity() > 0) {
-                                ReservationOrder reservationOrder = new ReservationOrder();
-                                reservationOrder.setId(menuItem.getId());
-                                reservationOrder.setQuantity(menuItem.getQuantity());
-                                mReservationOrdersList.add(reservationOrder);
-                            }
+//                            if (menuItem.getQuantity() > 0) {
+//                                ReservationOrder reservationOrder = new ReservationOrder();
+//                                reservationOrder.setId(menuItem.getId());
+//                                reservationOrder.setQuantity(menuItem.getQuantity());
+//                                mReservationOrdersList.add(reservationOrder);
+//                            }
                         }
                     }
 
@@ -284,8 +288,8 @@ public class MenuActivity extends AppCompatActivity {
                         List<MenuItem> menuItemsList = mMenuList.get(i).getMenuItems();
                         for (int j = 0; j < menuItemsList.size(); j ++) {
                             MenuItem menuItem = menuItemsList.get(j);
-                            mTotalQuantity += menuItem.getQuantity();
-                            mTotalPrice += menuItem.getQuantity() * Double.parseDouble(menuItem.getPrice());
+//                            mTotalQuantity += menuItem.getQuantity();
+//                            mTotalPrice += menuItem.getQuantity() * Double.parseDouble(menuItem.getPrice());
                         }
                     }
 

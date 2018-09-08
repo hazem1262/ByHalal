@@ -56,4 +56,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     // Circle Indicator
     implementation 'me.relex:circleindicator:1.2.2@aar'
+    // rounded imageview
+    compile 'com.makeramen:roundedimageview:2.3.0'
+
 }

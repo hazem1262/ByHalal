@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/submit_reservation_activity_scroll_view"
     android:layout_width="match_parent"
+    android:background="@color/modifiedPrimaryColor"
     android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
@@ -66,29 +67,29 @@
                 android:id="@+id/iv_submit_reservation_activity_number_of_people_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="28dp"
                 android:orientation="vertical"
-                android:layout_marginTop="32dp"
-                android:layout_marginLeft="32dp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_submit_reservation_activity_restaurant_name"
-                app:layout_constraintLeft_toLeftOf="parent">
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_submit_reservation_activity_restaurant_name">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_number_of_people_white"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_number_of_people_white" />
 
                 <TextView
                     android:id="@+id/tv_submit_reservation_activity_number_of_people"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4 People"
-                    android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/opensans_semibold"
                     android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/opensans_semibold"
                     android:gravity="center"
-                    android:layout_marginTop="8dp"/>
+                    android:text="4 People"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/app_text_size" />
 
             </LinearLayout>
 
@@ -96,29 +97,33 @@
                 android:id="@+id/iv_submit_reservation_activity_reserve_time_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="28dp"
                 android:orientation="vertical"
-                android:layout_marginTop="32dp"
-                android:layout_marginRight="32dp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_submit_reservation_activity_restaurant_name"
-                app:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintEnd_toStartOf="@+id/iv_submit_reservation_activity_number_of_people_layout"
+                app:layout_constraintHorizontal_bias="0.467"
+                app:layout_constraintStart_toEndOf="@+id/iv_submit_reservation_activity_reserve_date_layout"
+                app:layout_constraintTop_toBottomOf="@+id/tv_submit_reservation_activity_restaurant_name">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_reserve_time_white"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_reserve_time_white" />
 
                 <TextView
                     android:id="@+id/tv_submit_reservation_activity_reserve_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="13:45"
-                    android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/opensans_semibold"
                     android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/opensans_semibold"
                     android:gravity="center"
-                    android:layout_marginTop="8dp"/>
+                    android:text="13:45"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/app_text_size" />
 
             </LinearLayout>
 
@@ -126,29 +131,29 @@
                 android:id="@+id/iv_submit_reservation_activity_reserve_date_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="28dp"
                 android:orientation="vertical"
-                android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_submit_reservation_activity_restaurant_name"
-                app:layout_constraintLeft_toRightOf="@id/iv_submit_reservation_activity_number_of_people_layout"
-                app:layout_constraintRight_toLeftOf="@id/iv_submit_reservation_activity_reserve_time_layout">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_submit_reservation_activity_restaurant_name">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_reserve_date_white"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_reserve_date_white" />
 
                 <TextView
                     android:id="@+id/tv_submit_reservation_activity_reserve_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fri, 23 Feb"
-                    android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/opensans_semibold"
                     android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/opensans_semibold"
                     android:gravity="center"
-                    android:layout_marginTop="8dp"/>
+                    android:text="Fri, 23 Feb"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/app_text_size" />
 
             </LinearLayout>
 
@@ -159,6 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"
+            android:background="@color/modifiedPrimaryColor"
             app:layout_constraintTop_toBottomOf="@+id/layout_submit_reservation_activity_restaurant_info"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -169,9 +175,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_submit_reservation_activity_client_details_label_text"
                 android:textSize="@dimen/app_text_size"
-                android:textColor="@color/grey_777777"
+                android:textColor="@color/grey_A3A3A3"
                 android:fontFamily="@font/opensans_regular"
-                android:background="@color/grey_F4F4F4"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:paddingLeft="@dimen/screen_left_margin"
@@ -183,53 +188,56 @@
                 android:id="@+id/submit_reservation_activity_first_name_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_submit_reservation_activity_client_details_label"
+                android:background="@color/grey_A3A3A3"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_submit_reservation_activity_client_details_label">
 
                 <TextView
                     android:id="@+id/tv_submit_reservation_activity_first_name_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tv_submit_reservation_activity_first_name_label_text"
-                    android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/black_2A2C34"
-                    android:fontFamily="@font/opensans_bold"
                     android:layout_marginLeft="@dimen/screen_left_margin"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/tv_submit_reservation_activity_first_name_label_text"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/app_text_size"
                     app:layout_constraintBottom_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/et_submit_reservation_activity_first_name_value"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/grey_B9B9B9"
-                    android:fontFamily="@font/opensans_regular"
-                    android:background="@drawable/shape_bg_white_b_white_br_4"
-                    android:inputType="textPersonName"
-                    android:gravity="center|right"
-                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="@dimen/screen_left_margin"
                     android:layout_marginRight="@dimen/screen_right_margin"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/shape_bg_white_b_white_br_4"
+                    android:fontFamily="@font/opensans_regular"
+                    android:gravity="center|right"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/grey_8B8989"
+                    android:textSize="@dimen/app_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/tv_submit_reservation_activity_first_name_label"
-                    app:layout_constraintRight_toRightOf="parent"/>
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey_D9D9D9"
+                    android:background="@color/modifiedPrimaryColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
+                    app:layout_constraintRight_toRightOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
+                android:background="@color/grey_A3A3A3"
                 android:id="@+id/submit_reservation_activity_last_name_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -243,7 +251,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tv_submit_reservation_activity_last_name_label_text"
                     android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/black_2A2C34"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/opensans_bold"
                     android:layout_marginLeft="@dimen/screen_left_margin"
                     app:layout_constraintTop_toTopOf="parent"
@@ -255,7 +263,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/grey_B9B9B9"
+                    android:textColor="@color/grey_8B8989"
                     android:fontFamily="@font/opensans_regular"
                     android:background="@drawable/shape_bg_white_b_white_br_4"
                     android:inputType="textPersonName"
@@ -272,7 +280,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey_D9D9D9"
+                    android:background="@color/modifiedPrimaryColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
@@ -280,6 +288,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
+                android:background="@color/grey_A3A3A3"
                 android:id="@+id/submit_reservation_activity_phone_number_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -293,7 +302,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tv_submit_reservation_activity_phone_number_label_text"
                     android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/black_2A2C34"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/opensans_bold"
                     android:layout_marginLeft="@dimen/screen_left_margin"
                     app:layout_constraintTop_toTopOf="parent"
@@ -305,7 +314,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/grey_B9B9B9"
+                    android:textColor="@color/grey_8B8989"
                     android:fontFamily="@font/opensans_regular"
                     android:background="@drawable/shape_bg_white_b_white_br_4"
                     android:inputType="phone"
@@ -322,7 +331,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey_D9D9D9"
+                    android:background="@color/modifiedPrimaryColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
@@ -330,6 +339,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
+                android:background="@color/grey_A3A3A3"
                 android:id="@+id/submit_reservation_activity_email_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -343,7 +353,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tv_submit_reservation_activity_email_label_text"
                     android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/black_2A2C34"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/opensans_bold"
                     android:layout_marginLeft="@dimen/screen_left_margin"
                     app:layout_constraintTop_toTopOf="parent"
@@ -355,7 +365,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/grey_B9B9B9"
+                    android:textColor="@color/grey_8B8989"
                     android:fontFamily="@font/opensans_regular"
                     android:background="@drawable/shape_bg_white_b_white_br_4"
                     android:inputType="textEmailAddress"
@@ -380,14 +390,15 @@
             </android.support.constraint.ConstraintLayout>
 
             <TextView
+
                 android:id="@+id/tv_submit_reservation_activity_add_comment_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_submit_reservation_activity_add_comment_label_text"
                 android:textSize="@dimen/app_text_size"
-                android:textColor="@color/grey_777777"
+                android:textColor="@color/grey_A3A3A3"
                 android:fontFamily="@font/opensans_regular"
-                android:background="@color/grey_F4F4F4"
+                android:background="@color/modifiedPrimaryColor"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:paddingLeft="@dimen/screen_left_margin"
@@ -396,17 +407,17 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
             <EditText
+                android:background="@color/grey_A3A3A3"
                 android:id="@+id/et_submit_reservation_activity_write_comment"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:hint="@string/et_submit_reservation_activity_write_comment_hint"
-                android:textColorHint="@color/grey_B9B9B9"
+                android:textColorHint="@color/grey_707070"
                 android:textSize="@dimen/app_text_size"
-                android:textColor="@color/grey_B9B9B9"
+                android:textColor="@color/grey_8B8989"
                 android:fontFamily="@font/opensans_regular"
                 android:inputType="textMultiLine"
                 android:gravity="top|left"
-                android:background="@color/white"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:paddingLeft="16dp"
@@ -419,8 +430,8 @@
                 android:id="@+id/submit_reservation_activity_submit_button_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey_F4F4F4"
                 android:padding="12dp"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintTop_toBottomOf="@id/et_submit_reservation_activity_write_comment"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent">

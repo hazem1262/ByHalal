@@ -124,15 +124,15 @@ public class MainActivity extends AppCompatActivity {
                     mFragmentManager.beginTransaction()
                             .replace(R.id.fragments_main_container, mHomeFragment)
                             .commit();
-                } else if(mTabLayout.getSelectedTabPosition() == 1){
+                } else if(mTabLayout.getSelectedTabPosition() == 10){
                     mFragmentManager.beginTransaction()
                             .replace(R.id.fragments_main_container, mSearchFragment)
                             .commit();
-                } else if(mTabLayout.getSelectedTabPosition() == 2){
+                } else if(mTabLayout.getSelectedTabPosition() == 1){
                     mFragmentManager.beginTransaction()
                             .replace(R.id.fragments_main_container, mReserveFragment)
                             .commit();
-                } else if(mTabLayout.getSelectedTabPosition() == 3){
+                } else if(mTabLayout.getSelectedTabPosition() == 2){
                     mFragmentManager.beginTransaction()
                             .replace(R.id.fragments_main_container, mProfileFragment)
                             .commit();

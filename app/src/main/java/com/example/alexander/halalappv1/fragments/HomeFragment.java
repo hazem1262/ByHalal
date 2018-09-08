@@ -22,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
@@ -34,6 +36,7 @@ import com.example.alexander.halalappv1.model.RestaurantsList;
 import com.example.alexander.halalappv1.adapters.RestaurantsListAdapter;
 import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.modifiedmodels.RestaurantsList1;
+import com.example.alexander.halalappv1.model.modifiedmodels.homefragment.ListHeader;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.NetworkHelper;
@@ -42,6 +45,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -59,6 +63,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     public static final String RESTAURANT_OBJECT_KEY = "RestaurantObject";
     //==============================================================================================
     private ConstraintLayout mContainerLayout;
+    private ImageView searchViewImage;
     private ConstraintLayout mSearchLayout;
     private TextView mSearchTextView;
     private Button mCurrentLocationButton;
@@ -74,10 +79,18 @@ public class HomeFragment extends Fragment implements LocationListener {
     private TextView mErrorMessageTextView;
     private TextView mGoodMorningTextView;
 
+    //list header
+    private TextView listHeaderName;
+    private TextView listHeaderRestaurentName;
+    private TextView listHeaderRestaurentType;
+    private TextView listHeaderRestaurentDiscount;
+    private ImageView listHeaderRestaurentImage;
+	private LinearLayout listHeaderLayout;
+
     private void findViewsById(View rootView) {
-        mContainerLayout = rootView.findViewById(R.id.home_fragment_container);
-        mSearchLayout = rootView.findViewById(R.id.home_fragment_search_layout);
-        mSearchTextView = rootView.findViewById(R.id.tv_home_fragment_search);
+//        mContainerLayout = rootView.findViewById(R.id.home_fragment_container);
+        searchViewImage = rootView.findViewById(R.id.iv_home_fragment_search_icon);
+//        mSearchTextView = rootView.findViewById(R.id.tv_home_fragment_search);
         mCurrentLocationButton = rootView.findViewById(R.id.btn_home_fragment_current_location);
         mTablesRecyclerView = rootView.findViewById(R.id.rv_home_fragment_tables_list);
         mLoadingIndicator = rootView.findViewById(R.id.pb_home_fragment_loading_indicator);
@@ -89,7 +102,15 @@ public class HomeFragment extends Fragment implements LocationListener {
         mActionGrantPermissionTextView = rootView.findViewById(R.id.tv_permission_not_granted_action_grant_permission);
         mActionRetryTextView = rootView.findViewById(R.id.tv_location_not_detected_action_retry);
         mErrorMessageTextView = rootView.findViewById(R.id.tv_home_fragment_error_message);
-        mGoodMorningTextView = rootView.findViewById(R.id.tv_home_fragment_good_morning_label);
+        mGoodMorningTextView = rootView.findViewById(R.id.tv_good_morning_label_text);
+
+        //list header
+        listHeaderName = rootView.findViewById(R.id.sectionHeader);
+        listHeaderRestaurentName = rootView.findViewById(R.id.headerResturantName);
+        listHeaderRestaurentType = rootView.findViewById(R.id.headerRestaurentType);
+        listHeaderRestaurentDiscount = rootView.findViewById(R.id.headerDiscount);
+        listHeaderRestaurentImage = rootView.findViewById(R.id.restaurentListHeaderImage);
+		listHeaderLayout = rootView.findViewById(R.id.headerRestaurent);
 
         String firstName = SharedPreferencesHelper.getSharedPreferenceString(getContext(), ConstantsHelper.KEY_FIRST_NAME, null);
         if (firstName != null) {
@@ -137,10 +158,12 @@ public class HomeFragment extends Fragment implements LocationListener {
     }
 
     private void showData() {
+		listHeaderLayout.setVisibility(View.VISIBLE);
         mTablesRecyclerView.setVisibility(View.VISIBLE);
     }
 
     private void hideData() {
+		listHeaderLayout.setVisibility(View.GONE);
         mTablesRecyclerView.setVisibility(View.GONE);
     }
 
@@ -291,6 +314,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
     private void getTablesList(final double latitude, final double longitude) {
         int userId = SharedPreferencesHelper.getSharedPreferenceInt(getContext(), ConstantsHelper.KEY_USER_ID, -10);
+
         if (userId == -10) {
             RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
             Call<ArrayList<RestaurantsList1>> tablesListCall = webService.getTablesList(0, latitude, longitude);
@@ -302,8 +326,10 @@ public class HomeFragment extends Fragment implements LocationListener {
                     if (response.isSuccessful()) {
                         mTablesList = response.body();
                         if (mTablesList != null && mTablesList.size() > 0) {
+							addFooterList(mTablesList);
                             mTablesAdapter.setRestaurantsLists(mTablesList);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
+							showData();
                         } else {
                             Log.d(TAG, "mTablesList is null or empty");
                             hideData();
@@ -320,6 +346,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                         hideLocationNotDetectedError();
                         showDataNotFoundError();
                     }
+
                 }
 
                 @Override
@@ -342,10 +369,12 @@ public class HomeFragment extends Fragment implements LocationListener {
                     hideLoadingIndicator();
                     Log.d(TAG + "_onResponse", String.valueOf(response));
                     if (response.isSuccessful()) {
-//                        mTablesList = response.body();
+                        mTablesList = response.body();
                         if (mTablesList != null && mTablesList.size() > 0) {
+							addFooterList(mTablesList);
                             mTablesAdapter.setRestaurantsLists(mTablesList);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
+							showData();
                         } else {
                             hideData();
                             hidePermissionNotGrantedError();
@@ -447,7 +476,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     }
     //==============================================================================================
     private void searchLayoutClick() {
-        mSearchLayout.setOnClickListener(new View.OnClickListener() {
+        searchViewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SearchRestaurantActivity.class);
@@ -561,6 +590,8 @@ public class HomeFragment extends Fragment implements LocationListener {
         actionGrantPermissionClick();
 
         actionRetryClick();
+
+        fillRestaurentHeader();
         //==========================================================================================
         return rootView;
     }
@@ -607,4 +638,34 @@ public class HomeFragment extends Fragment implements LocationListener {
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
     }
+
+    private void fillRestaurentHeader(){
+        ListHeader listHeader = new ListHeader(
+                "À la une",
+                "Azerty Restaurant",
+                "Grill",
+                "http://www.by-halal.fr/img/restaurants/restaurant-3.jpg",
+                15
+        );
+        listHeaderName.setText(listHeader.getSectionHeader());
+        listHeaderRestaurentName.setText(listHeader.getRestaurentName());
+        listHeaderRestaurentType.setText(listHeader.getRestaurentType());
+        listHeaderRestaurentDiscount.setText(listHeader.getRestaurentDiscount() + "%");
+        Picasso.with(getContext())
+                .load(listHeader.getRestaurentImage())
+                .into(listHeaderRestaurentImage);
+    }
+
+    private ArrayList<RestaurantsList1> addFooterList(ArrayList<RestaurantsList1> originalList){
+    	RestaurantsList1 footer = new RestaurantsList1();
+        footer.setListId(1234);
+    	footer.setListNameEn("Our Selection");
+    	footer.setListNameFr("Nos sélections");
+    	footer.setRestaurants(new ArrayList<Restaurant>());
+    	for (int i =0; i<originalList.size(); i++){
+    		footer.getRestaurants().add(originalList.get(i).getRestaurants().get(0));
+		}
+		originalList.add(footer);
+		return originalList;
+	}
 }

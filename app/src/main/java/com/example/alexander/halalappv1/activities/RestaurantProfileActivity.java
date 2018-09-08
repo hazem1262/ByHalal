@@ -14,8 +14,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import java.text.DecimalFormat;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,27 +75,27 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private ImageView mGalleryIconImageView;
     private ConstraintLayout mLoadingIndicator;
     private TextView mRestaurantNameTextView;
-    private RatingBar mRestaurantRateRatingBar;
+//    private RatingBar mRestaurantRateRatingBar;
 
     // Restaurant Information Layout
-    private ConstraintLayout mInformationLayout;
+    private LinearLayout mInformationLayout;
     private TextView mRestaurantDescriptionTextView;
     private TextView mCuisineTextView;
     private TextView mExecutiveChefTextView;
     private ConstraintLayout mCertificateLayout;
-    private TextView mCertificateTextView;
+//    private TextView mCertificateTextView;
     private TextView mWineTextView;
     private TextView mVisitorsTextView;
-    private TextView mNeighbourhoodTextView;
+//    private TextView mNeighbourhoodTextView;
     private TextView mRestaurantAddressTextView;
-    private TextView mRestaurantCityTextView;
-    private TextView mRestaurantPhoneNumberTextView;
-    private TextView mRestaurantNotesTextView;
+//    private TextView mRestaurantCityTextView;
+//    private TextView mRestaurantPhoneNumberTextView;
+//    private TextView mRestaurantNotesTextView;
 
     private ConstraintLayout mLocationLayout;
     private ConstraintLayout mPhoneNumberLayout;
-    private ConstraintLayout mMenuLayout;
-    private ConstraintLayout mWebsiteLayout;
+    private LinearLayout mMenuLayout;
+    private LinearLayout mWebsiteLayout;
     private ConstraintLayout mWorkingHoursLayout;
 
     private RestaurantsList1 mTable;
@@ -102,9 +104,9 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private int mUserId;
     private String mAction;
     //==============================================================================================
-    private ConstraintLayout mDateTimeLayout;
+    private LinearLayout mDateTimeLayout;
     private TextView mDateTextView;
-    private TextView mNumberOfPeopleTextView;
+//    private TextView mNumberOfPeopleTextView;
     private ConstraintLayout mCalendarLayout;
     private TextView mMonthTextView;
     private MaterialCalendarView mCalendarView;
@@ -129,6 +131,35 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private String mSelectedDate;
     private String mSelectedTime;
     private String mSelectedNumberOfPeople;
+    //==============================================================================================
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_restaurant_profile_modified);
+
+        findViewsById();
+        updateViewsWithRestaurantData();
+        //==========================================================================================
+        favouriteIconClick();
+//        arrowBackClick();
+        restaurantImageClick();
+        //==========================================================================================
+//        phoneNumberLayoutClick();
+        menuLayoutClick();
+        websiteLayoutClick();
+//        workingHoursLayoutClick();
+        //==========================================================================================
+        updateDateViewWithCurrentDate();
+        dateTimeLayoutClick();
+        setUpTimeRecyclerView();
+        setUpNumberOfPeopleRecyclerView();
+        setUpCalendarView();
+        reserveButtonClick();
+        placeAnOrderButtonClick();
+        updateTimeRecyclerViewWithCurrentDayWorkingHours();
+    }
+
     //==============================================================================================
     private void updateDateViewWithCurrentDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -224,7 +255,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             public void onNumberSelected(int position) {
                 mNumberOfPeopleAdapter.setClickedItem(position);
                 mSelectedNumberOfPeople = mNumberOfPeopleList.get(position);
-                mNumberOfPeopleTextView.setText(mSelectedNumberOfPeople);
+//                mNumberOfPeopleTextView.setText(mSelectedNumberOfPeople);
                 mNumberOfPeopleAdapter.notifyDataSetChanged();
             }
         });
@@ -520,26 +551,26 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         mScrollView = findViewById(R.id.restaurant_profile_scroll_view);
         mRestaurantImageImageView = findViewById(R.id.iv_restaurant_profile_restaurant_image); //
         mFavouriteIconImageView = findViewById(R.id.iv_restaurant_profile_favourite); //
-        mArrowBackImageView = findViewById(R.id.iv_restaurant_profile_arrow_back); //
+//        mArrowBackImageView = findViewById(R.id.iv_restaurant_profile_arrow_back); //
         mGalleryIconImageView = findViewById(R.id.iv_restaurant_profile_instagram_icon); //
         mLoadingIndicator = findViewById(R.id.pb_restaurant_profile_loading_indicator); //
         mRestaurantNameTextView = findViewById(R.id.tv_restaurant_profile_restaurant_name); //
-        mRestaurantRateRatingBar = findViewById(R.id.rb_restaurant_profile_restaurant_rate); //
+//        mRestaurantRateRatingBar = findViewById(R.id.rb_restaurant_profile_restaurant_rate); //
 
         // Restaurant Information Layout Views
         mInformationLayout = findViewById(R.id.restaurant_profile_information_layout);
         mRestaurantDescriptionTextView = findViewById(R.id.tv_restaurant_profile_description); //
         mCuisineTextView = findViewById(R.id.tv_cuisine_value); //
         mExecutiveChefTextView = findViewById(R.id.tv_executive_chef_value); //
-        mCertificateTextView = findViewById(R.id.tv_certificate_value); //
-        mCertificateLayout = findViewById(R.id.restaurant_profile_certificate_layout); //
+//        mCertificateTextView = findViewById(R.id.tv_certificate_value); //
+//        mCertificateLayout = findViewById(R.id.restaurant_profile_certificate_layout); //
         mWineTextView = findViewById(R.id.tv_wine_value); //
         mVisitorsTextView = findViewById(R.id.tv_visitors_value); //
-        mNeighbourhoodTextView = findViewById(R.id.tv_neighbourhood_value); //
+//        mNeighbourhoodTextView = findViewById(R.id.tv_neighbourhood_value); //
         mRestaurantAddressTextView = findViewById(R.id.tv_restaurant_profile_location_address); //
-        mRestaurantCityTextView = findViewById(R.id.tv_restaurant_profile_location_city); //
-        mRestaurantPhoneNumberTextView = findViewById(R.id.tv_restaurant_profile_phone_number); //
-        mRestaurantNotesTextView = findViewById(R.id.tv_restaurant_profile_notes); //
+//        mRestaurantCityTextView = findViewById(R.id.tv_restaurant_profile_location_city); //
+//        mRestaurantPhoneNumberTextView = findViewById(R.id.tv_restaurant_profile_phone_number); //
+//        mRestaurantNotesTextView = findViewById(R.id.tv_restaurant_profile_notes); //
         //==========================================================================================
         mLocationLayout = findViewById(R.id.restaurant_profile_location_layout);
         mPhoneNumberLayout = findViewById(R.id.restaurant_profile_phone_number_layout);
@@ -549,7 +580,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         //==========================================================================================
         mDateTimeLayout = findViewById(R.id.date_time_number_of_people_layout);
         mDateTextView = findViewById(R.id.tv_date_text);
-        mNumberOfPeopleTextView = findViewById(R.id.tv_number_of_people_text);
+//        mNumberOfPeopleTextView = findViewById(R.id.tv_number_of_people_text);
         mCalendarLayout = findViewById(R.id.restaurant_profile_calendar_layout);
         mMonthTextView = findViewById(R.id.tv_month_text);
         mCalendarView = findViewById(R.id.calendar_view);
@@ -585,39 +616,50 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         }
         mRestaurantNameTextView.setText(String.valueOf(mRestaurant.getName()));
         if (!TextUtils.isEmpty(mRestaurant.getRate().toString())) {
-            mRestaurantRateRatingBar.setCount(Integer.parseInt(mRestaurant.getRate().toString()));
+//            mRestaurantRateRatingBar.setCount(Integer.parseInt(mRestaurant.getRate().toString()));
         }
         mRestaurantDescriptionTextView.setText(String.valueOf(mRestaurant.getDescription()));
         if (mLanguage.equals("français")) {
             mCuisineTextView.setText(String.valueOf(mRestaurant.getCuisineNameFr()));
             mExecutiveChefTextView.setText(String.valueOf(mRestaurant.getExcutiveChef()));
             if (TextUtils.isEmpty(mRestaurant.getCertification())) {
-                mCertificateLayout.setVisibility(View.GONE);
+//                mCertificateLayout.setVisibility(View.GONE);
             } else {
-                mCertificateTextView.setText(mRestaurant.getCertification());
+//                mCertificateTextView.setText(mRestaurant.getCertification());
             }
-            mWineTextView.setText(String.valueOf(mRestaurant.getAlcohol()));
-            mVisitorsTextView.setText(String.valueOf(mRestaurant.getVisitors()));
-            mNeighbourhoodTextView.setText(String.valueOf(mRestaurant.getCityNameFr()));
+            mWineTextView.setText(mRestaurant.getCertification() + "/" + String.valueOf(mRestaurant.getAlcohol()));
+            if (Integer.parseInt(mRestaurant.getVisitors()) > 1000){
+                String formattedVistors = new DecimalFormat("##.#").format(Integer.parseInt(mRestaurant.getVisitors()) / 1000 );
+                mVisitorsTextView.setText(formattedVistors + " K");
+            }else{
+                mVisitorsTextView.setText(String.valueOf(mRestaurant.getVisitors()));
+            }
+
+//            mNeighbourhoodTextView.setText(String.valueOf(mRestaurant.getCityNameFr()));
             mRestaurantAddressTextView.setText(String.valueOf(mRestaurant.getAddress()));
-            mRestaurantCityTextView.setText(String.valueOf(mRestaurant.getCityNameFr()));
-            mRestaurantPhoneNumberTextView.setText(String.valueOf(mRestaurant.getPhone()));
-            mRestaurantNotesTextView.setText(String.valueOf(mRestaurant.getNotes()));
+//            mRestaurantCityTextView.setText(String.valueOf(mRestaurant.getCityNameFr()));
+//            mRestaurantPhoneNumberTextView.setText(String.valueOf(mRestaurant.getPhone()));
+//            mRestaurantNotesTextView.setText(String.valueOf(mRestaurant.getNotes()));
         } else {
             mCuisineTextView.setText(String.valueOf(mRestaurant.getCuisineNameEn()));
             mExecutiveChefTextView.setText(String.valueOf(mRestaurant.getExcutiveChef()));
             if (TextUtils.isEmpty(mRestaurant.getCertification())) {
-                mCertificateLayout.setVisibility(View.GONE);
+//                mCertificateLayout.setVisibility(View.GONE);
             } else {
-                mCertificateTextView.setText(mRestaurant.getCertification());
+//                mCertificateTextView.setText(mRestaurant.getCertification());
             }
-            mWineTextView.setText(String.valueOf(mRestaurant.getAlcohol()));
-            mVisitorsTextView.setText(String.valueOf(mRestaurant.getVisitors()));
-            mNeighbourhoodTextView.setText(String.valueOf(mRestaurant.getCityNameEn()));
+            mWineTextView.setText(mRestaurant.getCertification() + "/" + String.valueOf(mRestaurant.getAlcohol()));
+            if (Integer.parseInt(mRestaurant.getVisitors()) > 1000){
+                String formattedVistors = new DecimalFormat("##.#").format(Integer.parseInt(mRestaurant.getVisitors()) / 1000 );
+                mVisitorsTextView.setText(formattedVistors + " K");
+            }else{
+                mVisitorsTextView.setText(String.valueOf(mRestaurant.getVisitors()));
+            }
+//            mNeighbourhoodTextView.setText(String.valueOf(mRestaurant.getCityNameEn()));
             mRestaurantAddressTextView.setText(String.valueOf(mRestaurant.getAddress()));
-            mRestaurantCityTextView.setText(String.valueOf(mRestaurant.getCityNameEn()));
-            mRestaurantPhoneNumberTextView.setText(String.valueOf(mRestaurant.getPhone()));
-            mRestaurantNotesTextView.setText(String.valueOf(mRestaurant.getNotes()));
+//            mRestaurantCityTextView.setText(String.valueOf(mRestaurant.getCityNameEn()));
+//            mRestaurantPhoneNumberTextView.setText(String.valueOf(mRestaurant.getPhone()));
+//            mRestaurantNotesTextView.setText(String.valueOf(mRestaurant.getNotes()));
         }
     }
 
@@ -670,52 +712,52 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void arrowBackClick() {
-        mArrowBackImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mAction != null) {
-                    // When comes from HomeFragment
-                    if (mAction.equals(ConstantsHelper.ACTION_HOME_FRAGMENT)) {
-                        Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
-                        intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
-                        startActivity(intent);
-                    }
-                    // When comes from TableRestaurantsActivity
-                    else if (mAction.equals(ConstantsHelper.ACTION_TABLE_RESTAURANT_ACTIVITY)) {
-                        Intent intent = new Intent(RestaurantProfileActivity.this, TableRestaurantsActivity.class);
-                        intent.putExtra(HomeFragment.TABLE_ID_KEY, getIntent().getIntExtra(HomeFragment.TABLE_ID_KEY, -10));
-                        intent.putExtra(HomeFragment.TABLE_OBJECT_KEY, mTable);
-                        startActivity(intent);
-                    }
-                    // When comes from SearchFragment
-                    else if (mAction.equals(ConstantsHelper.ACTION_SEARCH_FRAGMENT)) {
-                        Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
-                        intent.setAction(ConstantsHelper.ACTION_SEARCH_FRAGMENT);
-                        startActivity(intent);
-                    }
-                    else if (mAction.split("-").length > 1) {
-                        // When comes from FavouriteRestaurantsActivity
-                        if (mAction.equals(mAction.split("-")[0] + "-" + mAction.split("-")[1] + "-" + ConstantsHelper.ACTION_FAVOURITE_RESTAURANTS_ACTIVITY)) {
-                            Intent intent = new Intent(RestaurantProfileActivity.this, FavouriteRestaurantsActivity.class);
-                            intent.setAction(mAction.split("-")[0] + "-" + mAction.split("-")[1]);
-                            startActivity(intent);
-                        }
-                        else if (mAction.equals(mAction.split("-")[0] + "-" + ConstantsHelper.ACTION_FAVOURITE_RESTAURANTS_ACTIVITY)) {
-                            Intent intent = new Intent(RestaurantProfileActivity.this, FavouriteRestaurantsActivity.class);
-                            intent.setAction(mAction.split("-")[0]);
-                            startActivity(intent);
-                        }
-                    }
-                    else if (mAction.equals(ConstantsHelper.ACTION_RESERVE_FRAGMENT)) {
-                        Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
-                        intent.setAction(ConstantsHelper.ACTION_RESERVE_FRAGMENT);
-                        startActivity(intent);
-                    }
-                }
-            }
-        });
-    }
+//    private void arrowBackClick() {
+//        mArrowBackImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mAction != null) {
+//                    // When comes from HomeFragment
+//                    if (mAction.equals(ConstantsHelper.ACTION_HOME_FRAGMENT)) {
+//                        Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
+//                        intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
+//                        startActivity(intent);
+//                    }
+//                    // When comes from TableRestaurantsActivity
+//                    else if (mAction.equals(ConstantsHelper.ACTION_TABLE_RESTAURANT_ACTIVITY)) {
+//                        Intent intent = new Intent(RestaurantProfileActivity.this, TableRestaurantsActivity.class);
+//                        intent.putExtra(HomeFragment.TABLE_ID_KEY, getIntent().getIntExtra(HomeFragment.TABLE_ID_KEY, -10));
+//                        intent.putExtra(HomeFragment.TABLE_OBJECT_KEY, mTable);
+//                        startActivity(intent);
+//                    }
+//                    // When comes from SearchFragment
+//                    else if (mAction.equals(ConstantsHelper.ACTION_SEARCH_FRAGMENT)) {
+//                        Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
+//                        intent.setAction(ConstantsHelper.ACTION_SEARCH_FRAGMENT);
+//                        startActivity(intent);
+//                    }
+//                    else if (mAction.split("-").length > 1) {
+//                        // When comes from FavouriteRestaurantsActivity
+//                        if (mAction.equals(mAction.split("-")[0] + "-" + mAction.split("-")[1] + "-" + ConstantsHelper.ACTION_FAVOURITE_RESTAURANTS_ACTIVITY)) {
+//                            Intent intent = new Intent(RestaurantProfileActivity.this, FavouriteRestaurantsActivity.class);
+//                            intent.setAction(mAction.split("-")[0] + "-" + mAction.split("-")[1]);
+//                            startActivity(intent);
+//                        }
+//                        else if (mAction.equals(mAction.split("-")[0] + "-" + ConstantsHelper.ACTION_FAVOURITE_RESTAURANTS_ACTIVITY)) {
+//                            Intent intent = new Intent(RestaurantProfileActivity.this, FavouriteRestaurantsActivity.class);
+//                            intent.setAction(mAction.split("-")[0]);
+//                            startActivity(intent);
+//                        }
+//                    }
+//                    else if (mAction.equals(ConstantsHelper.ACTION_RESERVE_FRAGMENT)) {
+//                        Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
+//                        intent.setAction(ConstantsHelper.ACTION_RESERVE_FRAGMENT);
+//                        startActivity(intent);
+//                    }
+//                }
+//            }
+//        });
+//    }
 
     private void galleryIconClick() {
         mGalleryIconImageView.setOnClickListener(new View.OnClickListener() {
@@ -728,19 +770,19 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void phoneNumberLayoutClick() {
-        mPhoneNumberLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String phoneNumber = String.format("tel: %s", mRestaurant.getPhone());
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse(phoneNumber));
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                }
-            }
-        });
-    }
+//    private void phoneNumberLayoutClick() {
+//        mPhoneNumberLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String phoneNumber = String.format("tel: %s", mRestaurant.getPhone());
+//                Intent intent = new Intent(Intent.ACTION_DIAL);
+//                intent.setData(Uri.parse(phoneNumber));
+//                if (intent.resolveActivity(getPackageManager()) != null) {
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+//    }
 
     private void menuLayoutClick() {
         mMenuLayout.setOnClickListener(new View.OnClickListener() {
@@ -768,46 +810,21 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void workingHoursLayoutClick() {
-        mWorkingHoursLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String restaurantName = mRestaurant.getName();
-                List<WorkDay> workDaysList = mRestaurant.getWorkDays();
-                Intent intent = new Intent(RestaurantProfileActivity.this, WorkingHoursActivity.class);
-                intent.putExtra("RestaurantName", restaurantName);
-                intent.putParcelableArrayListExtra("workDaysList", (ArrayList<? extends Parcelable>) workDaysList);
-                startActivity(intent);
-            }
-        });
-    }
+//    private void workingHoursLayoutClick() {
+//        mWorkingHoursLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String restaurantName = mRestaurant.getName();
+//                List<WorkDay> workDaysList = mRestaurant.getWorkDays();
+//                Intent intent = new Intent(RestaurantProfileActivity.this, WorkingHoursActivity.class);
+//                intent.putExtra("RestaurantName", restaurantName);
+//                intent.putParcelableArrayListExtra("workDaysList", (ArrayList<? extends Parcelable>) workDaysList);
+//                startActivity(intent);
+//            }
+//        });
+//    }
     //==============================================================================================
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_profile);
 
-        findViewsById();
-        updateViewsWithRestaurantData();
-        //==========================================================================================
-        favouriteIconClick();
-        arrowBackClick();
-        restaurantImageClick();
-        //==========================================================================================
-        phoneNumberLayoutClick();
-        menuLayoutClick();
-        websiteLayoutClick();
-        workingHoursLayoutClick();
-        //==========================================================================================
-        updateDateViewWithCurrentDate();
-        dateTimeLayoutClick();
-        setUpTimeRecyclerView();
-        setUpNumberOfPeopleRecyclerView();
-        setUpCalendarView();
-        reserveButtonClick();
-        placeAnOrderButtonClick();
-        updateTimeRecyclerViewWithCurrentDayWorkingHours();
-    }
 
     @Override
     public void onBackPressed() {

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
-import com.example.alexander.halalappv1.model.MenuItem;
+import com.example.alexander.halalappv1.model.modifiedmodels.MenuItem;
 
 import java.util.HashMap;
 import java.util.List;
@@ -113,12 +113,14 @@ public class RestaurantMenuAdapter extends BaseExpandableListAdapter {
         quantityTextView.setVisibility(View.INVISIBLE);
         linePinkView.setVisibility(View.INVISIBLE);
 
-        if (menuItem.getQuantity() > 0) {
-            quantityTextView.setVisibility(View.VISIBLE);
-            linePinkView.setVisibility(View.VISIBLE);
-            quantityTextView.setText(String.valueOf("x" + String.valueOf(menuItem.getQuantity())));
-        }
+//        if (menuItem.getQuantity() > 0) {
+//            quantityTextView.setVisibility(View.VISIBLE);
+//            linePinkView.setVisibility(View.VISIBLE);
+//            quantityTextView.setText(String.valueOf("x" + String.valueOf(menuItem.getQuantity())));
+//        }
 
         return convertView;
     }
+
+
 }

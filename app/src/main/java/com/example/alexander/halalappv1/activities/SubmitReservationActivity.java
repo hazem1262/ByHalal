@@ -22,8 +22,8 @@ import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.model.ReservationOrder;
-import com.example.alexander.halalappv1.model.Restaurant;
 import com.example.alexander.halalappv1.model.User;
+import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.reservation.UpComingReservation;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;

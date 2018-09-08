@@ -403,7 +403,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
         if (mTable != null) {
             mTableName = mTable.getListNameEn();
             if (!TextUtils.isEmpty(mTableName)) {
-                mTableNameTextView.setText(mTableName);
+                mTableNameTextView.setText(mTableName + "(" + mTable.getRestaurants().size() + ")" ) ;
             }
 
             if (mCuisineId != -10 && mPrice != -10 && ! TextUtils.isEmpty(mSortBy)) {

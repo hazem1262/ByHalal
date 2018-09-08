@@ -13,7 +13,10 @@ import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.whinc.widget.ratingbar.RatingBar;
 
 import java.util.ArrayList;
@@ -26,9 +29,15 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
     private ArrayList<Restaurant> mRestaurantList;
     private int mTablePosition;
 
-    public HomeRestaurantAdapter(Context context, OnRestaurantClickListener onRestaurantClickListener) {
+    private Boolean footerList = false;
+    public HomeRestaurantAdapter(Context context, OnRestaurantClickListener onRestaurantClickListener ) {
         this.mContext = context;
         this.mOnRestaurantClickListener = onRestaurantClickListener;
+    }
+    public HomeRestaurantAdapter(Context context, OnRestaurantClickListener onRestaurantClickListener, Boolean footerList ) {
+        this.mContext = context;
+        this.mOnRestaurantClickListener = onRestaurantClickListener;
+        this.footerList = footerList;
     }
 
     public interface OnRestaurantClickListener {
@@ -47,7 +56,13 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
     //==============================================================================================
     @Override
     public RestaurantViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.home_restaurant_list_item, viewGroup, false);
+        View view;
+        if (footerList){
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.home_restaurants_list_footer_item, viewGroup, false);
+        }else{
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.home_restaurant_list_item, viewGroup, false);
+        }
+
         RestaurantViewHolder viewHolder = new RestaurantViewHolder(view);
         return viewHolder;
     }
@@ -55,9 +70,15 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
     @Override
     public void onBindViewHolder(RestaurantViewHolder holder, int position) {
         String language = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_SELECTED_LANGUAGE, "");
+
         if (!TextUtils.isEmpty(language)) {
             if (language.equals("français")) {
-                Picasso.with(mContext).load(mRestaurantList.get(position).getImage()).into(holder.restaurantImageImageView);
+                Picasso.with(mContext)
+                        .load(mRestaurantList.get(position).getImage())
+                        .into(holder.restaurantImageImageView);
+                if (footerList){
+					holder.restaurantImageImageView.setCornerRadius((float) 20);
+				}
                 holder.restaurantNameTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
                 holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineNameFr()));
                 holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameFr()));
@@ -65,7 +86,12 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
                     holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
                 }
             } else {
-                Picasso.with(mContext).load(mRestaurantList.get(position).getImage()).into(holder.restaurantImageImageView);
+                Picasso.with(mContext)
+                        .load(mRestaurantList.get(position).getImage())
+                        .into(holder.restaurantImageImageView);
+				if (footerList){
+					holder.restaurantImageImageView.setCornerRadius((float) 20);
+				}
                 holder.restaurantNameTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
                 holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineNameEn()));
                 holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameEn()));
@@ -87,7 +113,7 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
     //==============================================================================================
     class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView restaurantImageImageView;
+        RoundedImageView restaurantImageImageView;
         TextView restaurantNameTextView;
         TextView restaurantCategoryTextView;
         TextView restaurantLocationTextView;
