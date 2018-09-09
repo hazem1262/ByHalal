@@ -230,6 +230,11 @@
 	<string name="reserve">Reserve</string>
 	<string name="certification">Certification/Alcohol</string>
 	<string name="restaurentDescription">Le mot du restaurant</string>
+	<string name="viewDetails">View details</string>
+	<string name="myFavorities">Mes restaurants favoris</string>
+	<string name="myInformation">My Information</string>
+    <string name="politique">Politiques de confidentialité</string>
+	<string name="conditions">Conditions d’utilisation</string>
 	<!--=========================================================================================-->
 
 </resources>

@@ -1,45 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/layout_profile_fragment_profile"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/modifiedPrimaryColor">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        android:background="@color/modifiedPrimaryColor"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_profile_fragment_my_profile_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_my_profile_label_text"
+            android:textSize="@dimen/app_header"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat_semibold"
+            android:padding="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/myFavorities"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:padding="10dp"
+            android:id="@+id/profile_fragment_header_layout"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/myFavRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            />
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/profile_fragment_header_layout"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/app_header_max_height"
-            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/myInformationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/grey_707070"
+            app:layout_constraintTop_toBottomOf="@id/profile_fragment_header_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
             <TextView
-                android:id="@+id/tv_profile_fragment_my_profile_label"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_my_profile_label_text"
                 android:textSize="@dimen/app_text_size"
-                android:textColor="@color/black_2A2C34"
-                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="@color/white"
+                android:fontFamily="@font/opensans_bold"
+                android:gravity="start"
+                android:text="@string/myInformation"
+                android:layout_marginLeft="@dimen/screen_left_margin"
+                android:layout_marginRight="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                android:clickable="false"
+                />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_right_pinc"
+                android:layout_marginRight="@dimen/screen_right_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:clickable="false"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_D9D9D9"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
@@ -47,27 +85,124 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/profile_fragment_user_name_layout"
+            android:id="@+id/politiqueLayout"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:background="@color/grey_707070"
             app:layout_constraintTop_toBottomOf="@id/profile_fragment_header_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
             <TextView
-                android:id="@+id/tv_profile_fragment_user_name"
-                android:layout_width="0dp"
+
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/app_text_size"
-                android:textColor="@color/black_2A2C34"
+                android:textColor="@color/white"
                 android:fontFamily="@font/opensans_bold"
-                android:gravity="left"
+                android:gravity="start"
+                android:text="@string/politique"
                 android:layout_marginLeft="@dimen/screen_left_margin"
                 android:layout_marginRight="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/iv_image_1"/>
+                android:clickable="false"
+                />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_right_pinc"
+                android:layout_marginRight="@dimen/screen_right_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:clickable="false"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/modifiedPrimaryColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/conditionsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/grey_707070"
+            app:layout_constraintTop_toBottomOf="@id/profile_fragment_header_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/app_text_size"
+                android:textColor="@color/white"
+                android:fontFamily="@font/opensans_bold"
+                android:gravity="start"
+                android:text="@string/conditions"
+                android:layout_marginLeft="@dimen/screen_left_margin"
+                android:layout_marginRight="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:clickable="false"
+                />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_right_pinc"
+                android:layout_marginRight="@dimen/screen_right_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:clickable="false"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/modifiedPrimaryColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/profile_fragment_user_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/grey_707070"
+            app:layout_constraintTop_toBottomOf="@id/profile_fragment_header_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_profile_fragment_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/app_text_size"
+                android:textColor="@color/white"
+                android:fontFamily="@font/opensans_bold"
+                android:gravity="start"
+                android:text="Aaser Salama"
+                android:layout_marginLeft="@dimen/screen_left_margin"
+                android:layout_marginRight="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
 
             <ImageView
                 android:id="@+id/iv_image_1"
@@ -82,20 +217,21 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_D9D9D9"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
-
         <android.support.constraint.ConstraintLayout
             android:id="@+id/profile_fragment_favourite_restaurants_layout"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:background="@color/grey_707070"
             app:layout_constraintTop_toBottomOf="@id/profile_fragment_user_name_layout"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_profile_fragment_favourite_restaurants_label"
@@ -103,7 +239,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_profile_favourite_restaurants_label_text"
                 android:textSize="@dimen/app_text_size"
-                android:textColor="@color/black_2A2C34"
+                android:textColor="@color/white"
                 android:fontFamily="@font/opensans_bold"
                 android:gravity="left"
                 android:layout_marginLeft="@dimen/screen_left_margin"
@@ -126,13 +262,25 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_D9D9D9"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:id="@+id/tv_profile_settings_sign_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_profile_settings_sign_out_text"
+            android:textSize="@dimen/app_text_size"
+            android:textColor="@color/pink"
+            android:fontFamily="@font/opensans_regular"
+            android:layout_marginBottom="48dp"
+            />
 
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>
