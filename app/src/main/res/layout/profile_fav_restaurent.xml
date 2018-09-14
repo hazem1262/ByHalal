@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="260dp"
+	android:orientation="vertical"
+	android:layout_height="170dp"
+	android:layout_marginLeft="16dp"
+	android:layout_marginBottom="16dp"
+	android:background="@color/modifiedPrimaryColor">
+
+
+		<com.makeramen.roundedimageview.RoundedImageView
+			android:id="@+id/iv_home_restaurant_image"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:src="@drawable/background_search_header"
+			android:layout_marginTop="0dp"
+			android:scaleType="centerCrop"
+			app:riv_corner_radius="3dip"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"/>
+
+	<ImageView
+		android:id="@+id/iv_restaurant_profile_favourite"
+		android:layout_width="24dp"
+		android:layout_height="24dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginTop="8dp"
+		android:src="@drawable/ic_favourite_pink"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:background="@drawable/discount_header"
+		android:gravity="center"
+		android:orientation="vertical"
+		android:padding="5dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="-10%"
+			android:textColor="@color/white"
+			android:textSize="@dimen/app_text_size" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="sur l’addition"
+			android:textColor="@color/white"
+			android:textSize="@dimen/app_text_small" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		android:gravity="center"
+		android:padding="5dp">
+
+		<TextView
+			android:id="@+id/tv_home_restaurant_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:fontFamily="@font/opensans_semibold"
+			android:includeFontPadding="false"
+			android:text="Pepenero"
+			android:textColor="@color/white"
+			android:textSize="13dp"
+
+
+			/>
+
+		<TextView
+			android:id="@+id/tv_home_restaurant_category"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/opensans_regular"
+			android:includeFontPadding="false"
+			android:text="Italian"
+			android:textColor="@color/pink"
+			android:textSize="12sp" />
+	</LinearLayout>
+
+
+
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

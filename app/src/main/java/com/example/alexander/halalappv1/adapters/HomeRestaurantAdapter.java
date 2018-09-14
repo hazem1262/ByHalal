@@ -30,6 +30,8 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
     private int mTablePosition;
 
     private Boolean footerList = false;
+
+
     public HomeRestaurantAdapter(Context context, OnRestaurantClickListener onRestaurantClickListener ) {
         this.mContext = context;
         this.mOnRestaurantClickListener = onRestaurantClickListener;

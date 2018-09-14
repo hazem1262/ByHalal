@@ -29,6 +29,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.alexander.halalappv1.utils.ConstantsHelper.SIGNUP;
+
 public class AccountInfoActivity extends AppCompatActivity {
 
     private EditText mSignInEmailEditText;
@@ -48,7 +50,8 @@ public class AccountInfoActivity extends AppCompatActivity {
     private ConstraintLayout mSignInLayout;
     private Button mCreateNewAccountButton;
     private ConstraintLayout mSignUpLayout;
-    private ImageView mSignUpArrowBackImageView;
+    private TextView mSignUpArrowBackImageView;
+    private TextView retourSignIn;
 
     private TextView mFirstNameTextView;
     private TextView mLastNameTextView;
@@ -100,6 +103,7 @@ public class AccountInfoActivity extends AppCompatActivity {
         mCreateNewAccountButton = findViewById(R.id.btn_sign_in_activity_create_naw_account);
         mSignUpLayout = findViewById(R.id.layout_sign_up);
         mSignUpArrowBackImageView = findViewById(R.id.iv_sign_up_arrow_back);
+        retourSignIn = findViewById(R.id.retourSignIn);
     }
 
     private void updateTextViewsWithUserData() {
@@ -262,39 +266,16 @@ public class AccountInfoActivity extends AppCompatActivity {
         mArrowBackImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mSignUpLayout.getVisibility() == View.VISIBLE) {
-                    mSignUpLayout.animate()
-                            .translationY(0)
-                            .alpha(0.0f)
-                            .setDuration(300)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    super.onAnimationEnd(animation);
-                                    mSignInLayout.animate()
-                                            .translationY(0)
-                                            .alpha(1.0f)
-                                            .setDuration(300)
-                                            .setListener(new AnimatorListenerAdapter() {
-                                                @Override
-                                                public void onAnimationEnd(Animator animation) {
-                                                    super.onAnimationEnd(animation);
-                                                    mSignUpLayout.setVisibility(View.GONE);
-                                                    mSignInLayout.setVisibility(View.VISIBLE);
-                                                }
-                                            });
-                                }
-                            });
-                } else {
-                    finish();
-                }
+            	onBackPressed();
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        if (mSignUpLayout.getVisibility() == View.VISIBLE) {
+//        if (mSignUpLayout.getVisibility() == View.VISIBLE)
+        if (false)
+        {
             mSignUpLayout.animate()
                     .translationY(0)
                     .alpha(0.0f)
@@ -373,8 +354,15 @@ public class AccountInfoActivity extends AppCompatActivity {
             mSignInSignUpLayout.setVisibility(View.GONE);
             updateTextViewsWithUserData(); // (2)
         } else {
-            mEditProfileLayout.setVisibility(View.GONE);
-            mSignInSignUpLayout.setVisibility(View.VISIBLE);
+			mEditProfileLayout.setVisibility(View.GONE);
+			mSignInSignUpLayout.setVisibility(View.VISIBLE);
+			if (getIntent().getBooleanExtra(SIGNUP,false)){
+				showSignUpLayout();
+			}else{
+
+			}
+
+
         }
 
         arrowBackClick();
@@ -388,6 +376,15 @@ public class AccountInfoActivity extends AppCompatActivity {
         createNewAccountButtonClick();
 
         signUpArrowBackImageViewClick();
+        if (getIntent().getBooleanExtra(SIGNUP,false)){
+            showSignUpLayout();
+        }
+        retourSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
     //==============================================================================================
     private void signInButtonClick() {
@@ -445,40 +442,46 @@ public class AccountInfoActivity extends AppCompatActivity {
         mCreateNewAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSignInLayout.animate()
-                        .translationY(0)
-                        .alpha(0.0f)
-                        .setDuration(300)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                mSignUpLayout.animate()
-                                        .translationY(0)
-                                        .alpha(1.0f)
-                                        .setDuration(300)
-                                        .setListener(new AnimatorListenerAdapter() {
-                                            @Override
-                                            public void onAnimationEnd(Animator animation) {
-                                                super.onAnimationEnd(animation);
-                                                mSignInLayout.setVisibility(View.GONE);
-                                                mSignUpLayout.setVisibility(View.VISIBLE);
-                                            }
-                                        });
-                            }
-                        });
-
+                showSignUpLayout();
 //                mSignInLayout.setVisibility(View.GONE);
 //                mSignUpLayout.setVisibility(View.VISIBLE);
             }
         });
     }
 
+    private void showSignUpLayout(){
+
+		mSignInLayout.setVisibility(View.GONE);
+		mSignUpLayout.setVisibility(View.VISIBLE);
+        /*mSignInLayout.animate()
+                .translationY(0)
+                .alpha(0.0f)
+                .setDuration(300)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        mSignUpLayout.animate()
+                                .translationY(0)
+                                .alpha(1.0f)
+                                .setDuration(300)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        super.onAnimationEnd(animation);
+                                        mSignInLayout.setVisibility(View.GONE);
+                                        mSignUpLayout.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                    }
+                });*/
+    }
     private void signUpArrowBackImageViewClick() {
         mSignUpArrowBackImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSignUpLayout.animate()
+                onBackPressed();
+                /*mSignUpLayout.animate()
                         .translationY(0)
                         .alpha(0.0f)
                         .setDuration(300)
@@ -500,7 +503,7 @@ public class AccountInfoActivity extends AppCompatActivity {
                                         });
                             }
                         });
-
+*/
 //                mSignUpLayout.setVisibility(View.GONE);
 //                mSignInLayout.setVisibility(View.VISIBLE);
             }

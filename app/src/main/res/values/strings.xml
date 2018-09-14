@@ -237,6 +237,9 @@
 	<string name="conditions">Conditions d’utilisation</string>
 	<string name="signup">Inscription</string>
     <string name="signin">Connexion</string>
-    <!--=========================================================================================-->
+	<string name="noFav">You Donot Have Any Favorites restaurents yet</string>
+	<string name="acceptSignup"><![CDATA[En cliquant sur « Réserver », l’utilisateur accepte  les conditions générales d’utilisation  et les politiques de confidentialité  de la société B&Y Halal.]]></string>
+	<string name="retour">Retour</string>
+	<!--=========================================================================================-->
 
 </resources>

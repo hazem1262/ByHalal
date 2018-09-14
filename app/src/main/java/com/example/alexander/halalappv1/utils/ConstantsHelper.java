@@ -24,7 +24,7 @@ public class ConstantsHelper {
     public static final String ACTION_FAVOURITE_RESTAURANTS_ACTIVITY = "activity_favourite_restaurants";
     public static final String ACTION_SEARCH_RESTAURANT_ACTIVITY = "activity_search_restaurants";
     public static final String RESTAURANT_OBJECT_KEY = "RestaurantObject";
-
+    public static final String SIGNUP = "signup";
     // base url
     public static final String BASE_URL = "http://www.by-halal.fr/api/";
 //    public static final String BASE_URL = "https://7222bae5-4323-4479-b698-6866c10577e1.mock.pstmn.io/";
