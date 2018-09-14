@@ -124,15 +124,15 @@ public class AccountInfoActivity extends AppCompatActivity {
     }
 
     private void showAndUpdateEditTexts() {
-//        mFirstNameEditText.setVisibility(View.VISIBLE);
-//        mLastNameEditText.setVisibility(View.VISIBLE);
+        mFirstNameEditText.setVisibility(View.VISIBLE);
+        mLastNameEditText.setVisibility(View.VISIBLE);
         mEmailEditText.setVisibility(View.VISIBLE);
         mPhoneNumberEditText.setVisibility(View.VISIBLE);
         mPasswordEditText.setVisibility(View.VISIBLE);
         mConfirmPasswordEditText.setVisibility(View.VISIBLE);
 
-//        mFirstNameEditText.setText(mFirstNameTextView.getText());
-//        mLastNameEditText.setText(mLastNameTextView.getText());
+        mFirstNameEditText.setText(mFirstNameTextView.getText());
+        mLastNameEditText.setText(mLastNameTextView.getText());
         mEmailEditText.setText(mEmailTextView.getText());
         mPhoneNumberEditText.setText(mPhoneNumberTextView.getText());
         mPasswordEditText.setText("");
@@ -242,8 +242,8 @@ public class AccountInfoActivity extends AppCompatActivity {
         mPasswordTextView.setVisibility(View.VISIBLE);
         mConfirmPasswordTextView.setVisibility(View.VISIBLE);
 
-//        mFirstNameTextView.setText(mFirstNameEditText.getText().toString());
-//        mLastNameTextView.setText(mLastNameEditText.getText().toString());
+        mFirstNameTextView.setText(mFirstNameEditText.getText().toString());
+        mLastNameTextView.setText(mLastNameEditText.getText().toString());
         mEmailTextView.setText(mEmailEditText.getText().toString());
         mPhoneNumberTextView.setText(mPhoneNumberEditText.getText().toString());
         mPasswordTextView.setText("*********");

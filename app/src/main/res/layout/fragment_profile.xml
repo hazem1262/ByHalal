@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/modifiedPrimaryColor">
+	android:layout_height="match_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:background="@color/modifiedPrimaryColor">
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -269,18 +270,59 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <TextView
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:id="@+id/tv_profile_settings_sign_out"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tv_profile_settings_sign_out_text"
-            android:textSize="@dimen/app_text_size"
-            android:textColor="@color/pink"
-            android:fontFamily="@font/opensans_regular"
-            android:layout_marginBottom="48dp"
-            />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:id="@+id/tv_profile_settings_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signin"
+                android:textSize="@dimen/app_text_size"
+                android:textColor="@color/pink"
+                android:fontFamily="@font/opensans_regular"
+                android:layout_marginBottom="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+				android:visibility="invisible"
+				tools:visibility="visible"
+                />
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:id="@+id/tv_profile_settings_sign_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_profile_settings_sign_out_text"
+                android:textSize="@dimen/app_text_size"
+                android:textColor="@color/pink"
+                android:fontFamily="@font/opensans_regular"
+                android:layout_marginBottom="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+				android:visibility="gone"
+				tools:visibility="visible"
+                />
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:id="@+id/tv_profile_settings_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signup"
+                android:textSize="@dimen/app_text_size"
+                android:textColor="@color/pink"
+                android:fontFamily="@font/opensans_regular"
+                android:layout_marginBottom="48dp"
+                android:layout_weight="1"
+				android:visibility="invisible"
+				tools:visibility="visible"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

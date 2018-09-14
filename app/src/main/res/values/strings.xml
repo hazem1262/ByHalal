@@ -235,6 +235,8 @@
 	<string name="myInformation">My Information</string>
     <string name="politique">Politiques de confidentialité</string>
 	<string name="conditions">Conditions d’utilisation</string>
-	<!--=========================================================================================-->
+	<string name="signup">Inscription</string>
+    <string name="signin">Connexion</string>
+    <!--=========================================================================================-->
 
 </resources>

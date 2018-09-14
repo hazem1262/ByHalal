@@ -4,9 +4,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/modifiedPrimaryColor">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_account_info_activity_edit_profile"
@@ -20,13 +21,13 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/profile_acc_info_header_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/app_header_max_height"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent"
@@ -34,33 +35,25 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent">
 
+                <ImageView
+                    android:id="@+id/profile_acc_info_arrow_back"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_arrow_left_white"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tv_my_profile_label_text"
-                    android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/black_2A2C34"
+                    android:textSize="@dimen/app_header"
+                    android:textColor="@color/white"
                     android:fontFamily="@font/montserrat_semibold"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_profile_settings_label_text"
-                    android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/pink"
-                    android:fontFamily="@font/opensans_regular"
-                    android:layout_gravity="center"/>
+
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/profile_acc_info_arrow_back"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_arrow_left_black"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+
 
             <View
                 android:layout_width="match_parent"
@@ -72,30 +65,17 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tv_profile_acc_info_my_info_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_profile_acc_info_my_info_label_text"
-            android:textSize="@dimen/app_text_size"
-            android:textColor="@color/grey_777777"
-            android:fontFamily="@font/opensans_regular"
-            android:background="@color/grey_F4F4F4"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="@dimen/screen_left_margin"
-            android:paddingRight="@dimen/screen_right_margin"
-            app:layout_constraintTop_toBottomOf="@id/profile_acc_info_header_layout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/profile_acc_info_first_name_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_profile_acc_info_my_info_label"
+            android:background="@color/grey_707070"
+            app:layout_constraintTop_toBottomOf="@id/profile_acc_info_header_layout"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintRight_toRightOf="parent"
+            >
 
             <View
                 android:id="@+id/first_name_layout_line_divider"
@@ -115,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_profile_acc_info_first_name_label_text"
                 android:textSize="12sp"
-                android:textColor="@color/black_2A2C34"
+                android:textColor="@color/white"
                 android:fontFamily="@font/opensans_bold"
                 android:gravity="left"
                 android:layout_marginLeft="@dimen/screen_left_margin"
@@ -148,6 +128,7 @@
                 android:paddingLeft="8dp"
                 android:layout_marginRight="@dimen/screen_right_margin"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:inputType="textPersonName"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -157,7 +138,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_F4F4F4"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
@@ -168,6 +149,7 @@
             android:id="@+id/profile_acc_info_last_name_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/grey_707070"
             app:layout_constraintTop_toBottomOf="@id/profile_acc_info_first_name_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -190,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_profile_acc_info_last_name_label_text"
                 android:textSize="12sp"
-                android:textColor="@color/black_2A2C34"
+                android:textColor="@color/white"
                 android:fontFamily="@font/opensans_bold"
                 android:gravity="left"
                 android:layout_marginLeft="@dimen/screen_left_margin"
@@ -223,6 +205,7 @@
                 android:paddingLeft="8dp"
                 android:layout_marginRight="@dimen/screen_right_margin"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:inputType="textPersonName"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -232,7 +215,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_F4F4F4"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
@@ -243,6 +226,7 @@
             android:id="@+id/profile_acc_info_email_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/grey_707070"
             app:layout_constraintTop_toBottomOf="@id/profile_acc_info_last_name_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -265,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_profile_acc_info_email_label_text"
                 android:textSize="12sp"
-                android:textColor="@color/black_2A2C34"
+                android:textColor="@color/white"
                 android:fontFamily="@font/opensans_bold"
                 android:gravity="left"
                 android:layout_marginLeft="@dimen/screen_left_margin"
@@ -298,6 +282,7 @@
                 android:paddingLeft="8dp"
                 android:layout_marginRight="@dimen/screen_right_margin"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:inputType="textEmailAddress"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -307,7 +292,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_F4F4F4"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
@@ -318,6 +303,7 @@
             android:id="@+id/profile_acc_info_phone_number_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/grey_707070"
             app:layout_constraintTop_toBottomOf="@id/profile_acc_info_email_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -340,7 +326,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_profile_acc_info_phone_number_label_text"
                 android:textSize="12sp"
-                android:textColor="@color/black_2A2C34"
+                android:textColor="@color/white"
                 android:fontFamily="@font/opensans_bold"
                 android:gravity="left"
                 android:layout_marginLeft="@dimen/screen_left_margin"
@@ -373,6 +359,7 @@
                 android:paddingLeft="8dp"
                 android:layout_marginRight="@dimen/screen_right_margin"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:inputType="phone"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -382,7 +369,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_F4F4F4"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
@@ -393,6 +380,7 @@
             android:id="@+id/profile_acc_info_password_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/grey_707070"
             app:layout_constraintTop_toBottomOf="@id/profile_acc_info_phone_number_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -415,7 +403,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_profile_acc_info_password_label_text"
                 android:textSize="12sp"
-                android:textColor="@color/black_2A2C34"
+                android:textColor="@color/white"
                 android:fontFamily="@font/opensans_bold"
                 android:gravity="left"
                 android:layout_marginLeft="@dimen/screen_left_margin"
@@ -448,6 +436,8 @@
                 android:paddingLeft="8dp"
                 android:layout_marginRight="@dimen/screen_right_margin"
                 android:visibility="gone"
+                tools:visibility="visible"
+                android:hint="@string/et_sign_in_activity_password_hint"
                 android:inputType="textPassword"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -457,7 +447,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_F4F4F4"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
@@ -468,6 +458,7 @@
             android:id="@+id/profile_acc_info_confirm_password_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/grey_707070"
             app:layout_constraintTop_toBottomOf="@id/profile_acc_info_password_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -490,7 +481,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_profile_acc_info_confirm_password_label_text"
                 android:textSize="12sp"
-                android:textColor="@color/black_2A2C34"
+                android:textColor="@color/white"
+
                 android:fontFamily="@font/opensans_bold"
                 android:gravity="left"
                 android:layout_marginLeft="@dimen/screen_left_margin"
@@ -523,6 +515,8 @@
                 android:paddingLeft="8dp"
                 android:layout_marginRight="@dimen/screen_right_margin"
                 android:visibility="gone"
+                tools:visibility="visible"
+                android:hint="@string/tv_profile_acc_info_confirm_password_label_text"
                 android:inputType="textPassword"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -532,7 +526,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey_F4F4F4"
+                android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
@@ -545,13 +539,14 @@
             android:layout_height="wrap_content"
             android:text="@string/tv_profile_acc_info_edit_text"
             android:textSize="@dimen/app_text_size"
-            android:textColor="@color/pink"
+            android:textColor="@color/white"
             android:fontFamily="@font/opensans_regular"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="34dp"
+            android:paddingRight="34dp"
             android:layout_marginBottom="32dp"
+            android:background="@drawable/shape_bg_pink_b_pink_br_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -563,7 +558,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        
+
         android:background="#f7f7f7"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
