@@ -10,6 +10,7 @@ import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -24,7 +25,7 @@ import retrofit2.http.POST;
 public interface RetrofitWebService {
 
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
-    OkHttpClient.Builder httpClient = new OkHttpClient.Builder().addInterceptor(interceptor);
+    OkHttpClient.Builder httpClient = new OkHttpClient.Builder().connectTimeout(60, TimeUnit.SECONDS).addInterceptor(interceptor);
     Retrofit retrofit = new Retrofit
             .Builder()
             .baseUrl(ConstantsHelper.BASE_URL)
