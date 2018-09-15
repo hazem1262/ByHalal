@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
@@ -42,28 +44,29 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
         Picasso.with(mContext).load(mPreviousReservationsList.get(position).getRestaurant().getImage()).into(holder.restaurantImageImageView);
         String language = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_SELECTED_LANGUAGE, null);
         if (language != null) {
+			holder.reservationNumberOfPeople.setText(mPreviousReservationsList.get(position).getBookingData().getNumberOfPeople() + mContext.getString(R.string.persons));
             if (language.equals("français")) {
                 String[] reservationDateParts = mPreviousReservationsList.get(position).getBookingData().getReservationDate().split("-");
-                String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1];
+                String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
                 String reservationDay = getDayNameFrench(mPreviousReservationsList.get(position).getBookingData().getReservationDayName());
-                holder.reservationDateTextView.setText(reservationDay + "\n" + reservationDate);
+                holder.reservationDateTextView.setText(reservationDate);
 
                 String reservationTime = mPreviousReservationsList.get(position).getBookingData().getReservationTime();
                 String numberOfPeople = getNumberTextFrench(mPreviousReservationsList.get(position).getBookingData().getNumberOfPeople());
 
                 holder.restaurantNameTextView.setText(mPreviousReservationsList.get(position).getRestaurant().getName());
-                holder.reservationDetailsTextView.setText(reservationTime + " - " + mPreviousReservationsList.get(position).getBookingData().getNumberOfPeople() + " personnes");
+                holder.reservationDetailsTextView.setText(reservationTime );
             } else {
                 String[] reservationDateParts = mPreviousReservationsList.get(position).getBookingData().getReservationDate().split("-");
-                String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1];
+                String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
                 String reservationDay = mPreviousReservationsList.get(position).getBookingData().getReservationDayName();
-                holder.reservationDateTextView.setText(reservationDay + "\n" + reservationDate);
+                holder.reservationDateTextView.setText(reservationDate);
 
                 String reservationTime = mPreviousReservationsList.get(position).getBookingData().getReservationTime();
                 String numberOfPeople = getNumberTextEnglish(mPreviousReservationsList.get(position).getBookingData().getNumberOfPeople());
 
                 holder.restaurantNameTextView.setText(mPreviousReservationsList.get(position).getRestaurant().getName());
-                holder.reservationDetailsTextView.setText(reservationTime + " - " + mPreviousReservationsList.get(position).getBookingData().getNumberOfPeople() + " people");
+                holder.reservationDetailsTextView.setText(reservationTime);
             }
         }
     }
@@ -247,6 +250,9 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
         TextView reservationDateTextView;
         TextView restaurantNameTextView;
         TextView reservationDetailsTextView;
+        TextView supprimer;
+        Button viewDetails;
+		TextView reservationNumberOfPeople;
 
         public PreviousReservationViewHolder(View itemView) {
             super(itemView);
@@ -255,8 +261,17 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
             reservationDateTextView = itemView.findViewById(R.id.tv_previous_reservation_date);
             restaurantNameTextView = itemView.findViewById(R.id.tv_previous_restaurant_name);
             reservationDetailsTextView = itemView.findViewById(R.id.tv_previous_reservation_details);
+			supprimer = itemView.findViewById(R.id.supprimer);
+            viewDetails = itemView.findViewById(R.id.viewDetails);
+			reservationNumberOfPeople = itemView.findViewById(R.id.tv_upcoming_reservation_persons);
 
-            itemView.setOnClickListener(this);
+            viewDetails.setOnClickListener(this);
+			supprimer.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(mContext, "coming soon", Toast.LENGTH_SHORT).show();
+				}
+			});
         }
 
         @Override

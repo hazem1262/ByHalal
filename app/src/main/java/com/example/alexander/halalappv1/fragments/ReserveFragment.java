@@ -72,7 +72,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
     private ConstraintLayout mSignInLayout;
     private Button mCreateNewAccountButton;
     private ConstraintLayout mSignUpLayout;
-    private ImageView mSignUpArrowBackImageView;
+    private TextView mSignUpArrowBackImageView;
 
     private TextView mUpcomingReservationsTextView;
     private RecyclerView mUpcomingReservationsListRecyclerView;

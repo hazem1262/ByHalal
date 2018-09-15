@@ -8,6 +8,7 @@
     <!--======App Colors======-->
     <color name="pink">#EA4D4D</color>
     <color name="blue">#2294E3</color>
+    <color name="blueDialog">#007AFF</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="black_2A2C34">#2A2C34</color>

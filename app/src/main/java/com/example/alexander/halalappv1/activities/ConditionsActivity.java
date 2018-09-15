@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
+import com.example.alexander.halalappv1.services.Terms;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.NetworkHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
@@ -71,7 +72,7 @@ public class ConditionsActivity extends AppCompatActivity {
     }
 
     private void getTerms() {
-        RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
+        Terms webService = RetrofitWebService.retrofit.create(Terms.class);
         Call<JsonObject> call = webService.getTerms();
         call.enqueue(new Callback<JsonObject>() {
             @Override

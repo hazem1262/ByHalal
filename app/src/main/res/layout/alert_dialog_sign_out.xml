@@ -82,7 +82,7 @@
                     android:layout_weight="1"
                     android:text="@string/tv_sign_out_alert_dialog_action_cancel_text"
                     android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/pink"
+                    android:textColor="@color/blueDialog"
                     android:fontFamily="@font/opensans_regular"
                     android:gravity="center"/>
 
@@ -98,7 +98,7 @@
                     android:layout_weight="1"
                     android:text="@string/tv_sign_out_alert_dialog_action_sign_out_text"
                     android:textSize="@dimen/app_text_size"
-                    android:textColor="@color/pink"
+                    android:textColor="@color/blueDialog"
                     android:fontFamily="@font/opensans_regular"
                     android:gravity="center"/>
 

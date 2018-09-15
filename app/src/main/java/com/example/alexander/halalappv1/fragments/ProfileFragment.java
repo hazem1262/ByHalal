@@ -1,5 +1,6 @@
 package com.example.alexander.halalappv1.fragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -100,11 +101,8 @@ public class ProfileFragment extends Fragment implements HomeRestaurantAdapter.O
         loggedSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-				SharedPreferencesHelper.setSharedPreferenceBoolean(getContext(), ConstantsHelper.KEY_IS_LOGGED_IN, false);
-				SharedPreferencesHelper.setSharedPreferenceInt(getContext(), ConstantsHelper.KEY_USER_ID, 0);
-				SharedPreferencesHelper.setSharedPreferenceString(getContext(), ConstantsHelper.KEY_FIRST_NAME, null);
-            	Intent intent = new Intent(getActivity(), MainActivity.class);
-            	startActivity(intent);
+
+                showSignOutAlertDialog();
             }
         });
         unLoggedSignIn.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +125,47 @@ public class ProfileFragment extends Fragment implements HomeRestaurantAdapter.O
     }
 
     //==============================================================================================
+    private void showSignOutAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.alert_dialog_sign_out, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        TextView cancelTextView = dialogView.findViewById(R.id.tv_sign_out_alert_dialog_action_cancel);
+        TextView signOutTextView = dialogView.findViewById(R.id.tv_sign_out_alert_dialog_action_sign_out);
+
+        cancelTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        signOutTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_USER_ID);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_USER_FACEBOOK_ID);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_FIRST_NAME);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_FAMILY_NAME);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_EMAIL);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_MOBILE_NUMBER);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_PASSWORD);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_SELECTED_LANGUAGE);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_SELECTED_CITY);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_CITY_LATITUDE);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_CITY_LONGITUDE);
+                SharedPreferencesHelper.removeFromSharedPreference(getContext(), ConstantsHelper.KEY_IS_LOGGED_IN);
+
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void updateUserNameView() {
         boolean isLoggedIn = SharedPreferencesHelper.getSharedPreferenceBoolean(getContext(), ConstantsHelper.KEY_IS_LOGGED_IN, false);
         if (isLoggedIn) {

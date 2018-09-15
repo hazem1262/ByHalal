@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.model.User;
+import com.example.alexander.halalappv1.services.Account;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.NetworkHelper;
@@ -188,7 +189,7 @@ public class AccountInfoActivity extends AppCompatActivity {
     }
 
     private void editAccount(int userId, String firstName, String lastName, String email, String phoneNumber, String password) {
-        RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
+        Account webService = RetrofitWebService.retrofit.create(Account.class);
         Call<User> userCall = webService.editAccount(userId, firstName, lastName, email, phoneNumber, password);
         userCall.enqueue(new Callback<User>() {
             @Override
@@ -526,7 +527,7 @@ public class AccountInfoActivity extends AppCompatActivity {
     }
 
     private void signInExistingUser(String email, String password) {
-        RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
+        Account webService = RetrofitWebService.retrofit.create(Account.class);
         Call<User> call = webService.signInExistingUser(email, password);
         call.enqueue(new Callback<User>() {
             @Override
@@ -616,7 +617,7 @@ public class AccountInfoActivity extends AppCompatActivity {
     }
 
     private void signUpNewUser(String firstName, String familyName, String email, String mobileNumber, String password) {
-        RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
+        Account webService = RetrofitWebService.retrofit.create(Account.class);
         Call<User> call = webService.signUpNewUser(firstName, familyName, email, mobileNumber, password);
         call.enqueue(new Callback<User>() {
             @Override

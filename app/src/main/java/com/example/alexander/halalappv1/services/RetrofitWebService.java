@@ -32,7 +32,7 @@ public interface RetrofitWebService {
             .client(httpClient.build())
             .build();
 
-    // Sign In
+    // Sign up
     @POST(ConstantsHelper.SIGN_UP_END_POINT)
     @FormUrlEncoded
     Call<User> signUpNewUser(@Field("firstName") String firstName,
@@ -41,7 +41,7 @@ public interface RetrofitWebService {
                              @Field("mobileNo") String mobileNo,
                              @Field("password") String password);
 
-    // Sign Up
+    // Sign in
     @POST(ConstantsHelper.SIGN_IN_END_POINT)
     @FormUrlEncoded
     Call<User> signInExistingUser(@Field("email") String email,

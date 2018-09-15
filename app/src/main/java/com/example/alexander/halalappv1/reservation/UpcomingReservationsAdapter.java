@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,28 +44,29 @@ public class UpcomingReservationsAdapter extends RecyclerView.Adapter<UpcomingRe
         Picasso.with(mContext).load(mUpComingReservationsList.get(position).getRestaurant().getImage()).into(holder.restaurantImageImageView);
         String language = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_SELECTED_LANGUAGE, null);
         if (language != null) {
+            holder.reservationNumberOfPeople.setText(mUpComingReservationsList.get(position).getBookingData().getNumberOfPeople() + mContext.getString(R.string.persons));
             if (language.equals("français")) {
                 String[] reservationDateParts = mUpComingReservationsList.get(position).getBookingData().getReservationDate().split("-");
-                String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1];
+                String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
                 String reservationDay = getDayNameFrench(mUpComingReservationsList.get(position).getBookingData().getReservationDayName());
-                holder.reservationDateTextView.setText(reservationDay + "\n" + reservationDate);
+                holder.reservationDateTextView.setText( reservationDate);
 
                 String reservationTime = mUpComingReservationsList.get(position).getBookingData().getReservationTime();
                 String numberOfPeople = getNumberTextFrench(mUpComingReservationsList.get(position).getBookingData().getNumberOfPeople());
 
                 holder.restaurantNameTextView.setText(mUpComingReservationsList.get(position).getRestaurant().getName());
-                holder.reservationDetailsTextView.setText(reservationTime + " - " + mUpComingReservationsList.get(position).getBookingData().getNumberOfPeople() + " personnes");
+                holder.reservationDetailsTextView.setText(reservationTime );
             } else {
                 String[] reservationDateParts = mUpComingReservationsList.get(position).getBookingData().getReservationDate().split("-");
-                String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1];
+                String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
                 String reservationDay = mUpComingReservationsList.get(position).getBookingData().getReservationDayName();
-                holder.reservationDateTextView.setText(reservationDay + "\n" + reservationDate);
+                holder.reservationDateTextView.setText(reservationDate);
 
                 String reservationTime = mUpComingReservationsList.get(position).getBookingData().getReservationTime();
                 String numberOfPeople = getNumberTextEnglish(mUpComingReservationsList.get(position).getBookingData().getNumberOfPeople());
 
                 holder.restaurantNameTextView.setText(mUpComingReservationsList.get(position).getRestaurant().getName());
-                holder.reservationDetailsTextView.setText(reservationTime + " - " + mUpComingReservationsList.get(position).getBookingData().getNumberOfPeople() + " people");
+                holder.reservationDetailsTextView.setText(reservationTime );
             }
         }
     }
@@ -248,6 +250,8 @@ public class UpcomingReservationsAdapter extends RecyclerView.Adapter<UpcomingRe
         TextView reservationDateTextView;
         TextView restaurantNameTextView;
         TextView reservationDetailsTextView;
+        TextView reservationNumberOfPeople;
+        Button viewDetails;
 
         public UpcomingReservationViewHolder(View itemView) {
             super(itemView);
@@ -256,8 +260,10 @@ public class UpcomingReservationsAdapter extends RecyclerView.Adapter<UpcomingRe
             reservationDateTextView = itemView.findViewById(R.id.tv_upcoming_reservation_date);
             restaurantNameTextView = itemView.findViewById(R.id.tv_upcoming_restaurant_name);
             reservationDetailsTextView = itemView.findViewById(R.id.tv_upcoming_reservation_details);
+            reservationNumberOfPeople = itemView.findViewById(R.id.tv_upcoming_reservation_persons);
+            viewDetails = itemView.findViewById(R.id.viewDetails);
 
-            itemView.setOnClickListener(this);
+            viewDetails.setOnClickListener(this);
         }
 
         @Override

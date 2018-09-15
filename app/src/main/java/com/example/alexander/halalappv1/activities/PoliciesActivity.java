@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.alexander.halalappv1.R;
+import com.example.alexander.halalappv1.services.Polices;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.NetworkHelper;
@@ -72,7 +72,7 @@ public class PoliciesActivity extends AppCompatActivity {
     }
 
     private void getPolices() {
-        RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
+        Polices webService = RetrofitWebService.retrofit.create(Polices.class);
         Call<JsonObject> call = webService.getPolices();
         call.enqueue(new Callback<JsonObject>() {
             @Override
