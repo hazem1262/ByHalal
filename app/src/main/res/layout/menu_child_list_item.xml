@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/grey_707070">
 
     <TextView
         android:id="@+id/tv_menu_child_dish_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/app_text_size"
-        android:textColor="@color/grey_777777"
+        android:textColor="@color/white"
         android:fontFamily="@font/opensans_regular"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="12dp"
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/app_text_size"
-        android:textColor="@color/grey_777777"
+        android:textColor="@color/white"
         android:fontFamily="@font/opensans_regular"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="16dp"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/app_text_size"
         android:textColor="@color/pink"
-        android:visibility="invisible"
+
         android:gravity="center"
         android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +62,8 @@
         android:id="@+id/line_grey"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/grey_E8E8E8"
+        android:visibility="invisible"
+        android:background="@color/modifiedPrimaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/tv_menu_child_quantity"
         app:layout_constraintRight_toRightOf="@id/tv_menu_child_dish_price"/>

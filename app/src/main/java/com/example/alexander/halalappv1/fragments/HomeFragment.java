@@ -32,11 +32,14 @@ import com.example.alexander.halalappv1.activities.SearchRestaurantActivity;
 import com.example.alexander.halalappv1.activities.SelectLocationActivity;
 import com.example.alexander.halalappv1.activities.TableRestaurantsActivity;
 import com.example.alexander.halalappv1.model.City;
-import com.example.alexander.halalappv1.model.RestaurantsList;
 import com.example.alexander.halalappv1.adapters.RestaurantsListAdapter;
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.modifiedmodels.RestaurantsList1;
 import com.example.alexander.halalappv1.model.modifiedmodels.homefragment.ListHeader;
+import com.example.alexander.halalappv1.model.newModels.CategoriesWithRestaurant;
+import com.example.alexander.halalappv1.model.newModels.Category;
+import com.example.alexander.halalappv1.model.newModels.Restaurant;
+import com.example.alexander.halalappv1.model.newModels.RestaurantsList;
+import com.example.alexander.halalappv1.services.MainPageWebService;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.NetworkHelper;
@@ -121,7 +124,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     }
     //==============================================================================================
     private RestaurantsListAdapter mTablesAdapter;
-    private ArrayList<RestaurantsList1> mTablesList;
+    private ArrayList<CategoriesWithRestaurant> mTablesList;
 
     private void setUpTablesRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
@@ -130,20 +133,20 @@ public class HomeFragment extends Fragment implements LocationListener {
         mTablesAdapter = new RestaurantsListAdapter(getContext(), new RestaurantsListAdapter.OnTablesClickListener() {
             @Override
             public void onTableClick(int position) {
-                RestaurantsList1 table = mTablesList.get(position);
-                Intent intent = new Intent(getActivity(), TableRestaurantsActivity.class);
-                intent.putExtra(TABLE_ID_KEY, table.getListId());
-                intent.putExtra(TABLE_OBJECT_KEY, table);
-                intent.putExtra("XXXXX", mAction);
-                startActivity(intent);
+//                RestaurantsList1 table = mTablesList.get(position);
+//                Intent intent = new Intent(getActivity(), TableRestaurantsActivity.class);
+//                intent.putExtra(TABLE_ID_KEY, table.getListId());
+//                intent.putExtra(TABLE_OBJECT_KEY, table);
+//                intent.putExtra("XXXXX", mAction);
+//                startActivity(intent);
             }
 
             @Override
             public void onRestaurantClick(int parentPosition, int childPosition) {
                 Restaurant restaurant = mTablesList.get(parentPosition).getRestaurants().get(childPosition);
                 Intent intent = new Intent(getActivity(), RestaurantProfileActivity.class);
-                intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
-                intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
+//                intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
+//                intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
                 startActivity(intent);
             }
         });
@@ -316,17 +319,17 @@ public class HomeFragment extends Fragment implements LocationListener {
         int userId = SharedPreferencesHelper.getSharedPreferenceInt(getContext(), ConstantsHelper.KEY_USER_ID, -10);
 
         if (userId == -10) {
-            RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
-            Call<ArrayList<RestaurantsList1>> tablesListCall = webService.getTablesList(0, latitude, longitude);
-            tablesListCall.enqueue(new Callback<ArrayList<RestaurantsList1>>() {
+			MainPageWebService webService = RetrofitWebService.retrofit.create(MainPageWebService.class);
+            Call<RestaurantsList> tablesListCall = webService.getTablesList(0, latitude, longitude);
+            tablesListCall.enqueue(new Callback<RestaurantsList>() {
                 @Override
-                public void onResponse(Call<ArrayList<RestaurantsList1>> call, Response<ArrayList<RestaurantsList1>> response) {
+                public void onResponse(Call<RestaurantsList> call, Response<RestaurantsList> response) {
                     hideLoadingIndicator();
                     Log.d(TAG + "_onResponse", String.valueOf(response));
                     if (response.isSuccessful()) {
-                        mTablesList = response.body();
+                        mTablesList = response.body().getCategoriesWithRestaurants();
                         if (mTablesList != null && mTablesList.size() > 0) {
-							addFooterList(mTablesList);
+							addFooterList(mTablesList, response.body().getCategories());
                             mTablesAdapter.setRestaurantsLists(mTablesList);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
@@ -350,7 +353,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                 }
 
                 @Override
-                public void onFailure(Call<ArrayList<RestaurantsList1>> call, Throwable t) {
+                public void onFailure(Call<RestaurantsList> call, Throwable t) {
                     Log.d(TAG + "_onFailure", String.valueOf(t.getMessage()));
                     hideLoadingIndicator();
                     hideData();
@@ -361,18 +364,17 @@ public class HomeFragment extends Fragment implements LocationListener {
                 }
             });
         } else {
-            RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
-            Call<ArrayList<RestaurantsList1>> tablesListCall = webService.getTablesList(userId, latitude, longitude);
-            tablesListCall.enqueue(new Callback<ArrayList<RestaurantsList1>>() {
+			MainPageWebService webService = RetrofitWebService.retrofit.create(MainPageWebService.class);
+            Call<RestaurantsList> tablesListCall = webService.getTablesList(userId, latitude, longitude);
+            tablesListCall.enqueue(new Callback<RestaurantsList>() {
                 @Override
-                public void onResponse(Call<ArrayList<RestaurantsList1>> call, Response<ArrayList<RestaurantsList1>> response) {
+                public void onResponse(Call<RestaurantsList> call, Response<RestaurantsList> response) {
                     hideLoadingIndicator();
                     Log.d(TAG + "_onResponse", String.valueOf(response));
                     if (response.isSuccessful()) {
-                        mTablesList = response.body();
+                        mTablesList = response.body().getCategoriesWithRestaurants();
                         if (mTablesList != null && mTablesList.size() > 0) {
-							addFooterList(mTablesList);
-                            mTablesAdapter.setRestaurantsLists(mTablesList);
+							addFooterList(mTablesList, response.body().getCategories());                            mTablesAdapter.setRestaurantsLists(mTablesList);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
                         } else {
@@ -392,7 +394,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                 }
 
                 @Override
-                public void onFailure(Call<ArrayList<RestaurantsList1>> call, Throwable t) {
+                public void onFailure(Call<RestaurantsList> call, Throwable t) {
                     Log.d(TAG + "_onFailure", String.valueOf(t.getMessage()));
                     hideLoadingIndicator();
                     hideData();
@@ -656,14 +658,16 @@ public class HomeFragment extends Fragment implements LocationListener {
                 .into(listHeaderRestaurentImage);
     }
 
-    private ArrayList<RestaurantsList1> addFooterList(ArrayList<RestaurantsList1> originalList){
-    	RestaurantsList1 footer = new RestaurantsList1();
-        footer.setListId(1234);
-    	footer.setListNameEn("Our Selection");
-    	footer.setListNameFr("Nos sélections");
+    private ArrayList<CategoriesWithRestaurant> addFooterList(ArrayList<CategoriesWithRestaurant> originalList, ArrayList<Category> categories){
+		CategoriesWithRestaurant footer = new CategoriesWithRestaurant();
+        footer.setCatId(1234);
+    	footer.setCatName("Nos sélections");
     	footer.setRestaurants(new ArrayList<Restaurant>());
-    	for (int i =0; i<originalList.size(); i++){
-    		footer.getRestaurants().add(originalList.get(i).getRestaurants().get(0));
+    	for (int i =0; i<categories.size(); i++){
+    		footer.getRestaurants().add(new Restaurant(categories.get(i).getId(),
+					categories.get(i).getName(),
+					categories.get(i).getPicture(),
+					"",0));
 		}
 		originalList.add(footer);
 		return originalList;

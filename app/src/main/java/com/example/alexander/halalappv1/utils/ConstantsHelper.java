@@ -2,6 +2,8 @@ package com.example.alexander.halalappv1.utils;
 
 public class ConstantsHelper {
 
+    // base url
+    public static final String BASE_URL = "http://www.by-halal.fr/api/";
     // shared preferences keys
     public static final String KEY_USER_ID = "user_id";
     public static final String KEY_USER_FACEBOOK_ID = "user_facebook_id";
@@ -25,8 +27,7 @@ public class ConstantsHelper {
     public static final String ACTION_SEARCH_RESTAURANT_ACTIVITY = "activity_search_restaurants";
     public static final String RESTAURANT_OBJECT_KEY = "RestaurantObject";
     public static final String SIGNUP = "signup";
-    // base url
-    public static final String BASE_URL = "http://www.by-halal.fr/api/";
+
 //    public static final String BASE_URL = "https://7222bae5-4323-4479-b698-6866c10577e1.mock.pstmn.io/";
 //    public static final String BASE_URL = "https://b3d6d312-8c6b-4a2c-a7b4-97c69fe2c51e.mock.pstmn.io/";
     // sign in
@@ -61,6 +62,7 @@ public class ConstantsHelper {
     public static final String POLICIES = "getPolices";
     // terms
     public static final String TERMS = "getTerms";
+    public static final String NEW_MAIN_PAGE = "newMainPage";
     // capacity
     public static final String RESTAURANT_CAPACITY = "getCapacity";
 

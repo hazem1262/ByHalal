@@ -243,7 +243,7 @@ public class MenuActivity extends AppCompatActivity {
         mTotalPriceTextView = findViewById(R.id.tv_checkout_order_total_price);
 
         mMenuListView = findViewById(R.id.elv_menu_activity_menu_list);
-        mMenuListView.setChildDivider(getResources().getDrawable(R.color.white));
+        mMenuListView.setChildDivider(getResources().getDrawable(R.color.modifiedPrimaryColor));
         mListDataHeader = new ArrayList<>();
         mListDataChild = new HashMap<>();
 

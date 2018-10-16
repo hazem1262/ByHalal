@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
-import com.example.alexander.halalappv1.model.modifiedmodels.RestaurantsList1;
+import com.example.alexander.halalappv1.model.newModels.CategoriesWithRestaurant;
+import com.example.alexander.halalappv1.model.newModels.Restaurant;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
 
@@ -22,7 +22,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         implements HomeRestaurantAdapter.OnRestaurantClickListener {
 
     private Context mContext;
-    private ArrayList<RestaurantsList1> mRestaurantsLists;
+    private ArrayList<CategoriesWithRestaurant> mRestaurantsLists;
     private final OnTablesClickListener mOnTablesClickListener;
 
     private LinearLayoutManager mLayoutManager;
@@ -43,7 +43,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         mOnTablesClickListener.onRestaurantClick(parentPosition, childPosition);
     }
 
-    public void setRestaurantsLists(ArrayList<RestaurantsList1> restaurantsLists) {
+    public void setRestaurantsLists(ArrayList<CategoriesWithRestaurant> restaurantsLists) {
         this.mRestaurantsLists = restaurantsLists;
         notifyDataSetChanged();
     }
@@ -75,12 +75,12 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 			RestaurantsListViewHolder bodyHolder = (RestaurantsListViewHolder) holder;
 			if (!TextUtils.isEmpty(language)) {
 				if (language.equals("français")) {
-					bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getListNameFr()));
+					bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getCatName()));
 				} else {
-					bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getListNameEn()));
+					bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getCatName()));
 				}
 			} else {
-				bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getListNameFr()));
+				bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getCatName()));
 			}
 
 			bodyHolder.restaurantsRecyclerView.setLayoutManager(mLayoutManager);
@@ -101,9 +101,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 	@Override
 	public int getItemViewType(int position) {
-    	if (mRestaurantsLists.get(position).getListType() == ConstantsHelper.RESTAURANTS_LIST_HEADER){
-    		return LIST_HEADER;
-		}else if(position == mRestaurantsLists.size() - 1){
+    	if(position == mRestaurantsLists.size() - 1){
     		return LIST_FOOTER;
 		}
 		return LIST_BODY;

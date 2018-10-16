@@ -52,6 +52,7 @@ public class SelectLocationAdapter extends RecyclerView.Adapter<SelectLocationAd
             if (mCitiesList.get(position).getCityNameEn().equals(mCityName)
                     && mCitiesList.get(position).getCityLatitude().equals(mCityLatitude)
                     && mCitiesList.get(position).getCityLongitude().equals(mCityLongitude)) {
+            	// ToDo update with the new icons
                 holder.locationTextView.setTextColor(Color.parseColor("#EA4D4D"));
                 holder.locationIconImageView.setImageResource(R.drawable.ic_location_pink);
             }

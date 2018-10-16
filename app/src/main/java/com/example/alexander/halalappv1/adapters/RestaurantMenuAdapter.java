@@ -76,18 +76,18 @@ public class RestaurantMenuAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.menu_header_list_item, null);
         }
 
-        if (isExpanded) {
-            convertView.findViewById(R.id.menu_header_layout).setBackgroundColor(Color.parseColor("#FFFFFF"));
-            convertView.findViewById(R.id.menu_header_line_separator).setVisibility(View.INVISIBLE);
-        } else {
-            convertView.findViewById(R.id.menu_header_layout).setBackgroundColor(Color.parseColor("#F4F4F4"));
-            convertView.findViewById(R.id.menu_header_line_separator).setVisibility(View.VISIBLE);
-        }
+//        if (isExpanded) {
+//            convertView.findViewById(R.id.menu_header_layout).setBackgroundColor(Color.parseColor("#FFFFFF"));
+//            convertView.findViewById(R.id.menu_header_line_separator).setVisibility(View.INVISIBLE);
+//        } else {
+//            convertView.findViewById(R.id.menu_header_layout).setBackgroundColor(Color.parseColor("#F4F4F4"));
+//            convertView.findViewById(R.id.menu_header_line_separator).setVisibility(View.VISIBLE);
+//        }
 
-        int imageResourceId = isExpanded ? R.drawable.ic_arrow_down_black : R.drawable.ic_arrow_right_black;
-        ImageView arrowImageView = convertView.findViewById(R.id.iv_menu_header_arrow);
-        arrowImageView.setImageResource(imageResourceId);
-
+//        int imageResourceId = isExpanded ? R.drawable.ic_arrow_down_black : R.drawable.ic_arrow_right_black;
+//        ImageView arrowImageView = convertView.findViewById(R.id.iv_menu_header_arrow);
+//        arrowImageView.setImageResource(imageResourceId);
+//
         TextView menuHeaderTextView = convertView.findViewById(R.id.tv_menu_header_header);
         menuHeaderTextView.setText(String.valueOf(menuHeader));
 

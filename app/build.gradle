@@ -7,7 +7,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0.2"
+        versionName "1.0.3"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "by Halal-$versionName")
@@ -57,6 +57,6 @@ dependencies {
     // Circle Indicator
     implementation 'me.relex:circleindicator:1.2.2@aar'
     // rounded imageview
-    compile 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
 }
