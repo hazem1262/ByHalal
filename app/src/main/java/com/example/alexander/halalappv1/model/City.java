@@ -11,16 +11,15 @@ public class City implements Parcelable {
     @SerializedName("cityId")
     @Expose
     private int cityId;
-    @SerializedName("cityNameEn")
-    @Expose
-    private String cityNameEn;
-    @SerializedName("cityNameFr")
+
+    @SerializedName("name")
     @Expose
     private String cityNameFr;
-    @SerializedName("cityLongitude")
+
+    @SerializedName("longitude")
     @Expose
     private String cityLongitude;
-    @SerializedName("cityLatitude")
+    @SerializedName("latitude")
     @Expose
     private String cityLatitude;
 
@@ -32,13 +31,6 @@ public class City implements Parcelable {
         this.cityId = cityId;
     }
 
-    public String getCityNameEn() {
-        return cityNameEn;
-    }
-
-    public void setCityNameEn(String cityNameEn) {
-        this.cityNameEn = cityNameEn;
-    }
 
     public String getCityNameFr() {
         return cityNameFr;
@@ -72,7 +64,6 @@ public class City implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.cityId);
-        dest.writeString(this.cityNameEn);
         dest.writeString(this.cityNameFr);
         dest.writeString(this.cityLongitude);
         dest.writeString(this.cityLatitude);
@@ -83,7 +74,6 @@ public class City implements Parcelable {
 
     protected City(Parcel in) {
         this.cityId = in.readInt();
-        this.cityNameEn = in.readString();
         this.cityNameFr = in.readString();
         this.cityLongitude = in.readString();
         this.cityLatitude = in.readString();

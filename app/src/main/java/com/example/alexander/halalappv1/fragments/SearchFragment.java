@@ -414,8 +414,8 @@ public class SearchFragment extends Fragment implements LocationListener, OnMapR
                     if (response.isSuccessful()) {
                         mRestaurantList = response.body();
                         if (mRestaurantList != null && mRestaurantList.size() > 0) {
-                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
-                            mRestaurantRecyclerView.setAdapter(mSearchRestaurantAdapter);
+//                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
+//                            mRestaurantRecyclerView.setAdapter(mSearchRestaurantAdapter);
 
                             mRestaurantsMapAdapter.setRestaurantList(mRestaurantList);
                             mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);
@@ -465,8 +465,8 @@ public class SearchFragment extends Fragment implements LocationListener, OnMapR
                     if (response.isSuccessful()) {
                         mRestaurantList = response.body();
                         if (mRestaurantList != null && mRestaurantList.size() > 0) {
-                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
-                            mRestaurantRecyclerView.setAdapter(mSearchRestaurantAdapter);
+//                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
+//                            mRestaurantRecyclerView.setAdapter(mSearchRestaurantAdapter);
 
                             mRestaurantsMapAdapter.setRestaurantList(mRestaurantList);
                             mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);
@@ -518,8 +518,8 @@ public class SearchFragment extends Fragment implements LocationListener, OnMapR
                     if (response.isSuccessful()) {
                         mRestaurantList = response.body();
                         if (mRestaurantList != null && mRestaurantList.size() > 0) {
-                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
-                            mRestaurantRecyclerView.setAdapter(mSearchRestaurantAdapter);
+//                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
+//                            mRestaurantRecyclerView.setAdapter(mSearchRestaurantAdapter);
 
                             mRestaurantsMapAdapter.setRestaurantList(mRestaurantList);
                             mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);
@@ -575,8 +575,8 @@ public class SearchFragment extends Fragment implements LocationListener, OnMapR
                     if (response.isSuccessful()) {
                         mRestaurantList = response.body();
                         if (mRestaurantList != null && mRestaurantList.size() > 0) {
-                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
-                            mRestaurantRecyclerView.setAdapter(mSearchRestaurantAdapter);
+//                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
+//                            mRestaurantRecyclerView.setAdapter(mSearchRestaurantAdapter);
 
                             mRestaurantsMapAdapter.setRestaurantList(mRestaurantList);
                             mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);

@@ -127,43 +127,10 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            mOnTablesClickListener.onTableClick(position);
+            mOnTablesClickListener.onTableClick(mRestaurantsLists.get(position).getCatId());
         }
     }
 
-    class FooterListViewHolder  extends RecyclerView.ViewHolder implements View.OnClickListener{
-
-    	TextView tableHeaderTextView;
-		TextView seeAllTextView;
-		RecyclerView restaurantsRecyclerView;
-    	public FooterListViewHolder(View itemView){
-			super(itemView);
-
-		}
-
-		@Override
-		public void onClick(View v) {
-
-		}
-	}
-    class HeaderListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    	TextView headerRestaurentSectionName;
-    	TextView headerRestaurentName;
-    	TextView headerRestaurentType;
-    	ImageView headerRestaurentImage;
-    	public HeaderListViewHolder(View itemView){
-    		super(itemView);
-    		headerRestaurentSectionName = itemView.findViewById(R.id.sectionHeader);
-			headerRestaurentName = itemView.findViewById(R.id.headerResturantName);
-			headerRestaurentType = itemView.findViewById(R.id.headerRestaurentType);
-			headerRestaurentImage = itemView.findViewById(R.id.restaurentListHeaderImage);
-		}
-		@Override
-		public void onClick(View v) {
-			int position = getAdapterPosition();
-			mOnTablesClickListener.onTableClick(position);
-		}
-	}
 
     private final int LIST_HEADER = 1;
     private final int LIST_BODY = 2;

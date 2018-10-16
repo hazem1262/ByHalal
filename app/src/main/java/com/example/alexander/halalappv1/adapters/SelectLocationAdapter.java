@@ -49,7 +49,7 @@ public class SelectLocationAdapter extends RecyclerView.Adapter<SelectLocationAd
         mCityLatitude = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_CITY_LATITUDE, "");
         mCityLongitude = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_CITY_LONGITUDE, "");
         if (!TextUtils.isEmpty(mCityName) && !TextUtils.isEmpty(mCityLatitude) && !TextUtils.isEmpty(mCityLongitude)) {
-            if (mCitiesList.get(position).getCityNameEn().equals(mCityName)
+            if (mCitiesList.get(position).getCityNameFr().equals(mCityName)
                     && mCitiesList.get(position).getCityLatitude().equals(mCityLatitude)
                     && mCitiesList.get(position).getCityLongitude().equals(mCityLongitude)) {
             	// ToDo update with the new icons
@@ -58,7 +58,7 @@ public class SelectLocationAdapter extends RecyclerView.Adapter<SelectLocationAd
             }
         }
 
-        holder.locationTextView.setText(String.valueOf(mCitiesList.get(position).getCityNameEn()));
+        holder.locationTextView.setText(String.valueOf(mCitiesList.get(position).getCityNameFr()));
     }
 
     @Override

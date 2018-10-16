@@ -151,8 +151,8 @@ public class FavouriteRestaurantsActivity extends AppCompatActivity {
                         mRestaurantList = response.body();
                         if (mRestaurantList != null && mRestaurantList.size() > 0) {
                             showData();
-                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
-                            mFavouriteRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
+//                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantList);
+//                            mFavouriteRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
                         } else {
                             showError();
                         }
@@ -233,7 +233,7 @@ public class FavouriteRestaurantsActivity extends AppCompatActivity {
         mSignInLayout = findViewById(R.id.layout_sign_in);
         mCreateNewAccountButton = findViewById(R.id.btn_sign_in_activity_create_naw_account);
         mSignUpLayout = findViewById(R.id.layout_sign_up);
-        mSignUpArrowBackImageView = findViewById(R.id.iv_sign_up_arrow_back);
+//        mSignUpArrowBackImageView = findViewById(R.id.iv_sign_up_arrow_back);
 
         mAction = getIntent().getAction();
         mRestaurantId = getIntent().getIntExtra(SearchFragment.RESTAURANT_ID_KEY, -10);

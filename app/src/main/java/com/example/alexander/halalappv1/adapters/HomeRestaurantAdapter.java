@@ -136,7 +136,7 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            mOnRestaurantClickListener.onRestaurantClick(mTablePosition, position);
+            mOnRestaurantClickListener.onRestaurantClick(mTablePosition, mRestaurantList.get(position).getId());
         }
     }
 }

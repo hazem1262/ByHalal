@@ -62,7 +62,7 @@ public class SpinnerCitiesAdapter extends ArrayAdapter {
             if (language.equals("français")) {
                 spinnerText.setText(String.valueOf(mCitiesList.get(position).getCityNameFr()));
             } else {
-                spinnerText.setText(String.valueOf(mCitiesList.get(position).getCityNameEn()));
+                spinnerText.setText(String.valueOf(mCitiesList.get(position).getCityNameFr()));
             }
         } else {
             spinnerText.setText(String.valueOf(mCitiesList.get(position).getCityNameFr()));

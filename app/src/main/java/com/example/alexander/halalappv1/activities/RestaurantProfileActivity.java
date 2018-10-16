@@ -27,9 +27,10 @@ import com.example.alexander.halalappv1.model.Gallery;
 import com.example.alexander.halalappv1.adapters.NumberOfPeopleAdapter;
 import com.example.alexander.halalappv1.adapters.TimeAdapter;
 import com.example.alexander.halalappv1.model.modifiedmodels.Menu;
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.modifiedmodels.RestaurantsList1;
 import com.example.alexander.halalappv1.model.modifiedmodels.WorkDay;
+import com.example.alexander.halalappv1.model.newModels.RestaurantProfile;
+import com.example.alexander.halalappv1.services.RestaurentProfileWebService;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.NetworkHelper;
@@ -55,6 +56,8 @@ import java.util.TimeZone;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 
 public class RestaurantProfileActivity extends AppCompatActivity {
 
@@ -99,7 +102,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private ConstraintLayout mWorkingHoursLayout;
 
     private RestaurantsList1 mTable;
-    private Restaurant mRestaurant;
+    private RestaurantProfile mRestaurant;
     private String mLanguage;
     private int mUserId;
     private String mAction;
@@ -137,9 +140,11 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_profile_modified);
+        mAction = getIntent().getAction();
 
         findViewsById();
-        updateViewsWithRestaurantData();
+        requestRestaurentData();
+
         //==========================================================================================
         favouriteIconClick();
 //        arrowBackClick();
@@ -161,6 +166,9 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     }
 
     //==============================================================================================
+
+    //get restaurentProfilData
+
     private void updateDateViewWithCurrentDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
@@ -353,7 +361,8 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                 mTimeAdapter.setClickedItem(-10);
                 mSelectedTime = null;
 
-                List<WorkDay> workDaysList = mRestaurant.getWorkDays();
+                //todo
+                /*List<WorkDay> workDaysList = mRestaurant.getWorkDays();
                 for (int i = 0; i < workDaysList.size(); i ++) {
                     if (workDaysList.get(i).getDayName().equalsIgnoreCase(selectedDayOfTheWeek)) {
                         WorkDay workDay = workDaysList.get(i);
@@ -368,7 +377,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                             mTimeRecyclerView.setVisibility(View.INVISIBLE);
                         }
                     }
-                }
+                }*/
             }
         });
 
@@ -386,24 +395,25 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         Date date = new Date();
         String currentDayOfTheWeek = getSelectedDayOfTheWeek(simpleDateFormat.format(date));
 
-        List<WorkDay> workDaysList = mRestaurant.getWorkDays();
+        //TODO
+        /*List<WorkDay> workDaysList = mRestaurant.getWorkDays();
         WorkDay workDay = new WorkDay();
         for (int i = 0; i < workDaysList.size(); i ++) {
             if (workDaysList.get(i).getDayName().equalsIgnoreCase(currentDayOfTheWeek)) {
                 workDay = workDaysList.get(i);
             }
-        }
-
-        if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
-            mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
-            mTimeRecyclerView.setVisibility(View.VISIBLE);
-            mTimeList.addAll(workDay.getPeriods());
-            mTimeAdapter.setTimeList(mTimeList);
-            mTimeRecyclerView.setAdapter(mTimeAdapter);
-        } else {
-            mRestaurantIsClosedTextView.setVisibility(View.VISIBLE);
-            mTimeRecyclerView.setVisibility(View.INVISIBLE);
-        }
+        }*/
+//TODO
+//        if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
+//            mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
+//            mTimeRecyclerView.setVisibility(View.VISIBLE);
+//            mTimeList.addAll(workDay.getPeriods());
+//            mTimeAdapter.setTimeList(mTimeList);
+//            mTimeRecyclerView.setAdapter(mTimeAdapter);
+//        } else {
+//            mRestaurantIsClosedTextView.setVisibility(View.VISIBLE);
+//            mTimeRecyclerView.setVisibility(View.INVISIBLE);
+//        }
     }
 
     private String getMonthText(int monthNumber) {
@@ -511,7 +521,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                     Toast.makeText(RestaurantProfileActivity.this, getResources().getString(R.string.toast_message_select_number_of_people), Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(RestaurantProfileActivity.this, SubmitReservationActivity.class);
-                    intent.putExtra(RESTAURANT_OBJECT_KEY, mRestaurant);
+//                    intent.putExtra(RESTAURANT_OBJECT_KEY, mRestaurant);
                     intent.putExtra(SELECTED_DATE_KEY, mSelectedDate);
                     intent.putExtra(SELECTED_TIME_KEY, mSelectedTime);
                     intent.putExtra(SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
@@ -533,13 +543,13 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                     Toast.makeText(RestaurantProfileActivity.this, getResources().getString(R.string.toast_message_select_number_of_people), Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(RestaurantProfileActivity.this, MenuActivity.class);
-                    List<Menu> menuList = mRestaurant.getMenus();
+//                    List<Menu> menuList = mRestaurant.getMenus();
 
-                    intent.putExtra(RESTAURANT_OBJECT_KEY, mRestaurant);
+//                    intent.putExtra(RESTAURANT_OBJECT_KEY, mRestaurant);
                     intent.putExtra(SELECTED_DATE_KEY, mSelectedDate);
                     intent.putExtra(SELECTED_TIME_KEY, mSelectedTime);
                     intent.putExtra(SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
-                    intent.putParcelableArrayListExtra(MENU_LIST_KEY, (ArrayList<? extends Parcelable>) menuList);
+//                    intent.putParcelableArrayListExtra(MENU_LIST_KEY, (ArrayList<? extends Parcelable>) menuList);
                     intent.setAction(ACTION_RESERVE);
                     startActivity(intent);
                 }
@@ -600,36 +610,33 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         mNoCapacityTextView.setVisibility(View.GONE);
     }
 
+    //todo
     private void updateViewsWithRestaurantData() {
-        mTable = getIntent().getParcelableExtra(HomeFragment.TABLE_OBJECT_KEY);
-        mRestaurant = getIntent().getParcelableExtra(ConstantsHelper.RESTAURANT_OBJECT_KEY);
         mLanguage = Locale.getDefault().getDisplayLanguage();
         mUserId = SharedPreferencesHelper.getSharedPreferenceInt(this, ConstantsHelper.KEY_USER_ID, -10);
-        mAction = getIntent().getAction();
 
-        Picasso.with(this).load(mRestaurant.getImage()).into(mRestaurantImageImageView);
-        Log.i("resturant", "adress: " + mRestaurant.getAddress() + "image: " + mRestaurant.getImage() + "id: " + mRestaurant.getId());
+        Picasso.with(this).load(mRestaurant.getPicture()).into(mRestaurantImageImageView);
         if (mRestaurant.getFavourite().equals("true")) {
             mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_pink);
         } else {
             mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_empty);
         }
         mRestaurantNameTextView.setText(String.valueOf(mRestaurant.getName()));
-        if (!TextUtils.isEmpty(mRestaurant.getRate().toString())) {
-//            mRestaurantRateRatingBar.setCount(Integer.parseInt(mRestaurant.getRate().toString()));
-        }
+//        if (!TextUtils.isEmpty(mRestaurant.getRate().toString())) {
+////            mRestaurantRateRatingBar.setCount(Integer.parseInt(mRestaurant.getRate().toString()));
+//        }
         mRestaurantDescriptionTextView.setText(String.valueOf(mRestaurant.getDescription()));
         if (mLanguage.equals("français")) {
-            mCuisineTextView.setText(String.valueOf(mRestaurant.getCuisineNameFr()));
-            mExecutiveChefTextView.setText(String.valueOf(mRestaurant.getExcutiveChef()));
-            if (TextUtils.isEmpty(mRestaurant.getCertification())) {
+            mCuisineTextView.setText(String.valueOf(mRestaurant.getCuisineName()));
+            mExecutiveChefTextView.setText(String.valueOf(mRestaurant.getChef()));
+            if (TextUtils.isEmpty(String.valueOf(mRestaurant.getCertification()))) {
 //                mCertificateLayout.setVisibility(View.GONE);
             } else {
 //                mCertificateTextView.setText(mRestaurant.getCertification());
             }
             mWineTextView.setText(mRestaurant.getCertification() + "/" + String.valueOf(mRestaurant.getAlcohol()));
-            if (Integer.parseInt(mRestaurant.getVisitors()) > 1000){
-                String formattedVistors = new DecimalFormat("##.#").format(Integer.parseInt(mRestaurant.getVisitors()) / 1000 );
+            if ((mRestaurant.getVisitors()) > 1000){
+                String formattedVistors = new DecimalFormat("##.#").format((mRestaurant.getVisitors()) / 1000 );
                 mVisitorsTextView.setText(formattedVistors + " K");
             }else{
                 mVisitorsTextView.setText(String.valueOf(mRestaurant.getVisitors()));
@@ -641,16 +648,16 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 //            mRestaurantPhoneNumberTextView.setText(String.valueOf(mRestaurant.getPhone()));
 //            mRestaurantNotesTextView.setText(String.valueOf(mRestaurant.getNotes()));
         } else {
-            mCuisineTextView.setText(String.valueOf(mRestaurant.getCuisineNameEn()));
-            mExecutiveChefTextView.setText(String.valueOf(mRestaurant.getExcutiveChef()));
-            if (TextUtils.isEmpty(mRestaurant.getCertification())) {
+            mCuisineTextView.setText(String.valueOf(mRestaurant.getCuisineName()));
+            mExecutiveChefTextView.setText(String.valueOf(mRestaurant.getChef()));
+            if (TextUtils.isEmpty(String.valueOf(mRestaurant.getCertification()))) {
 //                mCertificateLayout.setVisibility(View.GONE);
             } else {
 //                mCertificateTextView.setText(mRestaurant.getCertification());
             }
             mWineTextView.setText(mRestaurant.getCertification() + "/" + String.valueOf(mRestaurant.getAlcohol()));
-            if (Integer.parseInt(mRestaurant.getVisitors()) > 1000){
-                String formattedVistors = new DecimalFormat("##.#").format(Integer.parseInt(mRestaurant.getVisitors()) / 1000 );
+            if ((mRestaurant.getVisitors()) > 1000){
+                String formattedVistors = new DecimalFormat("##.#").format((mRestaurant.getVisitors()) / 1000 );
                 mVisitorsTextView.setText(formattedVistors + " K");
             }else{
                 mVisitorsTextView.setText(String.valueOf(mRestaurant.getVisitors()));
@@ -661,6 +668,25 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 //            mRestaurantPhoneNumberTextView.setText(String.valueOf(mRestaurant.getPhone()));
 //            mRestaurantNotesTextView.setText(String.valueOf(mRestaurant.getNotes()));
         }
+    }
+
+    private void requestRestaurentData(){
+        int restaurentId = getIntent().getIntExtra(RESTAURENT_KEY, 0);
+        RestaurentProfileWebService webService = RetrofitWebService.retrofit.create(RestaurentProfileWebService.class);
+        int userId = SharedPreferencesHelper.getSharedPreferenceInt(RestaurantProfileActivity.this, ConstantsHelper.KEY_USER_ID, -10);
+        Call<RestaurantProfile> restaurentProfile = webService.getRestaurentProfile(restaurentId,userId);
+        restaurentProfile.enqueue(new Callback<RestaurantProfile>() {
+            @Override
+            public void onResponse(Call<RestaurantProfile> call, Response<RestaurantProfile> response) {
+                mRestaurant = response.body();
+                updateViewsWithRestaurantData();
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantProfile> call, Throwable t) {
+
+            }
+        });
     }
 
     private void showLoadingIndicator() {
@@ -789,10 +815,10 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String restaurantName = mRestaurant.getName();
-                List<Menu> menuList = mRestaurant.getMenus();
+//                List<Menu> menuList = mRestaurant.getMenus();
                 Intent intent = new Intent(RestaurantProfileActivity.this, MenuActivity.class);
                 intent.putExtra(RESTAURANT_NAME_KEY, restaurantName);
-                intent.putParcelableArrayListExtra(MENU_LIST_KEY, (ArrayList<? extends Parcelable>) menuList);
+//                intent.putParcelableArrayListExtra(MENU_LIST_KEY, (ArrayList<? extends Parcelable>) menuList);
                 startActivity(intent);
             }
         });
@@ -802,7 +828,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         mWebsiteLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mRestaurant.getWebsite()));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.valueOf(mRestaurant.getWebsite())));
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
@@ -892,10 +918,10 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
                             if (mTable != null) {
                                 for (int i = 0; i < mTable.getRestaurants().size(); i ++) {
-                                    Restaurant restaurant = mTable.getRestaurants().get(i);
-                                    if (restaurant.getId() == mRestaurant.getId()) {
-                                        restaurant.setFavourite("true");
-                                    }
+//                                    Restaurant restaurant = mTable.getRestaurants().get(i);
+//                                    if (restaurant.getId() == mRestaurant.getId()) {
+//                                        restaurant.setFavourite("true");
+//                                    }
                                 }
                             }
 
@@ -905,10 +931,10 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
                             if (mTable != null) {
                                 for (int i = 0; i < mTable.getRestaurants().size(); i ++) {
-                                    Restaurant restaurant = mTable.getRestaurants().get(i);
-                                    if (restaurant.getId() == mRestaurant.getId()) {
-                                        restaurant.setFavourite("false");
-                                    }
+//                                    Restaurant restaurant = mTable.getRestaurants().get(i);
+//                                    if (restaurant.getId() == mRestaurant.getId()) {
+//                                        restaurant.setFavourite("false");
+//                                    }
                                 }
                             }
                         }

@@ -49,7 +49,7 @@ public class ConstantsHelper {
     // list restaurants
     public static final String LIST_RESTAURANTS_FEED = "restaurants";
     // cities in select location
-    public static final String LOCATION_CITIES_FEED = "getCities";
+    public static final String LOCATION_CITIES_FEED = "newGetCities";
     // cuisines in filter activity
     public static final String RESTAURANTS_CUISINES = "getCuisines";
     // search by city
@@ -62,7 +62,10 @@ public class ConstantsHelper {
     public static final String POLICIES = "getPolices";
     // terms
     public static final String TERMS = "getTerms";
+    // new apis
     public static final String NEW_MAIN_PAGE = "newMainPage";
+    public static final String Category_Restaurents = "categoryRestaurants";
+    public static final String RESTAURENT_DETAILS = "getRestaurantData";
     // capacity
     public static final String RESTAURANT_CAPACITY = "getCapacity";
 

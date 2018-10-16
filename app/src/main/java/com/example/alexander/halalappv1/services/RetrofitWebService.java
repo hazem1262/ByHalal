@@ -25,7 +25,8 @@ import retrofit2.http.POST;
 public interface RetrofitWebService {
 
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
-    OkHttpClient.Builder httpClient = new OkHttpClient.Builder().connectTimeout(60, TimeUnit.SECONDS).addInterceptor(interceptor);
+    OkHttpClient.Builder httpClient = new OkHttpClient.Builder().connectTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(interceptor);
     Retrofit retrofit = new Retrofit
             .Builder()
             .baseUrl(ConstantsHelper.BASE_URL)

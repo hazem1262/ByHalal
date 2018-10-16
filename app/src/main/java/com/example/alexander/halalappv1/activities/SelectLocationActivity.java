@@ -71,7 +71,6 @@ public class SelectLocationActivity extends AppCompatActivity implements Locatio
             @Override
             public void onItemClick(int position) {
                 City city = mCitiesList.get(position);
-                SharedPreferencesHelper.setSharedPreferenceString(SelectLocationActivity.this, ConstantsHelper.KEY_SELECTED_CITY, city.getCityNameEn());
                 SharedPreferencesHelper.setSharedPreferenceString(SelectLocationActivity.this, ConstantsHelper.KEY_CITY_LATITUDE, city.getCityLatitude());
                 SharedPreferencesHelper.setSharedPreferenceString(SelectLocationActivity.this, ConstantsHelper.KEY_CITY_LONGITUDE, city.getCityLongitude());
 

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
+import com.example.alexander.halalappv1.model.newModels.Restaurant;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
 import com.squareup.picasso.Picasso;
@@ -76,30 +76,30 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter<SearchRestaura
         String language = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_SELECTED_LANGUAGE, "");
         if (!TextUtils.isEmpty(language)) {
             if (language.equals("français")) {
-                Picasso.with(mContext).load(mRestaurantList.get(position).getImage()).into(holder.restaurantImageImageView);
+                Picasso.with(mContext).load(mRestaurantList.get(position).getPicture()).into(holder.restaurantImageImageView);
                 holder.restaurantNameTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
-                holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineNameFr()));
-                holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameFr()));
-                if (!TextUtils.isEmpty(mRestaurantList.get(position).getRate().toString())) {
-                    holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
-                }
+                holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
+//                holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameFr()));
+//                if (!TextUtils.isEmpty(mRestaurantList.get(position).getRate().toString())) {
+//                    holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
+//                }
             } else {
-                Picasso.with(mContext).load(mRestaurantList.get(position).getImage()).into(holder.restaurantImageImageView);
+                Picasso.with(mContext).load(mRestaurantList.get(position).getPicture()).into(holder.restaurantImageImageView);
                 holder.restaurantNameTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
-                holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineNameEn()));
-                holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameEn()));
-                if (!TextUtils.isEmpty(mRestaurantList.get(position).getRate().toString())) {
-                    holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
-                }
+                holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
+//                holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameEn()));
+//                if (!TextUtils.isEmpty(mRestaurantList.get(position).getRate().toString())) {
+//                    holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
+//                }
             }
         } else {
-            Picasso.with(mContext).load(mRestaurantList.get(position).getImage()).into(holder.restaurantImageImageView);
+            Picasso.with(mContext).load(mRestaurantList.get(position).getPicture()).into(holder.restaurantImageImageView);
             holder.restaurantNameTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
-            holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineNameFr()));
-            holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameFr()));
-            if (!TextUtils.isEmpty(mRestaurantList.get(position).getRate().toString())) {
-                holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
-            }
+            holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
+//            holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameFr()));
+//            if (!TextUtils.isEmpty(mRestaurantList.get(position).getRate().toString())) {
+//                holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
+//            }
         }
 
         holder.favoriteButtonImageView.setImageResource(R.drawable.ic_favourite_empty);
@@ -109,12 +109,12 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter<SearchRestaura
         if (mUnFavoriteItemsList.contains(position)) {
             holder.favoriteButtonImageView.setImageResource(R.drawable.ic_favourite_empty);
         }
-        if (mRestaurantList.get(position).getFavourite().equals("true")) {
-            holder.favoriteButtonImageView.setImageResource(R.drawable.ic_favourite_pink);
-        }
-        if (mRestaurantList.get(position).getFavourite().equals("false")) {
-            holder.favoriteButtonImageView.setImageResource(R.drawable.ic_favourite_empty);
-        }
+//        if (mRestaurantList.get(position).getFavourite().equals("true")) {
+//            holder.favoriteButtonImageView.setImageResource(R.drawable.ic_favourite_pink);
+//        }
+//        if (mRestaurantList.get(position).getFavourite().equals("false")) {
+//            holder.favoriteButtonImageView.setImageResource(R.drawable.ic_favourite_empty);
+//        }
     }
 
     @Override

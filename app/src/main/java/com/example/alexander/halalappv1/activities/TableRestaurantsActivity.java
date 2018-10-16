@@ -21,8 +21,9 @@ import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.RestaurantsMapAdapter;
 import com.example.alexander.halalappv1.fragments.HomeFragment;
 import com.example.alexander.halalappv1.adapters.SearchRestaurantAdapter;
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.modifiedmodels.RestaurantsList1;
+import com.example.alexander.halalappv1.model.newModels.Restaurant;
+import com.example.alexander.halalappv1.services.CategoryRestaurents;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.NetworkHelper;
@@ -89,7 +90,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
                     if (isLoggedIn) {
                         int userId = SharedPreferencesHelper.getSharedPreferenceInt(TableRestaurantsActivity.this, ConstantsHelper.KEY_USER_ID, -10);
                         showLoadingIndicator();
-                        markAsFavourite(userId, mRestaurantsList.get(itemPosition).getId(), itemPosition);
+//                        markAsFavourite(userId, mRestaurantsList.get(itemPosition).getId(), itemPosition);
                     } else {
                         Intent intent = new Intent(TableRestaurantsActivity.this, FavouriteRestaurantsActivity.class);
                         intent.putExtra(RESTAURANT_ID_KEY, mRestaurantsList.get(itemPosition).getId());
@@ -106,7 +107,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
                 Intent intent = new Intent(TableRestaurantsActivity.this, RestaurantProfileActivity.class);
                 intent.putExtra(HomeFragment.TABLE_ID_KEY, mTableId);
                 intent.putExtra(HomeFragment.TABLE_OBJECT_KEY, mTable);
-                intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
+//                intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
                 intent.setAction(ConstantsHelper.ACTION_TABLE_RESTAURANT_ACTIVITY);
                 startActivity(intent);
             }
@@ -132,7 +133,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
                 Intent intent = new Intent(TableRestaurantsActivity.this, RestaurantProfileActivity.class);
                 intent.putExtra(HomeFragment.TABLE_ID_KEY, mTableId);
                 intent.putExtra(HomeFragment.TABLE_OBJECT_KEY, mTable);
-                intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
+//                intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
                 intent.setAction(ConstantsHelper.ACTION_TABLE_RESTAURANT_ACTIVITY);
                 startActivity(intent);
             }
@@ -140,46 +141,46 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
         SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mRestaurantsMapRecyclerView);
 
-        mRestaurantsMapRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (isMapReady) {
-                    if (newState == SCROLL_STATE_IDLE) {
-                        int scrollPosition = restaurantMaplayoutManager.findFirstCompletelyVisibleItemPosition();
-                        mIndexList.add(scrollPosition);
-                        if (scrollPosition != -1) {
-                            if (scrollPosition == mIndexList.get(mIndexList.size() - 1)) {
-                                double latitude = (mRestaurantsList.get(scrollPosition).getLatitude());
-                                double longitude = (mRestaurantsList.get(scrollPosition).getLongitude());
-                                LatLng latLng = new LatLng(latitude, longitude);
-
-                                mMarker = mGoogleMap.addMarker(new MarkerOptions()
-                                        .position(latLng)
-                                        .visible(true)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_black)));
-                                CameraPosition target = CameraPosition.builder().target(latLng).zoom(15).build();
-                                mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target));
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                mMarker.remove();
-                if (dx > 0) {
-                    mMarker = mGoogleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng((mRestaurantsList.get(0).getLatitude()), (mRestaurantsList.get(0).getLongitude())))
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_pink)));
-                }
-                if (recyclerView.canScrollHorizontally(-1)) {
-                    mMarker = mGoogleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(mRestaurantsList.get(mRestaurantsList.size() - 1).getLatitude(), (mRestaurantsList.get(mRestaurantsList.size() - 1).getLongitude())))
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_pink)));
-                }
-            }
-        });
+//        mRestaurantsMapRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                if (isMapReady) {
+//                    if (newState == SCROLL_STATE_IDLE) {
+//                        int scrollPosition = restaurantMaplayoutManager.findFirstCompletelyVisibleItemPosition();
+//                        mIndexList.add(scrollPosition);
+//                        if (scrollPosition != -1) {
+//                            if (scrollPosition == mIndexList.get(mIndexList.size() - 1)) {
+//                                double latitude = (mRestaurantsList.get(scrollPosition).getLatitude());
+//                                double longitude = (mRestaurantsList.get(scrollPosition).getLongitude());
+//                                LatLng latLng = new LatLng(latitude, longitude);
+//
+//                                mMarker = mGoogleMap.addMarker(new MarkerOptions()
+//                                        .position(latLng)
+//                                        .visible(true)
+//                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_black)));
+//                                CameraPosition target = CameraPosition.builder().target(latLng).zoom(15).build();
+//                                mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target));
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                mMarker.remove();
+//                if (dx > 0) {
+//                    mMarker = mGoogleMap.addMarker(new MarkerOptions()
+//                            .position(new LatLng((mRestaurantsList.get(0).getLatitude()), (mRestaurantsList.get(0).getLongitude())))
+//                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_pink)));
+//                }
+//                if (recyclerView.canScrollHorizontally(-1)) {
+//                    mMarker = mGoogleMap.addMarker(new MarkerOptions()
+//                            .position(new LatLng(mRestaurantsList.get(mRestaurantsList.size() - 1).getLatitude(), (mRestaurantsList.get(mRestaurantsList.size() - 1).getLongitude())))
+//                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_pink)));
+//                }
+//            }
+//        });
     }
 
     private void setUpMapView(Bundle savedInstanceState) {
@@ -215,65 +216,65 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
         });
     }
 
-    private void mapButtonClick() {
-        mMapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isMapVisible) {
-                    isMapVisible = false;
-                    mRestaurantsRecyclerView.setVisibility(View.VISIBLE);
-                    mMapView.setVisibility(View.GONE);
-                    mRestaurantsMapRecyclerView.setVisibility(View.GONE);
-                    mMapButton.setText(getResources().getString(R.string.btn_search_fragment_map_text));
-                } else {
-                    isMapVisible = true;
-                    mRestaurantsRecyclerView.setVisibility(View.GONE);
-                    mMapView.setVisibility(View.VISIBLE);
-                    mRestaurantsMapRecyclerView.setVisibility(View.VISIBLE);
-                    mMapButton.setText(getResources().getString(R.string.btn_search_fragment_list_text));
-
-                    for (int i = 0; i < mRestaurantsList.size(); i ++) {
-                        if (i == 0) {
-                            mMarker = mGoogleMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng((mRestaurantsList.get(i).getLatitude()), (mRestaurantsList.get(i).getLongitude())))
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_black)));
-
-                            CameraPosition target = CameraPosition.builder()
-                                    .target(new LatLng((mRestaurantsList.get(i).getLatitude()), (mRestaurantsList.get(i).getLongitude())))
-                                    .zoom(9)
-                                    .build();
-                            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
-                        }
-
-                        else {
-                            mMarker = mGoogleMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng((mRestaurantsList.get(i).getLatitude()), (mRestaurantsList.get(i).getLongitude())))
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_pink)));
-
-                            CameraPosition target = CameraPosition.builder()
-                                    .target(new LatLng((mRestaurantsList.get(i).getLatitude()), (mRestaurantsList.get(i).getLongitude())))
-                                    .zoom(9)
-                                    .build();
-                            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
-                        }
-                    }
-
-                    if (isMapReady) {
-                        double latitude = (mRestaurantsList.get(0).getLatitude());
-                        double longitude = (mRestaurantsList.get(0).getLongitude());
-                        LatLng latLng = new LatLng(latitude, longitude);
-
-                        mMarker = mGoogleMap.addMarker(new MarkerOptions()
-                                .position(latLng)
-                                .visible(true)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_black)));
-                        CameraPosition target = CameraPosition.builder().target(latLng).zoom(15).build();
-                        mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target));
-                    }
-                }
-            }
-        });
-    }
+//    private void mapButtonClick() {
+//        mMapButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isMapVisible) {
+//                    isMapVisible = false;
+//                    mRestaurantsRecyclerView.setVisibility(View.VISIBLE);
+//                    mMapView.setVisibility(View.GONE);
+//                    mRestaurantsMapRecyclerView.setVisibility(View.GONE);
+//                    mMapButton.setText(getResources().getString(R.string.btn_search_fragment_map_text));
+//                } else {
+//                    isMapVisible = true;
+//                    mRestaurantsRecyclerView.setVisibility(View.GONE);
+//                    mMapView.setVisibility(View.VISIBLE);
+//                    mRestaurantsMapRecyclerView.setVisibility(View.VISIBLE);
+//                    mMapButton.setText(getResources().getString(R.string.btn_search_fragment_list_text));
+//
+//                    for (int i = 0; i < mRestaurantsList.size(); i ++) {
+//                        if (i == 0) {
+//                            mMarker = mGoogleMap.addMarker(new MarkerOptions()
+//                                    .position(new LatLng((mRestaurantsList.get(i).getLatitude()), (mRestaurantsList.get(i).getLongitude())))
+//                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_black)));
+//
+//                            CameraPosition target = CameraPosition.builder()
+//                                    .target(new LatLng((mRestaurantsList.get(i).getLatitude()), (mRestaurantsList.get(i).getLongitude())))
+//                                    .zoom(9)
+//                                    .build();
+//                            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
+//                        }
+//
+//                        else {
+//                            mMarker = mGoogleMap.addMarker(new MarkerOptions()
+//                                    .position(new LatLng((mRestaurantsList.get(i).getLatitude()), (mRestaurantsList.get(i).getLongitude())))
+//                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_pink)));
+//
+//                            CameraPosition target = CameraPosition.builder()
+//                                    .target(new LatLng((mRestaurantsList.get(i).getLatitude()), (mRestaurantsList.get(i).getLongitude())))
+//                                    .zoom(9)
+//                                    .build();
+//                            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
+//                        }
+//                    }
+//
+//                    if (isMapReady) {
+//                        double latitude = (mRestaurantsList.get(0).getLatitude());
+//                        double longitude = (mRestaurantsList.get(0).getLongitude());
+//                        LatLng latLng = new LatLng(latitude, longitude);
+//
+//                        mMarker = mGoogleMap.addMarker(new MarkerOptions()
+//                                .position(latLng)
+//                                .visible(true)
+//                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_black)));
+//                        CameraPosition target = CameraPosition.builder().target(latLng).zoom(15).build();
+//                        mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target));
+//                    }
+//                }
+//            }
+//        });
+//    }
 
     private void filterButtonClick() {
         mFilterButton.setOnClickListener(new View.OnClickListener() {
@@ -300,78 +301,78 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
         mLoadingIndicator.setVisibility(View.GONE);
     }
 
-    private void getListRestaurants(int userId, int tableId, double latitude, double longitude, String searchKeyword, int cuisineId, int price, String sortBy) {
-        if (userId != -10 && tableId != -10) {
-            RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
-            Call<ArrayList<Restaurant>> restaurantsListCall = webService.getRestaurants(userId, tableId , latitude, longitude, searchKeyword, cuisineId, price, sortBy);
-            restaurantsListCall.enqueue(new Callback<ArrayList<Restaurant>>() {
-                @Override
-                public void onResponse(Call<ArrayList<Restaurant>> call, Response<ArrayList<Restaurant>> response) {
-                    hideLoadingIndicator();
-                    if (response.isSuccessful()) {
-                        mRestaurantsList = response.body();
-                        if (mRestaurantsList != null && mRestaurantsList.size() > 0) {
-                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantsList);
-                            mRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
+//    private void getListRestaurants(int userId, int tableId, double latitude, double longitude, String searchKeyword, int cuisineId, int price, String sortBy) {
+//        if (userId != -10 && tableId != -10) {
+//            RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
+//            Call<ArrayList<Restaurant>> restaurantsListCall = webService.getRestaurants(userId, tableId , latitude, longitude, searchKeyword, cuisineId, price, sortBy);
+//            restaurantsListCall.enqueue(new Callback<ArrayList<Restaurant>>() {
+//                @Override
+//                public void onResponse(Call<ArrayList<Restaurant>> call, Response<ArrayList<Restaurant>> response) {
+//                    hideLoadingIndicator();
+//                    if (response.isSuccessful()) {
+//                        mRestaurantsList = response.body();
+//                        if (mRestaurantsList != null && mRestaurantsList.size() > 0) {
+//                            mSearchRestaurantAdapter.setRestaurantList(mRestaurantsList);
+//                            mRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
+//
+//                            mRestaurantsMapAdapter.setRestaurantList(mRestaurantsList);
+//                            mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);
+//
+//                            mTable.setRestaurants(mRestaurantsList);
+//                        }
+//
+//                        else {
+//                            Toast.makeText(TableRestaurantsActivity.this, getResources().getString(R.string.toast_message_restaurants_list_is_empty), Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//
+//                    else {
+//                        Toast.makeText(TableRestaurantsActivity.this, getResources().getString(R.string.toast_message_error_getting_your_data), Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ArrayList<Restaurant>> call, Throwable t) {
+//                    hideLoadingIndicator();
+//                    Toast.makeText(TableRestaurantsActivity.this, getResources().getString(R.string.toast_message_error_getting_your_data), Toast.LENGTH_LONG).show();
+//                }
+//            });
+//        }
+//    }
 
-                            mRestaurantsMapAdapter.setRestaurantList(mRestaurantsList);
-                            mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);
-
-                            mTable.setRestaurants(mRestaurantsList);
-                        }
-
-                        else {
-                            Toast.makeText(TableRestaurantsActivity.this, getResources().getString(R.string.toast_message_restaurants_list_is_empty), Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    else {
-                        Toast.makeText(TableRestaurantsActivity.this, getResources().getString(R.string.toast_message_error_getting_your_data), Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ArrayList<Restaurant>> call, Throwable t) {
-                    hideLoadingIndicator();
-                    Toast.makeText(TableRestaurantsActivity.this, getResources().getString(R.string.toast_message_error_getting_your_data), Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-    }
-
-    private void markAsFavourite(int userId, int restaurantId, final int itemPosition) {
-        if (userId != -10 && restaurantId >= 0) {
-            RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
-            Call<Object> resultCall = webService.markAsFavourite(userId, restaurantId);
-            resultCall.enqueue(new Callback<Object>() {
-                @Override
-                public void onResponse(Call<Object> call, Response<Object> response) {
-                    hideLoadingIndicator();
-                    if (response.isSuccessful()) {
-                        Log.d(TAG, String.valueOf(response.body()));
-                        if (mRestaurantsList.get(itemPosition).getFavourite().equals("false")) {
-                            mSearchRestaurantAdapter.addItemToFavoriteItemsList(itemPosition);
-                            mSearchRestaurantAdapter.removeItemFromUnFavoriteItemsList(itemPosition);
-                            mRestaurantsList.get(itemPosition).setFavourite("true");
-                            mSearchRestaurantAdapter.notifyDataSetChanged();
-                        } else {
-                            mSearchRestaurantAdapter.addItemToUnFavoriteItemsList(itemPosition);
-                            mSearchRestaurantAdapter.removeItemFromFavoriteItemsList(itemPosition);
-                            mRestaurantsList.get(itemPosition).setFavourite("false");
-                            mSearchRestaurantAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Object> call, Throwable t) {
-                    hideLoadingIndicator();
-                    Log.d(TAG, "Failed to get results");
-                    Log.d(TAG, t.getMessage());
-                }
-            });
-        }
-    }
+//    private void markAsFavourite(int userId, int restaurantId, final int itemPosition) {
+//        if (userId != -10 && restaurantId >= 0) {
+//            RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
+//            Call<Object> resultCall = webService.markAsFavourite(userId, restaurantId);
+//            resultCall.enqueue(new Callback<Object>() {
+//                @Override
+//                public void onResponse(Call<Object> call, Response<Object> response) {
+//                    hideLoadingIndicator();
+//                    if (response.isSuccessful()) {
+//                        Log.d(TAG, String.valueOf(response.body()));
+//                        if (mRestaurantsList.get(itemPosition).getFavourite().equals("false")) {
+//                            mSearchRestaurantAdapter.addItemToFavoriteItemsList(itemPosition);
+//                            mSearchRestaurantAdapter.removeItemFromUnFavoriteItemsList(itemPosition);
+//                            mRestaurantsList.get(itemPosition).setFavourite("true");
+//                            mSearchRestaurantAdapter.notifyDataSetChanged();
+//                        } else {
+//                            mSearchRestaurantAdapter.addItemToUnFavoriteItemsList(itemPosition);
+//                            mSearchRestaurantAdapter.removeItemFromFavoriteItemsList(itemPosition);
+//                            mRestaurantsList.get(itemPosition).setFavourite("false");
+//                            mSearchRestaurantAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Object> call, Throwable t) {
+//                    hideLoadingIndicator();
+//                    Log.d(TAG, "Failed to get results");
+//                    Log.d(TAG, t.getMessage());
+//                }
+//            });
+//        }
+//    }
     //==============================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -380,13 +381,13 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
 
         mUserId = SharedPreferencesHelper.getSharedPreferenceInt(this, ConstantsHelper.KEY_USER_ID, -10);
         mTableId = getIntent().getIntExtra(HomeFragment.TABLE_ID_KEY, -10);
-        mTable = getIntent().getParcelableExtra(HomeFragment.TABLE_OBJECT_KEY);
-
+        requestRestaurents(mTableId);
         mCuisineId = getIntent().getIntExtra(FilterActivity.CUISINE_ID_KEY, -10);
         mPrice = getIntent().getIntExtra(FilterActivity.PRICE_KEY, -10);
         mSortBy = getIntent().getStringExtra(FilterActivity.SORT_BY_KEY);
         //==========================================================================================
         findViewsById(); // (1)
+
 
         setUpRestaurantsRecyclerView(); // (2)
 
@@ -396,7 +397,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
         //==========================================================================================
         arrowBackClick();
 
-        mapButtonClick();
+//        mapButtonClick();
 
         filterButtonClick();
 
@@ -408,21 +409,21 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
 
             if (mCuisineId != -10 && mPrice != -10 && ! TextUtils.isEmpty(mSortBy)) {
                 showLoadingIndicator();
-                getListRestaurants(mUserId, mTable.getListId(), 0, 0, "", mCuisineId, mPrice, mSortBy);
+//                getListRestaurants(mUserId, mTable.getListId(), 0, 0, "", mCuisineId, mPrice, mSortBy);
             }
 
             else {
-                mRestaurantsList = (ArrayList<Restaurant>) mTable.getRestaurants();
-                if (mRestaurantsList != null && mRestaurantsList.size() > 0) {
-                    mSearchRestaurantAdapter.setRestaurantList(mRestaurantsList);
-                    mRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
-
-                    mRestaurantsMapAdapter.setRestaurantList(mRestaurantsList);
-                    mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);
+//                mRestaurantsList = (ArrayList<Restaurant>) mTable.getRestaurants();
+//                if (mRestaurantsList != null && mRestaurantsList.size() > 0) {
+//                    mSearchRestaurantAdapter.setRestaurantList(mRestaurantsList);
+//                    mRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
+//
+//                    mRestaurantsMapAdapter.setRestaurantList(mRestaurantsList);
+//                    mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);
                 }
             }
         }
-    }
+//    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -436,5 +437,22 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
         intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
         intent.putExtra(SelectLocationActivity.KEY_SEARCH_BY, getIntent().getStringExtra("XXXXX"));
         startActivity(intent);
+    }
+    public void requestRestaurents(int categoryId){
+        CategoryRestaurents webService = RetrofitWebService.retrofit.create(CategoryRestaurents.class);
+        Call<ArrayList<Restaurant>> categoryRestaurents = webService.getCategoryRestaurents(categoryId);
+        categoryRestaurents.enqueue(new Callback<ArrayList<Restaurant>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Restaurant>> call, Response<ArrayList<Restaurant>> response) {
+                mSearchRestaurantAdapter.setRestaurantList(response.body());
+                mRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Restaurant>> call, Throwable t) {
+
+            }
+        });
+
     }
 }

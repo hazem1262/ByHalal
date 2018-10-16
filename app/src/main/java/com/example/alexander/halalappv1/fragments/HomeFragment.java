@@ -38,6 +38,7 @@ import com.example.alexander.halalappv1.model.modifiedmodels.homefragment.ListHe
 import com.example.alexander.halalappv1.model.newModels.CategoriesWithRestaurant;
 import com.example.alexander.halalappv1.model.newModels.Category;
 import com.example.alexander.halalappv1.model.newModels.Restaurant;
+import com.example.alexander.halalappv1.model.newModels.RestaurantOfTheWeek;
 import com.example.alexander.halalappv1.model.newModels.RestaurantsList;
 import com.example.alexander.halalappv1.services.MainPageWebService;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
     private static final String TAG = "xxxxx";
     public static final String TABLE_ID_KEY = "RestaurantsListObject";
+    public static final String RESTAURENT_KEY = "RestaurentKey";
     public static final String TABLE_OBJECT_KEY = "TableObject";
     public static final String RESTAURANT_OBJECT_KEY = "RestaurantObject";
     //==============================================================================================
@@ -76,6 +78,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     private ConstraintLayout mGpsDisabledLayout;
     private ConstraintLayout mDataNotFoundLayout;
     private ConstraintLayout mLocationNotDetectedLayout;
+    private LinearLayout discount;
 
     private TextView mActionGrantPermissionTextView;
     private TextView mActionRetryTextView;
@@ -114,6 +117,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         listHeaderRestaurentDiscount = rootView.findViewById(R.id.headerDiscount);
         listHeaderRestaurentImage = rootView.findViewById(R.id.restaurentListHeaderImage);
 		listHeaderLayout = rootView.findViewById(R.id.headerRestaurent);
+        discount = rootView.findViewById(R.id.discount);
 
         String firstName = SharedPreferencesHelper.getSharedPreferenceString(getContext(), ConstantsHelper.KEY_FIRST_NAME, null);
         if (firstName != null) {
@@ -133,20 +137,16 @@ public class HomeFragment extends Fragment implements LocationListener {
         mTablesAdapter = new RestaurantsListAdapter(getContext(), new RestaurantsListAdapter.OnTablesClickListener() {
             @Override
             public void onTableClick(int position) {
-//                RestaurantsList1 table = mTablesList.get(position);
-//                Intent intent = new Intent(getActivity(), TableRestaurantsActivity.class);
-//                intent.putExtra(TABLE_ID_KEY, table.getListId());
-//                intent.putExtra(TABLE_OBJECT_KEY, table);
-//                intent.putExtra("XXXXX", mAction);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), TableRestaurantsActivity.class);
+                intent.putExtra(TABLE_ID_KEY, position);
+                startActivity(intent);
             }
 
             @Override
             public void onRestaurantClick(int parentPosition, int childPosition) {
-                Restaurant restaurant = mTablesList.get(parentPosition).getRestaurants().get(childPosition);
                 Intent intent = new Intent(getActivity(), RestaurantProfileActivity.class);
-//                intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
-//                intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
+                intent.putExtra(RESTAURENT_KEY, childPosition);
+                intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
                 startActivity(intent);
             }
         });
@@ -329,6 +329,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                     if (response.isSuccessful()) {
                         mTablesList = response.body().getCategoriesWithRestaurants();
                         if (mTablesList != null && mTablesList.size() > 0) {
+                            fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
 							addFooterList(mTablesList, response.body().getCategories());
                             mTablesAdapter.setRestaurantsLists(mTablesList);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
@@ -374,6 +375,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                     if (response.isSuccessful()) {
                         mTablesList = response.body().getCategoriesWithRestaurants();
                         if (mTablesList != null && mTablesList.size() > 0) {
+                            fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
 							addFooterList(mTablesList, response.body().getCategories());                            mTablesAdapter.setRestaurantsLists(mTablesList);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
@@ -593,7 +595,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
         actionRetryClick();
 
-        fillRestaurentHeader();
+
         //==========================================================================================
         return rootView;
     }
@@ -641,21 +643,27 @@ public class HomeFragment extends Fragment implements LocationListener {
         return (rad * 180.0 / Math.PI);
     }
 
-    private void fillRestaurentHeader(){
-        ListHeader listHeader = new ListHeader(
-                "À la une",
-                "Azerty Restaurant",
-                "Grill",
-                "http://www.by-halal.fr/img/restaurants/restaurant-3.jpg",
-                15
-        );
-        listHeaderName.setText(listHeader.getSectionHeader());
-        listHeaderRestaurentName.setText(listHeader.getRestaurentName());
-        listHeaderRestaurentType.setText(listHeader.getRestaurentType());
-        listHeaderRestaurentDiscount.setText(listHeader.getRestaurentDiscount() + "%");
+    private void fillRestaurentHeader(final RestaurantOfTheWeek headerRestaurent){
+        listHeaderRestaurentName.setText(headerRestaurent.getName());
+        listHeaderRestaurentType.setText(headerRestaurent.getCuisineName());
+        if (headerRestaurent.getPromotionAmount() > 0){
+            listHeaderRestaurentDiscount.setText(headerRestaurent + "%");
+        }else{
+            discount.setVisibility(View.GONE);
+        }
+
         Picasso.with(getContext())
-                .load(listHeader.getRestaurentImage())
+                .load(headerRestaurent.getPicture())
                 .into(listHeaderRestaurentImage);
+        listHeaderRestaurentImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RestaurantProfileActivity.class);
+                intent.putExtra(RESTAURENT_KEY, headerRestaurent.getId());
+                intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
+                startActivity(intent);
+            }
+        });
     }
 
     private ArrayList<CategoriesWithRestaurant> addFooterList(ArrayList<CategoriesWithRestaurant> originalList, ArrayList<Category> categories){
