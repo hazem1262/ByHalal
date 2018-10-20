@@ -1,16 +1,13 @@
 package com.example.alexander.halalappv1.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.alexander.halalappv1.R;
-import com.example.alexander.halalappv1.model.modifiedmodels.MenuItem;
+import com.example.alexander.halalappv1.model.newModels.menues.MenuItem;
 
 import java.util.HashMap;
 import java.util.List;

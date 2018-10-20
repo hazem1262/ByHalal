@@ -66,6 +66,7 @@ public class ConstantsHelper {
     public static final String NEW_MAIN_PAGE = "newMainPage";
     public static final String Category_Restaurents = "categoryRestaurants";
     public static final String RESTAURENT_DETAILS = "getRestaurantData";
+    public static final String RESTAURENT_MENU = "getRestaurantMenu";
     // capacity
     public static final String RESTAURANT_CAPACITY = "getCapacity";
 

@@ -13,15 +13,19 @@ public class MenuItem implements Parcelable
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("description")
     @Expose
     private String description;
+
     @SerializedName("price")
     @Expose
     private String price;
+
     @SerializedName("picture")
     @Expose
     private String picture;

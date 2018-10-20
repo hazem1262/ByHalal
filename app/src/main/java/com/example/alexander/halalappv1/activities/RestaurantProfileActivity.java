@@ -815,10 +815,9 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String restaurantName = mRestaurant.getName();
-//                List<Menu> menuList = mRestaurant.getMenus();
                 Intent intent = new Intent(RestaurantProfileActivity.this, MenuActivity.class);
                 intent.putExtra(RESTAURANT_NAME_KEY, restaurantName);
-//                intent.putParcelableArrayListExtra(MENU_LIST_KEY, (ArrayList<? extends Parcelable>) menuList);
+                intent.putExtra(RESTAURANT_ID_KEY, mRestaurant.getId());
                 startActivity(intent);
             }
         });

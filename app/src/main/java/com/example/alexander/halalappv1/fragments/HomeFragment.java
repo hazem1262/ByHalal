@@ -376,7 +376,8 @@ public class HomeFragment extends Fragment implements LocationListener {
                         mTablesList = response.body().getCategoriesWithRestaurants();
                         if (mTablesList != null && mTablesList.size() > 0) {
                             fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
-							addFooterList(mTablesList, response.body().getCategories());                            mTablesAdapter.setRestaurantsLists(mTablesList);
+							addFooterList(mTablesList, response.body().getCategories());
+							mTablesAdapter.setRestaurantsLists(mTablesList);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
                         } else {
@@ -602,15 +603,16 @@ public class HomeFragment extends Fragment implements LocationListener {
     //==============================================================================================
     @Override
     public void onResume() {
-        if (checkPermissions()) {
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            if (mGpsLocationManager != null) {
-                mGpsLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000, 1000000f, this);
-            }
-        }
+        // handle permissions
+//        if (checkPermissions()) {
+//            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                    && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                return;
+//            }
+//            if (mGpsLocationManager != null) {
+//                mGpsLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000, 1000000f, this);
+//            }
+//        }
         super.onResume();
     }
 

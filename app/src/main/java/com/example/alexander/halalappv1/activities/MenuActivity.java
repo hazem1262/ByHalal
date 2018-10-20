@@ -14,14 +14,24 @@ import android.widget.TextView;
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.RestaurantMenuAdapter;
 import com.example.alexander.halalappv1.model.ReservationOrder;
-import com.example.alexander.halalappv1.model.modifiedmodels.Menu;
-import com.example.alexander.halalappv1.model.modifiedmodels.MenuItem;
 import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
+import com.example.alexander.halalappv1.model.newModels.RestaurantProfile;
+import com.example.alexander.halalappv1.model.newModels.menues.MenuItem;
+import com.example.alexander.halalappv1.model.newModels.menues.MenuResponse;
 import com.example.alexander.halalappv1.reservation.UpComingReservation;
+import com.example.alexander.halalappv1.services.MenuResponseWebService;
+import com.example.alexander.halalappv1.services.RetrofitWebService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.alexander.halalappv1.activities.RestaurantProfileActivity.RESTAURANT_ID_KEY;
+import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -47,7 +57,7 @@ public class MenuActivity extends AppCompatActivity {
     private String mSelectedDate;
     private String mSelectedTime;
     private String mSelectedNumberOfPeople;
-    private List<Menu> mMenuList;
+    private List<MenuResponse> mMenuList;
 
     private int mTotalQuantity = 0;
     private double mTotalPrice = 0.00;
@@ -258,7 +268,7 @@ public class MenuActivity extends AppCompatActivity {
                 mSelectedDate = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_DATE_KEY);
                 mSelectedTime = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_TIME_KEY);
                 mSelectedNumberOfPeople = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_NUMBER_PEOPLE_KEY);
-                mMenuList = getIntent().getParcelableArrayListExtra(RestaurantProfileActivity.MENU_LIST_KEY);
+//                mMenuList = getIntent().getParcelableArrayListExtra(RestaurantProfileActivity.MENU_LIST_KEY);
             }
 
             else if (mAction.equals(EditReservationActivity.ACTION_EDIT_RESERVE)) {
@@ -269,7 +279,7 @@ public class MenuActivity extends AppCompatActivity {
                 }
                 if (mRestaurant != null) {
                     mRestaurantName = mRestaurant.getName();
-                    mMenuList = mRestaurant.getMenus();
+//                    mMenuList = mRestaurant.getMenus();
 
                     for (int i = 0; i < mMenuList.size(); i ++) {
                         List<MenuItem> menuItemsList = mMenuList.get(i).getMenuItems();
@@ -305,22 +315,40 @@ public class MenuActivity extends AppCompatActivity {
             else {
                 mCheckoutOrderLayout.setVisibility(View.GONE);
                 mRestaurantName = getIntent().getStringExtra(RestaurantProfileActivity.RESTAURANT_NAME_KEY);
-                mMenuList = getIntent().getParcelableArrayListExtra(RestaurantProfileActivity.MENU_LIST_KEY);
+//                mMenuList = getIntent().getParcelableArrayListExtra(RestaurantProfileActivity.MENU_LIST_KEY);
             }
         }
 
         else {
             mCheckoutOrderLayout.setVisibility(View.GONE);
             mRestaurantName = getIntent().getStringExtra(RestaurantProfileActivity.RESTAURANT_NAME_KEY);
-            mMenuList = getIntent().getParcelableArrayListExtra(RestaurantProfileActivity.MENU_LIST_KEY);
+//            mMenuList = getIntent().getParcelableArrayListExtra(RestaurantProfileActivity.MENU_LIST_KEY);
         }
 
         updateRestaurantNameView();
+        requestMenueData();
 
-        setUpMenuListView();
 
         arrowBackClick();
 
         checkoutOrderLayoutClick();
+    }
+
+    private void requestMenueData(){
+        int restaurentId = getIntent().getIntExtra(RESTAURANT_ID_KEY, 0);
+        MenuResponseWebService webService = RetrofitWebService.retrofit.create(MenuResponseWebService.class);
+        Call<ArrayList<MenuResponse>> menuResponse = webService.getRestaurantMenu(restaurentId);
+        menuResponse.enqueue(new Callback<ArrayList<MenuResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<MenuResponse>> call, Response<ArrayList<MenuResponse>> response) {
+                mMenuList = response.body();
+                setUpMenuListView();
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<MenuResponse>> call, Throwable t) {
+
+            }
+        });
     }
 }
