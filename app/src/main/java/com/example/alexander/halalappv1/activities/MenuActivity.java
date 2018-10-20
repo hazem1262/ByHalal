@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.RestaurantMenuAdapter;
 import com.example.alexander.halalappv1.model.ReservationOrder;
-	import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
+import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.newModels.RestaurantProfile;
 import com.example.alexander.halalappv1.model.newModels.menues.MenuItem;
 import com.example.alexander.halalappv1.model.newModels.menues.MenuResponse;
@@ -30,6 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.alexander.halalappv1.activities.RestaurantProfileActivity.RESTAURANT_ID_KEY;
 import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 
 public class MenuActivity extends AppCompatActivity {
@@ -325,8 +326,8 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         updateRestaurantNameView();
+        requestMenueData();
 
-        setUpMenuListView();
 
         arrowBackClick();
 
@@ -334,18 +335,18 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void requestMenueData(){
-        int restaurentId = getIntent().getIntExtra(RESTAURENT_KEY, 0);
+        int restaurentId = getIntent().getIntExtra(RESTAURANT_ID_KEY, 0);
         MenuResponseWebService webService = RetrofitWebService.retrofit.create(MenuResponseWebService.class);
-        Call<MenuResponse> menuResponse = webService.getRestaurantMenu(restaurentId);
-        menuResponse.enqueue(new Callback<MenuResponse>() {
+        Call<ArrayList<MenuResponse>> menuResponse = webService.getRestaurantMenu(restaurentId);
+        menuResponse.enqueue(new Callback<ArrayList<MenuResponse>>() {
             @Override
-            public void onResponse(Call<MenuResponse> call, Response<MenuResponse> response) {
-                MenuResponse menuResponse = response.body();
-
+            public void onResponse(Call<ArrayList<MenuResponse>> call, Response<ArrayList<MenuResponse>> response) {
+                mMenuList = response.body();
+                setUpMenuListView();
             }
 
             @Override
-            public void onFailure(Call<MenuResponse> call, Throwable t) {
+            public void onFailure(Call<ArrayList<MenuResponse>> call, Throwable t) {
 
             }
         });
