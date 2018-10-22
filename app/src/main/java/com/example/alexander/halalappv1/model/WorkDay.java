@@ -13,12 +13,15 @@ public class WorkDay implements Parcelable {
     @SerializedName("dayName")
     @Expose
     private String dayName;
+
     @SerializedName("dayNameFr")
     @Expose
     private String dayNameFr;
+
     @SerializedName("workingHours")
     @Expose
     private List<String> workingHours = null;
+
     @SerializedName("periods")
     @Expose
     private List<String> periods = null;

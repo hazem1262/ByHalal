@@ -23,8 +23,10 @@ import android.widget.Toast;
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.model.ReservationOrder;
 import com.example.alexander.halalappv1.model.User;
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
+
+import com.example.alexander.halalappv1.model.newModels.RestaurantProfile;
 import com.example.alexander.halalappv1.reservation.UpComingReservation;
+import com.example.alexander.halalappv1.services.RestaurentProfileWebService;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.NetworkHelper;
@@ -42,6 +44,8 @@ import java.util.regex.Pattern;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 
 public class SubmitReservationActivity extends AppCompatActivity {
 
@@ -62,7 +66,7 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private ConstraintLayout mSignInLayout;
     private Button mCreateNewAccountButton;
     private ConstraintLayout mSignUpLayout;
-    private ImageView mSignUpArrowBackImageView;
+    private TextView mSignUpArrowBackImageView;
 
     private ImageView mRestaurantImageImageView;
     private ImageView mArrowBackImageView;
@@ -80,7 +84,7 @@ public class SubmitReservationActivity extends AppCompatActivity {
 
     private int mUserId;
     private UpComingReservation mUpComingReservation;
-    private Restaurant mRestaurant;
+    private RestaurantProfile mRestaurant;
     private int mRestaurantId;
     private String mSelectedDate;
     private String mFormattedDate;
@@ -133,8 +137,9 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private void updateRestaurantInformationViews() {
         String language = SharedPreferencesHelper.getSharedPreferenceString(SubmitReservationActivity.this, ConstantsHelper.KEY_SELECTED_LANGUAGE, null);
         if (mUpComingReservation != null) {
-            mRestaurant = mUpComingReservation.getRestaurant();
-            Picasso.with(this).load(mRestaurant.getImage()).into(mRestaurantImageImageView);
+            // todo
+//            mRestaurant = mUpComingReservation.getRestaurant();
+//            Picasso.with(this).load(mRestaurant.getImage()).into(mRestaurantImageImageView);
             mRestaurantNameTextView.setText(mRestaurant.getName());
             if (language != null) {
                 if (language.equals("français")) {
@@ -146,7 +151,7 @@ public class SubmitReservationActivity extends AppCompatActivity {
             mReserveDateTextView.setText(mSelectedDate);
             mReserveTimeTextView.setText(mSelectedTime);
         } else {
-            Picasso.with(this).load(mRestaurant.getImage()).into(mRestaurantImageImageView);
+            Picasso.with(this).load(mRestaurant.getPicture()).into(mRestaurantImageImageView);
             mRestaurantNameTextView.setText(mRestaurant.getName());
             if (language != null) {
                 if (language.equals("français")) {
@@ -234,13 +239,14 @@ public class SubmitReservationActivity extends AppCompatActivity {
                     if (mUserId != -10) {
                         isNetworkOk = NetworkHelper.hasNetworkAccess(SubmitReservationActivity.this);
                         if (isNetworkOk) {
-                            String productsList;
+                            String productsList = "";
                             if (mReservationOrdersList == null) {
                                 productsList = "";
                             } else {
                                 Gson gson = new Gson();
-                                Type type = new TypeToken<List<Restaurant>>() {}.getType();
-                                productsList = gson.toJson(mReservationOrdersList, type);
+                                //todo
+//                                Type type = new TypeToken<List<Restaurant>>() {}.getType();
+//                                productsList = gson.toJson(mReservationOrdersList, type);
                             }
 
                             if (mUpComingReservation != null) {
@@ -381,13 +387,13 @@ public class SubmitReservationActivity extends AppCompatActivity {
         submitTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productsList;
+                String productsList = "";
                 if (mReservationOrdersList == null) {
                     productsList = "";
                 } else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Restaurant>>() {}.getType();
-                    productsList = gson.toJson(mReservationOrdersList, type);
+//                    Type type = new TypeToken<List<Restaurant>>() {}.getType();
+//                    productsList = gson.toJson(mReservationOrdersList, type);
                 }
 
                 if (mUpComingReservation != null) {
@@ -518,20 +524,17 @@ public class SubmitReservationActivity extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        requestRestaurentData();
         findViewsById();
 
         mUpComingReservation = getIntent().getParcelableExtra(MenuActivity.UPCOMING_RESERVATION_OBJECT_KEY);
-        mRestaurant = getIntent().getParcelableExtra(RestaurantProfileActivity.RESTAURANT_OBJECT_KEY);
-        if (mRestaurant != null) {
-            mRestaurantId = mRestaurant.getId();
-        }
         mSelectedDate = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_DATE_KEY);
         mFormattedDate = getFormattedDate(mSelectedDate);
         mSelectedTime = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_TIME_KEY);
         mSelectedNumberOfPeople = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_NUMBER_PEOPLE_KEY);
         mReservationOrdersList = getIntent().getParcelableArrayListExtra(MenuActivity.RESERVATION_ORDERS_LIST_KEY);
 
-        updateRestaurantInformationViews();
+
 
         isLoggedIn = SharedPreferencesHelper.getSharedPreferenceBoolean(this, ConstantsHelper.KEY_IS_LOGGED_IN, false);
         if (isLoggedIn) {
@@ -887,5 +890,24 @@ public class SubmitReservationActivity extends AppCompatActivity {
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+    private void requestRestaurentData(){
+        int restaurentId = getIntent().getIntExtra(RESTAURENT_KEY, 0);
+        RestaurentProfileWebService webService = RetrofitWebService.retrofit.create(RestaurentProfileWebService.class);
+        int userId = SharedPreferencesHelper.getSharedPreferenceInt(SubmitReservationActivity.this, ConstantsHelper.KEY_USER_ID, -10);
+        Call<RestaurantProfile> restaurentProfile = webService.getRestaurentProfile(restaurentId,userId);
+        restaurentProfile.enqueue(new Callback<RestaurantProfile>() {
+            @Override
+            public void onResponse(Call<RestaurantProfile> call, Response<RestaurantProfile> response) {
+                mRestaurant = response.body();
+                mRestaurantId = mRestaurant.getId();
+                updateRestaurantInformationViews();
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantProfile> call, Throwable t) {
+
+            }
+        });
     }
 }

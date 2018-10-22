@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class City implements Parcelable {
 
-    @SerializedName("cityId")
+    @SerializedName("id")
     @Expose
     private int cityId;
 

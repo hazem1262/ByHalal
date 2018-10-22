@@ -24,6 +24,7 @@ import com.example.alexander.halalappv1.model.Gallery;
 import com.example.alexander.halalappv1.model.modifiedmodels.MenuItem;
 import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.modifiedmodels.WorkDay;
+import com.example.alexander.halalappv1.model.newModels.workdays.Period;
 import com.example.alexander.halalappv1.reservation.UpComingReservation;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
@@ -77,7 +78,7 @@ public class EditReservationActivity extends AppCompatActivity {
     private Button mPlaceAnOrderButton;
 
     private TimeAdapter mTimeAdapter;
-    private ArrayList<String> mTimeList = new ArrayList<>();
+    private ArrayList<Period> mTimeList = new ArrayList<>();
     boolean isListItemClickable;
     private NumberOfPeopleAdapter mNumberOfPeopleAdapter;
     private ArrayList<String> mNumberOfPeopleList = new ArrayList<>();
@@ -170,7 +171,7 @@ public class EditReservationActivity extends AppCompatActivity {
             @Override
             public void onTimeSelected(int position) {
                 mTimeAdapter.setClickedItem(position);
-                mSelectedTime = mTimeList.get(position);
+                mSelectedTime = mTimeList.get(position).toString();
                 mTimeAdapter.notifyDataSetChanged();
             }
         });
@@ -289,23 +290,23 @@ public class EditReservationActivity extends AppCompatActivity {
                 mTimeAdapter.setTimeList(null);
                 mTimeAdapter.setClickedItem(-10);
                 mSelectedTime = null;
-
-                List<WorkDay> workDaysList = mRestaurant.getWorkDays();
-                for (int i = 0; i < workDaysList.size(); i ++) {
-                    if (workDaysList.get(i).getDayName().equalsIgnoreCase(selectedDayOfTheWeek)) {
-                        WorkDay workDay = workDaysList.get(i);
-                        if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
-                            mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
-                            mTimeRecyclerView.setVisibility(View.VISIBLE);
-                            mTimeList.addAll(workDay.getPeriods());
-                            mTimeAdapter.setTimeList(mTimeList);
-                            mTimeRecyclerView.setAdapter(mTimeAdapter);
-                        } else {
-                            mRestaurantIsClosedTextView.setVisibility(View.VISIBLE);
-                            mTimeRecyclerView.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                }
+// todo
+//                List<WorkDay> workDaysList = mRestaurant.getWorkDays();
+//                for (int i = 0; i < workDaysList.size(); i ++) {
+//                    if (workDaysList.get(i).getDayName().equalsIgnoreCase(selectedDayOfTheWeek)) {
+//                        WorkDay workDay = workDaysList.get(i);
+//                        if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
+//                            mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
+//                            mTimeRecyclerView.setVisibility(View.VISIBLE);
+//                            mTimeList.addAll(workDay.getPeriods());
+//                            mTimeAdapter.setTimeList(mTimeList);
+//                            mTimeRecyclerView.setAdapter(mTimeAdapter);
+//                        } else {
+//                            mRestaurantIsClosedTextView.setVisibility(View.VISIBLE);
+//                            mTimeRecyclerView.setVisibility(View.INVISIBLE);
+//                        }
+//                    }
+//                }
             }
         });
 
@@ -336,7 +337,7 @@ public class EditReservationActivity extends AppCompatActivity {
                 if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
                     mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
                     mTimeRecyclerView.setVisibility(View.VISIBLE);
-                    mTimeList.addAll(workDay.getPeriods());
+//                    mTimeList.addAll(workDay.getPeriods());
                     mTimeAdapter.setTimeList(mTimeList);
                     mTimeRecyclerView.setAdapter(mTimeAdapter);
                 } else {
@@ -350,7 +351,7 @@ public class EditReservationActivity extends AppCompatActivity {
         for (int i = 0; i < mTimeList.size(); i ++) {
             if (mTimeList.get(i).equals(mSelectedTime)) {
                 mTimeAdapter.setClickedItem(i);
-                mSelectedTime = mTimeList.get(i);
+//                mSelectedTime = mTimeList.get(i);
                 mTimeAdapter.notifyDataSetChanged();
                 if (i > 1 && i < mTimeList.size() - 1) {
                     mTimeRecyclerView.scrollToPosition(i - 1);

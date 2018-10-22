@@ -66,13 +66,14 @@ public class ConstantsHelper {
     public static final String NEW_MAIN_PAGE = "newMainPage";
     public static final String Category_Restaurents = "categoryRestaurants";
     public static final String RESTAURENT_DETAILS = "getRestaurantData";
+    public static final String RESTAURENT_WORKING_HOURS = "getWorkingHours";
     public static final String RESTAURENT_MENU = "getRestaurantMenu";
     // capacity
-    public static final String RESTAURANT_CAPACITY = "getCapacity";
+    public static final String RESTAURANT_CAPACITY = "newGetCapacity";
 
     public static final String MAKE_RESERVATION_END_POINT = "addReservation";
 
-    public static final String MY_RESERVATIONS = "myReservations";
+    public static final String MY_RESERVATIONS = "newMyReservations";
 
     public static final String EDIT_RESERVATION = "editReservation";
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
+import com.example.alexander.halalappv1.model.newModels.workdays.Period;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeViewHolder
 
     private Context mContext;
     private final OnTimeClickListener mOnTimeClickListener;
-    private ArrayList<String> mTimeList;
+    private ArrayList<Period> mTimeList;
     private int mClickedItem = -10;
 
     public TimeAdapter(Context context, OnTimeClickListener onTimeClickListener) {
@@ -61,7 +62,7 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeViewHolder
         }
     }
 
-    public void setTimeList(ArrayList<String> timeList) {
+    public void setTimeList(ArrayList<Period> timeList) {
         this.mTimeList = timeList;
         notifyDataSetChanged();
     }

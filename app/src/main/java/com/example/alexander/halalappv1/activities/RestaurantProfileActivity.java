@@ -2,7 +2,6 @@ package com.example.alexander.halalappv1.activities;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,15 +22,17 @@ import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.fragments.HomeFragment;
-import com.example.alexander.halalappv1.model.Gallery;
 import com.example.alexander.halalappv1.adapters.NumberOfPeopleAdapter;
 import com.example.alexander.halalappv1.adapters.TimeAdapter;
-import com.example.alexander.halalappv1.model.modifiedmodels.Menu;
+
 import com.example.alexander.halalappv1.model.modifiedmodels.RestaurantsList1;
-import com.example.alexander.halalappv1.model.modifiedmodels.WorkDay;
 import com.example.alexander.halalappv1.model.newModels.RestaurantProfile;
+import com.example.alexander.halalappv1.model.newModels.workdays.Period;
+import com.example.alexander.halalappv1.model.newModels.workdays.WorkingDay;
+import com.example.alexander.halalappv1.model.newModels.workdays.WorkingHoursResponse;
 import com.example.alexander.halalappv1.services.RestaurentProfileWebService;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
+import com.example.alexander.halalappv1.services.WorkingHours;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.NetworkHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
@@ -42,17 +43,12 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import com.squareup.picasso.Picasso;
-import com.whinc.widget.ratingbar.RatingBar;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -124,7 +120,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private ProgressBar mCalendarLoadingIndicator;
 
     private TimeAdapter mTimeAdapter;
-    private ArrayList<String> mTimeList = new ArrayList<>();
+    private ArrayList<Period> mTimeList = new ArrayList<>();
     private NumberOfPeopleAdapter mNumberOfPeopleAdapter;
     private ArrayList<String> mNumberOfPeopleList = new ArrayList<>();
 
@@ -134,6 +130,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private String mSelectedDate;
     private String mSelectedTime;
     private String mSelectedNumberOfPeople;
+    private WorkingHoursResponse mRestaurentWorkingHours;
     //==============================================================================================
 
     @Override
@@ -144,7 +141,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
         findViewsById();
         requestRestaurentData();
-
+        getWorkingHours();
         //==========================================================================================
         favouriteIconClick();
 //        arrowBackClick();
@@ -162,7 +159,6 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         setUpCalendarView();
         reserveButtonClick();
         placeAnOrderButtonClick();
-        updateTimeRecyclerViewWithCurrentDayWorkingHours();
     }
 
     //==============================================================================================
@@ -230,7 +226,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             @Override
             public void onTimeSelected(int position) {
                 mTimeAdapter.setClickedItem(position);
-                mSelectedTime = mTimeList.get(position);
+                mSelectedTime = mTimeList.get(position).getHour();
                 mTimeAdapter.notifyDataSetChanged();
 
                 isNetworkOk = NetworkHelper.hasNetworkAccess(RestaurantProfileActivity.this);
@@ -362,10 +358,10 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                 mSelectedTime = null;
 
                 //todo
-                /*List<WorkDay> workDaysList = mRestaurant.getWorkDays();
+                List<WorkingDay> workDaysList = mRestaurentWorkingHours.getWorkingDays();
                 for (int i = 0; i < workDaysList.size(); i ++) {
                     if (workDaysList.get(i).getDayName().equalsIgnoreCase(selectedDayOfTheWeek)) {
-                        WorkDay workDay = workDaysList.get(i);
+                        WorkingDay workDay = workDaysList.get(i);
                         if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
                             mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
                             mTimeRecyclerView.setVisibility(View.VISIBLE);
@@ -377,7 +373,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                             mTimeRecyclerView.setVisibility(View.INVISIBLE);
                         }
                     }
-                }*/
+                }
             }
         });
 
@@ -394,26 +390,41 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
         Date date = new Date();
         String currentDayOfTheWeek = getSelectedDayOfTheWeek(simpleDateFormat.format(date));
-
-        //TODO
-        /*List<WorkDay> workDaysList = mRestaurant.getWorkDays();
-        WorkDay workDay = new WorkDay();
+        List<WorkingDay> workDaysList = mRestaurentWorkingHours.getWorkingDays();
+        WorkingDay workDay = new WorkingDay();
         for (int i = 0; i < workDaysList.size(); i ++) {
             if (workDaysList.get(i).getDayName().equalsIgnoreCase(currentDayOfTheWeek)) {
                 workDay = workDaysList.get(i);
             }
-        }*/
-//TODO
-//        if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
-//            mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
-//            mTimeRecyclerView.setVisibility(View.VISIBLE);
-//            mTimeList.addAll(workDay.getPeriods());
-//            mTimeAdapter.setTimeList(mTimeList);
-//            mTimeRecyclerView.setAdapter(mTimeAdapter);
-//        } else {
-//            mRestaurantIsClosedTextView.setVisibility(View.VISIBLE);
-//            mTimeRecyclerView.setVisibility(View.INVISIBLE);
-//        }
+        }
+        if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
+            mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
+            mTimeRecyclerView.setVisibility(View.VISIBLE);
+            mTimeList.addAll(workDay.getPeriods());
+            mTimeAdapter.setTimeList(mTimeList);
+            mTimeRecyclerView.setAdapter(mTimeAdapter);
+        } else {
+            mRestaurantIsClosedTextView.setVisibility(View.VISIBLE);
+            mTimeRecyclerView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void getWorkingHours(){
+        int restaurentId = getIntent().getIntExtra(RESTAURENT_KEY, 0);
+        WorkingHours workingHours = RetrofitWebService.retrofit.create(WorkingHours.class);
+        Call<WorkingHoursResponse> restaurentWorkingHours = workingHours.getRestaurentWorkingHours(restaurentId);
+        restaurentWorkingHours.enqueue(new Callback<WorkingHoursResponse>() {
+            @Override
+            public void onResponse(Call<WorkingHoursResponse> call, Response<WorkingHoursResponse> response) {
+                mRestaurentWorkingHours = response.body();
+                updateTimeRecyclerViewWithCurrentDayWorkingHours();
+            }
+
+            @Override
+            public void onFailure(Call<WorkingHoursResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private String getMonthText(int monthNumber) {
@@ -522,6 +533,8 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(RestaurantProfileActivity.this, SubmitReservationActivity.class);
 //                    intent.putExtra(RESTAURANT_OBJECT_KEY, mRestaurant);
+                    int restaurentId = getIntent().getIntExtra(RESTAURENT_KEY, 0);
+                    intent.putExtra(RESTAURENT_KEY, restaurentId);
                     intent.putExtra(SELECTED_DATE_KEY, mSelectedDate);
                     intent.putExtra(SELECTED_TIME_KEY, mSelectedTime);
                     intent.putExtra(SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
@@ -610,7 +623,6 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         mNoCapacityTextView.setVisibility(View.GONE);
     }
 
-    //todo
     private void updateViewsWithRestaurantData() {
         mLanguage = Locale.getDefault().getDisplayLanguage();
         mUserId = SharedPreferencesHelper.getSharedPreferenceInt(this, ConstantsHelper.KEY_USER_ID, -10);
@@ -963,7 +975,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 mCalendarLoadingIndicator.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
-                    int capacity = Integer.parseInt(response.body().get("capacity").getAsString());
+                    int capacity = (response.body().get("seats").getAsInt());
                     if (capacity > 0) {
                         mNumberOfPeopleLabelTextView.setVisibility(View.VISIBLE);
                         mNumberOfPeopleRecyclerView.setVisibility(View.VISIBLE);

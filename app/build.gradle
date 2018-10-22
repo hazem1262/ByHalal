@@ -58,5 +58,7 @@ dependencies {
     implementation 'me.relex:circleindicator:1.2.2@aar'
     // rounded imageview
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    // handle permissions
+    implementation 'com.karumi:dexter:5.0.0'
 
 }

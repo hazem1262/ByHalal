@@ -49,6 +49,12 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.BasePermissionListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -255,7 +261,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     }
 
     private void startLocationPermissionRequest() {
-        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
     }
 
     @Override
@@ -263,6 +269,24 @@ public class HomeFragment extends Fragment implements LocationListener {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted.
+                Dexter.withActivity(getActivity())
+                        .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                        .withListener(new BasePermissionListener(){
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse response) {
+                                super.onPermissionGranted(response);
+                            }
+
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse response) {
+                                super.onPermissionDenied(response);
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                                super.onPermissionRationaleShouldBeShown(permission, token);
+                            }
+                        }).check();
                 hidePermissionNotGrantedError();
                 if (isGpsEnabled) {
                     hideGpsDisabledError();
@@ -274,6 +298,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                     hideLocationNotDetectedError();
                     showGpsDisabledError();
                 }
+
             } else {
                 // Permission denied.
                 hideLoadingIndicator();
@@ -604,15 +629,15 @@ public class HomeFragment extends Fragment implements LocationListener {
     @Override
     public void onResume() {
         // handle permissions
-//        if (checkPermissions()) {
-//            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-//                    && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                return;
-//            }
-//            if (mGpsLocationManager != null) {
-//                mGpsLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000, 1000000f, this);
-//            }
-//        }
+        if (checkPermissions()) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            if (mGpsLocationManager != null) {
+                mGpsLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000, 1000000f, this);
+            }
+        }
         super.onResume();
     }
 
