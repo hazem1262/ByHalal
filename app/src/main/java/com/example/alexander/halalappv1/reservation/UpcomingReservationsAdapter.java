@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
+import com.example.alexander.halalappv1.model.newModels.reservation.Reservation;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
 import com.squareup.picasso.Picasso;
@@ -21,7 +22,7 @@ public class UpcomingReservationsAdapter extends RecyclerView.Adapter<UpcomingRe
 
     private Context mContext;
     private final UpcomingListItemClickListener mListItemClickListener;
-    private ArrayList<UpComingReservation> mUpComingReservationsList;
+    private ArrayList<Reservation> mUpComingReservationsList;
 
     public UpcomingReservationsAdapter(Context context, UpcomingListItemClickListener listItemClickListener) {
         this.mContext = context;
@@ -41,31 +42,31 @@ public class UpcomingReservationsAdapter extends RecyclerView.Adapter<UpcomingRe
 
     @Override
     public void onBindViewHolder(UpcomingReservationViewHolder holder, int position) {
-        Picasso.with(mContext).load(mUpComingReservationsList.get(position).getRestaurant().getImage()).into(holder.restaurantImageImageView);
+        Picasso.with(mContext).load(mUpComingReservationsList.get(position).getPicture()).into(holder.restaurantImageImageView);
         String language = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_SELECTED_LANGUAGE, null);
         if (language != null) {
-            holder.reservationNumberOfPeople.setText(mUpComingReservationsList.get(position).getBookingData().getNumberOfPeople() + mContext.getString(R.string.persons));
+            holder.reservationNumberOfPeople.setText(mUpComingReservationsList.get(position).getGuests() + mContext.getString(R.string.persons));
             if (language.equals("français")) {
-                String[] reservationDateParts = mUpComingReservationsList.get(position).getBookingData().getReservationDate().split("-");
+                String[] reservationDateParts = mUpComingReservationsList.get(position).getDate().split("-");
                 String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
-                String reservationDay = getDayNameFrench(mUpComingReservationsList.get(position).getBookingData().getReservationDayName());
+//                String reservationDay = getDayNameFrench(mUpComingReservationsList.get(position).getBookingData().getReservationDayName());
                 holder.reservationDateTextView.setText( reservationDate);
 
-                String reservationTime = mUpComingReservationsList.get(position).getBookingData().getReservationTime();
-                String numberOfPeople = getNumberTextFrench(mUpComingReservationsList.get(position).getBookingData().getNumberOfPeople());
+                String reservationTime = mUpComingReservationsList.get(position).getTime();
+                String numberOfPeople = getNumberTextFrench(mUpComingReservationsList.get(position).getGuests().toString());
 
-                holder.restaurantNameTextView.setText(mUpComingReservationsList.get(position).getRestaurant().getName());
+                holder.restaurantNameTextView.setText(mUpComingReservationsList.get(position).getRestaurantName());
                 holder.reservationDetailsTextView.setText(reservationTime );
             } else {
-                String[] reservationDateParts = mUpComingReservationsList.get(position).getBookingData().getReservationDate().split("-");
+                String[] reservationDateParts = mUpComingReservationsList.get(position).getDate().split("/");
                 String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
-                String reservationDay = mUpComingReservationsList.get(position).getBookingData().getReservationDayName();
+//                String reservationDay = mUpComingReservationsList.get(position).getBookingData().getReservationDayName();
                 holder.reservationDateTextView.setText(reservationDate);
 
-                String reservationTime = mUpComingReservationsList.get(position).getBookingData().getReservationTime();
-                String numberOfPeople = getNumberTextEnglish(mUpComingReservationsList.get(position).getBookingData().getNumberOfPeople());
+                String reservationTime = mUpComingReservationsList.get(position).getTime();
+                String numberOfPeople = getNumberTextEnglish(mUpComingReservationsList.get(position).getGuests().toString());
 
-                holder.restaurantNameTextView.setText(mUpComingReservationsList.get(position).getRestaurant().getName());
+                holder.restaurantNameTextView.setText(mUpComingReservationsList.get(position).getRestaurantName());
                 holder.reservationDetailsTextView.setText(reservationTime );
             }
         }
@@ -239,7 +240,7 @@ public class UpcomingReservationsAdapter extends RecyclerView.Adapter<UpcomingRe
         }
     }
 
-    public void setUpComingReservationsList(ArrayList<UpComingReservation> upComingReservationsList) {
+    public void setUpComingReservationsList(ArrayList<Reservation> upComingReservationsList) {
         this.mUpComingReservationsList = upComingReservationsList;
         notifyDataSetChanged();
     }

@@ -30,6 +30,7 @@ import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.activities.EditReservationActivity;
 import com.example.alexander.halalappv1.activities.RestaurantProfileActivity;
 import com.example.alexander.halalappv1.model.User;
+import com.example.alexander.halalappv1.model.newModels.reservation.Reservation;
 import com.example.alexander.halalappv1.reservation.PreviousReservation;
 import com.example.alexander.halalappv1.reservation.PreviousReservationsAdapter;
 import com.example.alexander.halalappv1.reservation.ReservationObject;
@@ -92,7 +93,6 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
         mUpcomingReservationsListRecyclerView.setVisibility(View.GONE);
         mPreviousReservationsTextView.setVisibility(View.GONE);
         mPreviousReservationsListRecyclerView.setVisibility(View.GONE);
-
         mSignInEmailEditText = rootView.findViewById(R.id.et_sign_in_activity_email);
         mSignInPasswordEditText = rootView.findViewById(R.id.et_sign_in_activity_password);
         mSignInButton = rootView.findViewById(R.id.btn_sign_in_activity_sign_in);
@@ -113,7 +113,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
     }
     //==============================================================================================
     private UpcomingReservationsAdapter mUpcomingReservationsAdapter;
-    private ArrayList<UpComingReservation> mUpComingReservationsList;
+    private ArrayList<Reservation> mUpComingReservationsList;
     private void setUpUpcomingReservationsRecyclerView() {
         LinearLayoutManager upcomingLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mUpcomingReservationsListRecyclerView.setLayoutManager(upcomingLayoutManager);
@@ -121,7 +121,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
     }
     //==============================================================================================
     private PreviousReservationsAdapter mPreviousReservationsAdapter;
-    private ArrayList<PreviousReservation> mPreviousReservationsList;
+    private ArrayList<Reservation> mPreviousReservationsList;
     private void setUPPreviousReservationsRecyclerView() {
         LinearLayoutManager previousLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mPreviousReservationsListRecyclerView.setLayoutManager(previousLayoutManager);
@@ -143,7 +143,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                     if (response.isSuccessful()) {
                         mReservations = response.body();
                         if (mReservations != null) {
-                            mUpComingReservationsList = (ArrayList<UpComingReservation>) mReservations.getUpComingReservations();
+                            mUpComingReservationsList = (ArrayList<Reservation>) mReservations.getUpComingReservations();
                             if (mUpComingReservationsList != null && mUpComingReservationsList.size() > 0) {
                                 mUpcomingReservationsTextView.setVisibility(View.VISIBLE);
                                 mUpcomingReservationsListRecyclerView.setVisibility(View.VISIBLE);
@@ -155,7 +155,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                                 mUpcomingReservationsListRecyclerView.setVisibility(View.GONE);
                             }
                             //======================================================================
-                            mPreviousReservationsList = (ArrayList<PreviousReservation>) mReservations.getPreviousReservations();
+                            mPreviousReservationsList = (ArrayList<Reservation>) mReservations.getPreviousReservations();
                             if (mPreviousReservationsList != null && mPreviousReservationsList.size() > 0) {
                                 mPreviousReservationsTextView.setVisibility(View.VISIBLE);
                                 mPreviousReservationsListRecyclerView.setVisibility(View.VISIBLE);
@@ -513,12 +513,14 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
 
     @Override
     public void onUpcomingItemClick(int position) {
-        showOrderDialog(null, mUpComingReservationsList.get(position));
+        //todo
+//        showOrderDialog(null, mUpComingReservationsList.get(position));
     }
 
     @Override
     public void onPreviousItemClick(int position) {
-        showOrderDialog(mPreviousReservationsList.get(position), null);
+        //todo
+//        showOrderDialog(mPreviousReservationsList.get(position), null);
     }
     //==============================================================================================
     private void signInButtonClick() {

@@ -12,9 +12,11 @@ public class PreviousReservation implements Parcelable {
     @SerializedName("bookingData")
     @Expose
     private BookingData bookingData;
+
     @SerializedName("userData")
     @Expose
     private UserData userData;
+
     @SerializedName("restaurant")
     @Expose
     private Restaurant restaurant;

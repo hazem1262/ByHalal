@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
+import com.example.alexander.halalappv1.model.newModels.reservation.Reservation;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
 import com.squareup.picasso.Picasso;
@@ -21,7 +22,7 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
 
     private Context mContext;
     private final PreviousListItemClickListener mListItemClickListener;
-    private ArrayList<PreviousReservation> mPreviousReservationsList;
+    private ArrayList<Reservation> mPreviousReservationsList;
 
     public PreviousReservationsAdapter(Context context, PreviousListItemClickListener listItemClickListener) {
         this.mContext = context;
@@ -41,31 +42,31 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
 
     @Override
     public void onBindViewHolder(PreviousReservationViewHolder holder, int position) {
-        Picasso.with(mContext).load(mPreviousReservationsList.get(position).getRestaurant().getImage()).into(holder.restaurantImageImageView);
+        Picasso.with(mContext).load(mPreviousReservationsList.get(position).getPicture()).into(holder.restaurantImageImageView);
         String language = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_SELECTED_LANGUAGE, null);
         if (language != null) {
-			holder.reservationNumberOfPeople.setText(mPreviousReservationsList.get(position).getBookingData().getNumberOfPeople() + mContext.getString(R.string.persons));
+			holder.reservationNumberOfPeople.setText(mPreviousReservationsList.get(position).getGuests() + mContext.getString(R.string.persons));
             if (language.equals("français")) {
-                String[] reservationDateParts = mPreviousReservationsList.get(position).getBookingData().getReservationDate().split("-");
+                String[] reservationDateParts = mPreviousReservationsList.get(position).getDate().split("-");
                 String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
-                String reservationDay = getDayNameFrench(mPreviousReservationsList.get(position).getBookingData().getReservationDayName());
+//                String reservationDay = getDayNameFrench(mPreviousReservationsList.get(position).getBookingData().getReservationDayName());
                 holder.reservationDateTextView.setText(reservationDate);
 
-                String reservationTime = mPreviousReservationsList.get(position).getBookingData().getReservationTime();
-                String numberOfPeople = getNumberTextFrench(mPreviousReservationsList.get(position).getBookingData().getNumberOfPeople());
+                String reservationTime = mPreviousReservationsList.get(position).getTime();
+                String numberOfPeople = getNumberTextFrench(mPreviousReservationsList.get(position).getGuests().toString());
 
-                holder.restaurantNameTextView.setText(mPreviousReservationsList.get(position).getRestaurant().getName());
+                holder.restaurantNameTextView.setText(mPreviousReservationsList.get(position).getRestaurantName());
                 holder.reservationDetailsTextView.setText(reservationTime );
             } else {
-                String[] reservationDateParts = mPreviousReservationsList.get(position).getBookingData().getReservationDate().split("-");
+                String[] reservationDateParts = mPreviousReservationsList.get(position).getDate().split("/");
                 String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
-                String reservationDay = mPreviousReservationsList.get(position).getBookingData().getReservationDayName();
+//                String reservationDay = mPreviousReservationsList.get(position).getBookingData().getReservationDayName();
                 holder.reservationDateTextView.setText(reservationDate);
 
-                String reservationTime = mPreviousReservationsList.get(position).getBookingData().getReservationTime();
-                String numberOfPeople = getNumberTextEnglish(mPreviousReservationsList.get(position).getBookingData().getNumberOfPeople());
+                String reservationTime = mPreviousReservationsList.get(position).getTime();
+                String numberOfPeople = getNumberTextEnglish(mPreviousReservationsList.get(position).getGuests().toString());
 
-                holder.restaurantNameTextView.setText(mPreviousReservationsList.get(position).getRestaurant().getName());
+                holder.restaurantNameTextView.setText(mPreviousReservationsList.get(position).getRestaurantName());
                 holder.reservationDetailsTextView.setText(reservationTime);
             }
         }
@@ -239,7 +240,7 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
         }
     }
 
-    public void setPreviousReservationsList(ArrayList<PreviousReservation> previousReservationsList) {
+    public void setPreviousReservationsList(ArrayList<Reservation> previousReservationsList) {
         this.mPreviousReservationsList = previousReservationsList;
         notifyDataSetChanged();
     }
