@@ -1,43 +1,30 @@
 package com.example.alexander.halalappv1.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.CategoriesAdapter;
-import com.example.alexander.halalappv1.adapters.SpinnerCitiesAdapter;
 import com.example.alexander.halalappv1.model.City;
 import com.example.alexander.halalappv1.model.newModels.Category;
 import com.example.alexander.halalappv1.services.GetCategoriesService;
-import com.example.alexander.halalappv1.services.Polices;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
-import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,9 +61,9 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     // new design views and components
     private RecyclerView categoriesRecyclerView;
     private CategoriesAdapter categoriesAdapter;
-    private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Category> categoriesList;
     private TextView categoriesTitle;
+    private RelativeLayout searchLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +107,8 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         categoriesRecyclerView.setAdapter(categoriesAdapter);
         // init categories title
         categoriesTitle = findViewById(R.id.cat_title);
+        //relative layout to handle focus
+        searchLayout = findViewById(R.id.activity_search_layout);
         // get all categories from api
         getAllCategories();
 
