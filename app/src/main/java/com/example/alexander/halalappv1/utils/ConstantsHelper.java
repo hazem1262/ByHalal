@@ -84,6 +84,7 @@ public class ConstantsHelper {
     public static final String RESTAURANTS_LIST_HEADER = "list-header";
     public static final String RESTAURANTS_LIST_BODY = "list-body";
     public static final String RESTAURANTS_LIST_FOOTER = "list-footer";
+    public static final String GET_ALL_CATEGORIES_API = "allCategories";
 
 
 }
