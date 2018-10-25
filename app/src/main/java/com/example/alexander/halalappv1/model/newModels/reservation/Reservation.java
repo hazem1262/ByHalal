@@ -1,6 +1,9 @@
 
 package com.example.alexander.halalappv1.model.newModels.reservation;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,18 +12,23 @@ public class Reservation {
     @SerializedName("bookingId")
     @Expose
     private Integer bookingId;
+
     @SerializedName("restaurantName")
     @Expose
     private String restaurantName;
+
     @SerializedName("picture")
     @Expose
     private String picture;
+
     @SerializedName("guests")
     @Expose
     private Integer guests;
+
     @SerializedName("date")
     @Expose
     private String date;
+
     @SerializedName("time")
     @Expose
     private String time;

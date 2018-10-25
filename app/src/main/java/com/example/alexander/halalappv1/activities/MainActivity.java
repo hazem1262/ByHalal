@@ -107,13 +107,13 @@ public class MainActivity extends AppCompatActivity {
             mFragmentManager.beginTransaction()
                     .replace(R.id.fragments_main_container, mReserveFragment)
                     .commit();
-            mTabLayout.getTabAt(2).select();
+            mTabLayout.getTabAt(1).select();
         }
         else if (mAction.equals(ConstantsHelper.ACTION_PROFILE_FRAGMENT)) {
             mFragmentManager.beginTransaction()
                     .replace(R.id.fragments_main_container, mProfileFragment)
                     .commit();
-            mTabLayout.getTabAt(3).select();
+            mTabLayout.getTabAt(2).select();
         }
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

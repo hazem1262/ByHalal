@@ -68,6 +68,7 @@ public class ConstantsHelper {
     public static final String RESTAURENT_DETAILS = "getRestaurantData";
     public static final String RESTAURENT_WORKING_HOURS = "getWorkingHours";
     public static final String RESTAURENT_MENU = "getRestaurantMenu";
+    public static final String RESERVATION_DETAILS = "reservationDetails";
     // capacity
     public static final String RESTAURANT_CAPACITY = "newGetCapacity";
 

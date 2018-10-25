@@ -14,11 +14,9 @@ import android.widget.TextView;
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.RestaurantMenuAdapter;
 import com.example.alexander.halalappv1.model.ReservationOrder;
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
-import com.example.alexander.halalappv1.model.newModels.RestaurantProfile;
 import com.example.alexander.halalappv1.model.newModels.menues.MenuItem;
 import com.example.alexander.halalappv1.model.newModels.menues.MenuResponse;
-import com.example.alexander.halalappv1.reservation.UpComingReservation;
+import com.example.alexander.halalappv1.model.newModels.reservation.Reservation;
 import com.example.alexander.halalappv1.services.MenuResponseWebService;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 
@@ -31,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.alexander.halalappv1.activities.RestaurantProfileActivity.RESTAURANT_ID_KEY;
+import static com.example.alexander.halalappv1.activities.RestaurantProfileActivity.RESTAURANT_NAME_KEY;
 import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 
 public class MenuActivity extends AppCompatActivity {
@@ -51,8 +50,7 @@ public class MenuActivity extends AppCompatActivity {
     private HashMap<String, List<MenuItem>> mListDataChild;
     private int mLastExpandedPosition = -1;
 
-    private UpComingReservation mUpComingReservation;
-    private Restaurant mRestaurant;
+    private Reservation mUpComingReservation;
     private String mRestaurantName;
     private String mSelectedDate;
     private String mSelectedTime;
@@ -78,6 +76,7 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
+    // setup the menu list
     private void setUpMenuListView() {
         for (int i = 0; i < mMenuList.size(); i ++) {
             mListDataHeader.add(mMenuList.get(i).getName());
@@ -142,7 +141,7 @@ public class MenuActivity extends AppCompatActivity {
         //==========================================================================================
         dishNameTextView.setText(menuItem.getName());
         dishPriceTextView.setText(String.valueOf(menuItem.getPrice()) + " €");
-//        quantityTextView.setText(String.valueOf(menuItem.getQuantity()));
+        quantityTextView.setText(String.valueOf(menuItem.getQuantity()));
         //==========================================================================================
         plusSignImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +149,7 @@ public class MenuActivity extends AppCompatActivity {
                 int quantity = Integer.parseInt(quantityTextView.getText().toString());
                 quantity ++;
                 if (quantity > 0) {
-//                    menuItem.setQuantity(quantity);
+                    menuItem.setQuantity(quantity);
                     quantityTextView.setText(String.valueOf(quantity));
                     dishPriceTextView.setText(String.valueOf(quantity * Double.parseDouble(menuItem.getPrice())) + " €");
 
@@ -172,7 +171,7 @@ public class MenuActivity extends AppCompatActivity {
                     quantity = 0;
                 }
                 if (quantity > 0) {
-//                    menuItem.setQuantity(quantity);
+                    menuItem.setQuantity(quantity);
                     quantityTextView.setText(String.valueOf(quantity));
                     dishPriceTextView.setText(String.valueOf(quantity * Double.parseDouble(menuItem.getPrice())) + " €");
 
@@ -229,8 +228,12 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuActivity.this, SubmitReservationActivity.class);
-                intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);
-                intent.putExtra(RestaurantProfileActivity.RESTAURANT_OBJECT_KEY, mRestaurant);
+                // todo update to diff bitween update reservation and order reservation
+//                intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);
+                int restaurentId = getIntent().getIntExtra(RESTAURANT_ID_KEY, 0);
+                intent.putExtra(RESTAURENT_KEY, restaurentId);
+                String restaurantName = getIntent().getStringExtra(RESTAURANT_NAME_KEY);
+                intent.putExtra(RESTAURANT_NAME_KEY, restaurantName);
                 intent.putExtra(RestaurantProfileActivity.SELECTED_DATE_KEY, mSelectedDate);
                 intent.putExtra(RestaurantProfileActivity.SELECTED_TIME_KEY, mSelectedTime);
                 intent.putExtra(RestaurantProfileActivity.SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
@@ -263,49 +266,47 @@ public class MenuActivity extends AppCompatActivity {
 
             if (mAction.equals(RestaurantProfileActivity.ACTION_RESERVE)) {
                 mCheckoutOrderLayout.setVisibility(View.VISIBLE);
-                mRestaurant = getIntent().getParcelableExtra(RestaurantProfileActivity.RESTAURANT_OBJECT_KEY);
-                mRestaurantName = getIntent().getStringExtra(RestaurantProfileActivity.RESTAURANT_NAME_KEY);
+                mRestaurantName = getIntent().getStringExtra(RESTAURANT_NAME_KEY);
                 mSelectedDate = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_DATE_KEY);
                 mSelectedTime = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_TIME_KEY);
                 mSelectedNumberOfPeople = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_NUMBER_PEOPLE_KEY);
-//                mMenuList = getIntent().getParcelableArrayListExtra(RestaurantProfileActivity.MENU_LIST_KEY);
             }
 
             else if (mAction.equals(EditReservationActivity.ACTION_EDIT_RESERVE)) {
                 mCheckoutOrderLayout.setVisibility(View.VISIBLE);
                 mUpComingReservation = getIntent().getParcelableExtra(EditReservationActivity.UPCOMING_RESERVATION_OBJECT_KEY);
                 if (mUpComingReservation != null) {
-                    mRestaurant = mUpComingReservation.getRestaurant();
+                    //todo
+//                    mRestaurant = mUpComingReservation.getRestaurant();
                 }
-                if (mRestaurant != null) {
-                    mRestaurantName = mRestaurant.getName();
-//                    mMenuList = mRestaurant.getMenus();
-
-                    for (int i = 0; i < mMenuList.size(); i ++) {
-                        List<MenuItem> menuItemsList = mMenuList.get(i).getMenuItems();
-                        for (int j = 0; j < menuItemsList.size(); j ++) {
-                            MenuItem menuItem = menuItemsList.get(j);
+                // todo edit reservation
+//                if (mRestaurant != null) {
+//                    mRestaurantName = getIntent().getStringExtra(RESTAURANT_NAME_KEY);
+//                    for (int i = 0; i < mMenuList.size(); i ++) {
+//                        List<MenuItem> menuItemsList = mMenuList.get(i).getMenuItems();
+//                        for (int j = 0; j < menuItemsList.size(); j ++) {
+//                            MenuItem menuItem = menuItemsList.get(j);
 //                            if (menuItem.getQuantity() > 0) {
 //                                ReservationOrder reservationOrder = new ReservationOrder();
 //                                reservationOrder.setId(menuItem.getId());
 //                                reservationOrder.setQuantity(menuItem.getQuantity());
 //                                mReservationOrdersList.add(reservationOrder);
 //                            }
-                        }
-                    }
-
-                    for (int i = 0; i < mMenuList.size(); i ++) {
-                        List<MenuItem> menuItemsList = mMenuList.get(i).getMenuItems();
-                        for (int j = 0; j < menuItemsList.size(); j ++) {
-                            MenuItem menuItem = menuItemsList.get(j);
+//                        }
+//                    }
+//
+//                    for (int i = 0; i < mMenuList.size(); i ++) {
+//                        List<MenuItem> menuItemsList = mMenuList.get(i).getMenuItems();
+//                        for (int j = 0; j < menuItemsList.size(); j ++) {
+//                            MenuItem menuItem = menuItemsList.get(j);
 //                            mTotalQuantity += menuItem.getQuantity();
 //                            mTotalPrice += menuItem.getQuantity() * Double.parseDouble(menuItem.getPrice());
-                        }
-                    }
-
-                    mTotalQuantityTextView.setText(String.valueOf("x" + mTotalQuantity));
-                    mTotalPriceTextView.setText(String.valueOf(mTotalPrice + " €"));
-                }
+//                        }
+//                    }
+//
+//                    mTotalQuantityTextView.setText(String.valueOf("x" + mTotalQuantity));
+//                    mTotalPriceTextView.setText(String.valueOf(mTotalPrice + " €"));
+//                }
 
                 mSelectedDate = getIntent().getStringExtra(EditReservationActivity.SELECTED_DATE_KEY);
                 mSelectedTime = getIntent().getStringExtra(EditReservationActivity.SELECTED_TIME_KEY);
@@ -314,15 +315,14 @@ public class MenuActivity extends AppCompatActivity {
 
             else {
                 mCheckoutOrderLayout.setVisibility(View.GONE);
-                mRestaurantName = getIntent().getStringExtra(RestaurantProfileActivity.RESTAURANT_NAME_KEY);
+                mRestaurantName = getIntent().getStringExtra(RESTAURANT_NAME_KEY);
 //                mMenuList = getIntent().getParcelableArrayListExtra(RestaurantProfileActivity.MENU_LIST_KEY);
             }
         }
 
         else {
             mCheckoutOrderLayout.setVisibility(View.GONE);
-            mRestaurantName = getIntent().getStringExtra(RestaurantProfileActivity.RESTAURANT_NAME_KEY);
-//            mMenuList = getIntent().getParcelableArrayListExtra(RestaurantProfileActivity.MENU_LIST_KEY);
+            mRestaurantName = getIntent().getStringExtra(RESTAURANT_NAME_KEY);
         }
 
         updateRestaurantNameView();

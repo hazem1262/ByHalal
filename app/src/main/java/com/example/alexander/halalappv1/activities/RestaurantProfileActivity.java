@@ -556,13 +556,12 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                     Toast.makeText(RestaurantProfileActivity.this, getResources().getString(R.string.toast_message_select_number_of_people), Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(RestaurantProfileActivity.this, MenuActivity.class);
-//                    List<Menu> menuList = mRestaurant.getMenus();
-
-//                    intent.putExtra(RESTAURANT_OBJECT_KEY, mRestaurant);
+                    String restaurantName = mRestaurant.getName();
+                    intent.putExtra(RESTAURANT_NAME_KEY, restaurantName);
+                    intent.putExtra(RESTAURANT_ID_KEY, mRestaurant.getId());
                     intent.putExtra(SELECTED_DATE_KEY, mSelectedDate);
                     intent.putExtra(SELECTED_TIME_KEY, mSelectedTime);
                     intent.putExtra(SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
-//                    intent.putParcelableArrayListExtra(MENU_LIST_KEY, (ArrayList<? extends Parcelable>) menuList);
                     intent.setAction(ACTION_RESERVE);
                     startActivity(intent);
                 }

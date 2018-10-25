@@ -1,7 +1,6 @@
 package com.example.alexander.halalappv1.activities;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,20 +11,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.NumberOfPeopleAdapter;
 import com.example.alexander.halalappv1.adapters.TimeAdapter;
-import com.example.alexander.halalappv1.fragments.ReserveFragment;
-import com.example.alexander.halalappv1.model.Gallery;
-import com.example.alexander.halalappv1.model.modifiedmodels.MenuItem;
 import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.modifiedmodels.WorkDay;
+import com.example.alexander.halalappv1.model.newModels.menues.MenuItem;
+import com.example.alexander.halalappv1.model.newModels.reservation.details.Product;
+import com.example.alexander.halalappv1.model.newModels.reservation.details.ReservationDetails;
+import com.example.alexander.halalappv1.model.newModels.reservation.details.ReservationDetailsAllResponse;
 import com.example.alexander.halalappv1.model.newModels.workdays.Period;
-import com.example.alexander.halalappv1.reservation.UpComingReservation;
+import com.example.alexander.halalappv1.services.ReservationDetailsResponse;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
@@ -43,11 +43,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.alexander.halalappv1.fragments.ReserveFragment.EDIT_RESERVATION_OBJECT_KEY;
 
 public class EditReservationActivity extends AppCompatActivity {
 
@@ -65,7 +66,7 @@ public class EditReservationActivity extends AppCompatActivity {
     private TextView mRestaurantNameTextView;
     private RatingBar mRestaurantRateRatingBar;
 
-    private ConstraintLayout mDateTimeLayout;
+    private LinearLayout mDateTimeLayout;
     private TextView mDateTextView;
     private TextView mNumberOfPeopleTextView;
     private ConstraintLayout mCalendarLayout;
@@ -83,26 +84,26 @@ public class EditReservationActivity extends AppCompatActivity {
     private NumberOfPeopleAdapter mNumberOfPeopleAdapter;
     private ArrayList<String> mNumberOfPeopleList = new ArrayList<>();
 
-    private UpComingReservation mUpComingReservation;
     private Restaurant mRestaurant;
     private int mUserId;
     private String mSelectedDate;
     private String mSelectedTime;
     private String mSelectedNumberOfPeople;
-
+    private ArrayList<Product> mProducts;
+    private ReservationDetailsAllResponse mReservationDetailsResponse;
+    private ReservationDetails mReservationDetails;
+    private com.example.alexander.halalappv1.model.newModels.reservation.details.Restaurant mRestaurantRes;
     private int mTotalQuantity;
     //==============================================================================================
     private void findViewsById() {
         mRestaurantImageImageView = findViewById(R.id.iv_edit_reservation_activity_restaurant_image);
         mFavouriteIconImageView = findViewById(R.id.iv_edit_reservation_activity_favourite);
-        mArrowBackImageView = findViewById(R.id.iv_edit_reservation_activity_arrow_back);
-        mGalleryIconImageView = findViewById(R.id.iv_edit_reservation_activity_gallery_icon);
+//        mArrowBackImageView = findViewById(R.id.iv_edit_reservation_activity_arrow_back);
         mRestaurantNameTextView = findViewById(R.id.tv_edit_reservation_activity_restaurant_name);
-        mRestaurantRateRatingBar = findViewById(R.id.rb_edit_reservation_activity_restaurant_rate);
 
-        mDateTimeLayout = findViewById(R.id.edit_reservation_activity_date_time_number_of_people_layout);
+        mDateTimeLayout = findViewById(R.id.date_time_number_of_people_layout);
         mDateTextView = findViewById(R.id.tv_date_text);
-        mNumberOfPeopleTextView = findViewById(R.id.tv_number_of_people_text);
+//        mNumberOfPeopleTextView = findViewById(R.id.tv_number_of_people_text);
         mCalendarLayout = findViewById(R.id.edit_reservation_activity_calendar_layout);
         mMonthTextView = findViewById(R.id.tv_month_text);
         mCalendarView = findViewById(R.id.calendar_view);
@@ -111,7 +112,7 @@ public class EditReservationActivity extends AppCompatActivity {
         mRestaurantIsClosedTextView = findViewById(R.id.tv_calendar_layout_restaurant_is_closed_message);
         mReserveButton = findViewById(R.id.btn_calendar_layout_reserve);
         mPlaceAnOrderButton = findViewById(R.id.btn_calendar_layout_place_an_order);
-        findViewById(R.id.edit_reservation_scroll_view).scrollTo(0, mCalendarLayout.getHeight());
+        findViewById(R.id.restaurant_profile_scroll_view).scrollTo(0, mCalendarLayout.getHeight());
     }
 
     private void updateMainViewsWithRestaurantData() {
@@ -185,7 +186,7 @@ public class EditReservationActivity extends AppCompatActivity {
             public void onNumberSelected(int position) {
                 mNumberOfPeopleAdapter.setClickedItem(position);
                 mSelectedNumberOfPeople = mNumberOfPeopleList.get(position);
-                mNumberOfPeopleTextView.setText(mSelectedNumberOfPeople);
+//                mNumberOfPeopleTextView.setText(mSelectedNumberOfPeople);
                 mNumberOfPeopleAdapter.notifyDataSetChanged();
             }
         });
@@ -323,7 +324,7 @@ public class EditReservationActivity extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
-            date = simpleDateFormat.parse(mUpComingReservation.getBookingData().getReservationDate());
+            date = simpleDateFormat.parse(mReservationDetails.getDate());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -347,11 +348,11 @@ public class EditReservationActivity extends AppCompatActivity {
             }
         }
 
-        mSelectedTime = mUpComingReservation.getBookingData().getReservationTime();
+        mSelectedTime = mReservationDetails.getTime();
         for (int i = 0; i < mTimeList.size(); i ++) {
             if (mTimeList.get(i).equals(mSelectedTime)) {
                 mTimeAdapter.setClickedItem(i);
-//                mSelectedTime = mTimeList.get(i);
+                mSelectedTime = mTimeList.get(i).getHour();
                 mTimeAdapter.notifyDataSetChanged();
                 if (i > 1 && i < mTimeList.size() - 1) {
                     mTimeRecyclerView.scrollToPosition(i - 1);
@@ -486,15 +487,14 @@ public class EditReservationActivity extends AppCompatActivity {
         mReserveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUpComingReservation != null) {
-                    for (int i = 0; i < mUpComingReservation.getRestaurant().getMenus().size(); i ++) {
-                        List<MenuItem> menuItemsList = mUpComingReservation.getRestaurant().getMenus().get(i).getMenuItems();
-                        for (int j = 0; j < menuItemsList.size(); j ++) {
-                            MenuItem menuItem = menuItemsList.get(j);
-//                            menuItem.setQuantity(0);
-                        }
+                // todo
+                /*for (int i = 0; i < mUpComingReservation.getRestaurant().getMenus().size(); i ++) {
+                    List<MenuItem> menuItemsList = mUpComingReservation.getRestaurant().getMenus().get(i).getMenuItems();
+                    for (int j = 0; j < menuItemsList.size(); j ++) {
+                        MenuItem menuItem = menuItemsList.get(j);
+                        menuItem.setQuantity(0);
                     }
-                }
+                }*/
 
                 if (mSelectedDate == null) {
                     Toast.makeText(EditReservationActivity.this, getResources().getString(R.string.toast_message_select_date), Toast.LENGTH_LONG).show();
@@ -504,7 +504,8 @@ public class EditReservationActivity extends AppCompatActivity {
                     Toast.makeText(EditReservationActivity.this, getResources().getString(R.string.toast_message_select_number_of_people), Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(EditReservationActivity.this, SubmitReservationActivity.class);
-                    intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);
+                    // todo
+//                    intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);
                     intent.putExtra(SELECTED_DATE_KEY, mSelectedDate);
                     intent.putExtra(SELECTED_TIME_KEY, mSelectedTime);
                     intent.putExtra(SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
@@ -527,7 +528,8 @@ public class EditReservationActivity extends AppCompatActivity {
                 } else {
 
                     Intent intent = new Intent(EditReservationActivity.this, MenuActivity.class);
-                    intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);
+                    //todo invest how to send details to menu
+//                    intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);
                     intent.putExtra(SELECTED_DATE_KEY, mSelectedDate);
                     intent.putExtra(SELECTED_TIME_KEY, mSelectedTime);
                     intent.putExtra(SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
@@ -544,67 +546,54 @@ public class EditReservationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_reservation);
 
         mUserId = SharedPreferencesHelper.getSharedPreferenceInt(this, ConstantsHelper.KEY_USER_ID, -10);
-        mUpComingReservation = getIntent().getParcelableExtra(ReserveFragment.EDIT_RESERVATION_OBJECT_KEY);
-
         findViewsById();
-        setUpTimeRecyclerView();
-        setUpNumberOfPeopleRecyclerView();
-        setUpCalendarView();
-
-        if (mUpComingReservation != null) {
-            mRestaurant = mUpComingReservation.getRestaurant();
-            try {
-                mSelectedDate = mUpComingReservation.getBookingData().getReservationDate();
-                String[] dateParts = mSelectedDate.split("-");
-                mDateTextView.setText(dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0]);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = simpleDateFormat.parse(mSelectedDate);
-                mCalendarView.setSelectedDate(date);
-                mCalendarView.setSelectionColor(getResources().getColor(R.color.pink));
-                mCalendarView.setCurrentDate(date);
-                mSelectedDate = dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            mSelectedNumberOfPeople = mUpComingReservation.getBookingData().getNumberOfPeople();
-            mNumberOfPeopleTextView.setText(mSelectedNumberOfPeople);
-            for (int i = 0; i < mNumberOfPeopleList.size(); i ++) {
-                if (mNumberOfPeopleList.get(i).equals(mSelectedNumberOfPeople)) {
-                    mNumberOfPeopleAdapter.setClickedItem(i);
-                    mSelectedNumberOfPeople = mNumberOfPeopleList.get(i);
-                    mNumberOfPeopleAdapter.notifyDataSetChanged();
-                    if (i > 1 && i < mNumberOfPeopleList.size() - 1) {
-                        mNumberOfPeopleRecyclerView.scrollToPosition(i - 1);
-                    } else {
-                        mNumberOfPeopleRecyclerView.scrollToPosition(i);
-                    }
-                }
-            }
-
-            for (int i = 0; i < mUpComingReservation.getRestaurant().getMenus().size(); i ++) {
-                List<MenuItem> menuItemsList = mUpComingReservation.getRestaurant().getMenus().get(i).getMenuItems();
-                for (int j = 0; j < menuItemsList.size(); j ++) {
-                    MenuItem menuItem = menuItemsList.get(j);
-//                    mTotalQuantity += menuItem.getQuantity();
-                }
-            }
-            if (mTotalQuantity > 0) {
-                mReserveButton.setVisibility(View.GONE);
-            }
-        }
-
-        updateMainViewsWithRestaurantData();
-        updateTimeRecyclerViewWithCurrentDayWorkingHours();
+        getData();
         //==========================================================================================
         favouriteIconClick();
-        arrowBackClick();
-        galleryIconClick();
+//        arrowBackClick();
+//        galleryIconClick();
         reserveButtonClick();
         placeAnOrderButtonClick();
         //==========================================================================================
     }
 
+    public void updateData(){
+        try {
+            mSelectedDate = mReservationDetails.getDate2();
+            String[] dateParts = mSelectedDate.split("-");
+            mDateTextView.setText(dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0]);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = simpleDateFormat.parse(mSelectedDate);
+            mCalendarView.setSelectedDate(date);
+            mCalendarView.setSelectionColor(getResources().getColor(R.color.pink));
+            mCalendarView.setCurrentDate(date);
+            mSelectedDate = dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        mSelectedNumberOfPeople = mReservationDetails.getGuests().toString();
+//        mNumberOfPeopleTextView.setText(mSelectedNumberOfPeople);
+        for (int i = 0; i < mNumberOfPeopleList.size(); i ++) {
+            if (mNumberOfPeopleList.get(i).equals(mSelectedNumberOfPeople)) {
+                mNumberOfPeopleAdapter.setClickedItem(i);
+                mSelectedNumberOfPeople = mNumberOfPeopleList.get(i);
+                mNumberOfPeopleAdapter.notifyDataSetChanged();
+                if (i > 1 && i < mNumberOfPeopleList.size() - 1) {
+                    mNumberOfPeopleRecyclerView.scrollToPosition(i - 1);
+                } else {
+                    mNumberOfPeopleRecyclerView.scrollToPosition(i);
+                }
+            }
+        }
+
+        for (int i = 0; i < mProducts.size(); i ++) {
+            mTotalQuantity += mProducts.get(i).getQuantity();
+        }
+        if (mTotalQuantity > 0) {
+            mReserveButton.setVisibility(View.GONE);
+        }
+    }
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(EditReservationActivity.this, MainActivity.class);
@@ -631,4 +620,31 @@ public class EditReservationActivity extends AppCompatActivity {
             });
         }
     }
+
+    private void getData(){
+        int reservationId = getIntent().getIntExtra(EDIT_RESERVATION_OBJECT_KEY, 0);
+        ReservationDetailsResponse webService = RetrofitWebService.retrofit.create(ReservationDetailsResponse.class);
+        Call<ReservationDetailsAllResponse> menuResponse = webService.getReservationDetails(reservationId);
+        menuResponse.enqueue(new Callback<ReservationDetailsAllResponse>() {
+            @Override
+            public void onResponse(Call<ReservationDetailsAllResponse> call, Response<ReservationDetailsAllResponse> response) {
+                mReservationDetailsResponse = response.body();
+                mProducts = mReservationDetailsResponse.getReservation().getProducts();
+                mRestaurantRes = mReservationDetailsResponse.getRestaurant();
+                mReservationDetails = mReservationDetailsResponse.getReservation();
+                updateData();
+                setUpTimeRecyclerView();
+                setUpNumberOfPeopleRecyclerView();
+                setUpCalendarView();
+                updateMainViewsWithRestaurantData();
+//                updateTimeRecyclerViewWithCurrentDayWorkingHours();
+            }
+
+            @Override
+            public void onFailure(Call<ReservationDetailsAllResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

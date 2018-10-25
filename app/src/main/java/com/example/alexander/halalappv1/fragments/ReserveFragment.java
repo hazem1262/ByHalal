@@ -288,7 +288,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
         return rootView;
     }
 
-    private void showOrderDialog(final PreviousReservation previousReservation, final UpComingReservation upComingReservation) {
+    private void showOrderDialog(final Reservation previousReservation, final Reservation upComingReservation) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
         final LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.alert_dialog_reserve, null);
@@ -312,23 +312,24 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
         String language = SharedPreferencesHelper.getSharedPreferenceString(getContext(), ConstantsHelper.KEY_SELECTED_LANGUAGE, null);
 
         if (previousReservation != null) {
-            Picasso.with(getContext()).load(previousReservation.getRestaurant().getImage()).into(restaurantImage);
-            restaurantName.setText(previousReservation.getRestaurant().getName());
-            restaurantLocation.setText(previousReservation.getRestaurant().getAddress() + ", " + previousReservation.getRestaurant().getCityNameEn());
+            Picasso.with(getContext()).load(previousReservation.getPicture()).into(restaurantImage);
+            restaurantName.setText(previousReservation.getRestaurantName());
+//            restaurantLocation.setText(previousReservation.getRestaurant().getAddress() + ", " + previousReservation.getRestaurant().getCityNameEn());
 
             if (language != null) {
                 if (language.equals("français")) {
-                    numberOfPeople.setText(previousReservation.getBookingData().getNumberOfPeople() + " personnes");
-                    String[] dateParts = previousReservation.getBookingData().getReservationDate().split("-");
+                    numberOfPeople.setText(previousReservation.getGuests() + " personnes");
+                    String[] dateParts = previousReservation.getDate().split("/");
                     String reservationDate = dateParts[2] + "/" + dateParts[1];
-                    reserveDate.setText(getDayNameFrench(previousReservation.getBookingData().getReservationDayName()) + ", " + reservationDate);
-                    reserveTime.setText(previousReservation.getBookingData().getReservationTime());
+//                    reserveDate.setText(getDayNameFrench(previousReservation.getBookingData().getReservationDayName()) + ", " + reservationDate);
+                    reserveDate.setText(previousReservation.getDate());
+                    reserveTime.setText(previousReservation.getTime());
                 } else {
-                    numberOfPeople.setText(previousReservation.getBookingData().getNumberOfPeople() + " people");
-                    String[] dateParts = previousReservation.getBookingData().getReservationDate().split("-");
+                    numberOfPeople.setText(previousReservation.getGuests() + " people");
+                    String[] dateParts = previousReservation.getDate().split("/");
                     String reservationDate = dateParts[2] + "/" + dateParts[1];
-                    reserveDate.setText(previousReservation.getBookingData().getReservationDayName() + ", " + reservationDate);
-                    reserveTime.setText(previousReservation.getBookingData().getReservationTime());
+                    reserveDate.setText(previousReservation.getDate());
+                    reserveTime.setText(previousReservation.getTime());
                 }
             }
 
@@ -341,31 +342,31 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), RestaurantProfileActivity.class);
                     intent.setAction(ConstantsHelper.ACTION_RESERVE_FRAGMENT);
-                    intent.putExtra(ConstantsHelper.RESTAURANT_OBJECT_KEY, previousReservation.getRestaurant());
-                    startActivity(intent);
+//                    intent.putExtra(ConstantsHelper.RESTAURANT_OBJECT_KEY, previousReservation.getRestaurant());
+//                    startActivity(intent);
                 }
             });
         }
 
         if (upComingReservation != null) {
-            Picasso.with(getContext()).load(upComingReservation.getRestaurant().getImage()).into(restaurantImage);
-            restaurantName.setText(upComingReservation.getRestaurant().getName());
-            restaurantLocation.setText(upComingReservation.getRestaurant().getAddress() + ", " + upComingReservation.getRestaurant().getCityNameEn());
+            Picasso.with(getContext()).load(upComingReservation.getPicture()).into(restaurantImage);
+            restaurantName.setText(upComingReservation.getRestaurantName());
+//            restaurantLocation.setText(upComingReservation.getRestaurant().getAddress() + ", " + upComingReservation.getRestaurant().getCityNameEn());
 
             if (language != null) {
                 if (language.equals("français")) {
-                    numberOfPeople.setText(upComingReservation.getBookingData().getNumberOfPeople() + " personnes");
-                    String[] dateParts = upComingReservation.getBookingData().getReservationDate().split("-");
+                    numberOfPeople.setText(upComingReservation.getGuests() + " personnes");
+                    String[] dateParts = upComingReservation.getDate().split("/");
                     String reservationDate = dateParts[2] + "/" + dateParts[1];
-                    reserveDate.setText(getDayNameFrench(upComingReservation.getBookingData().getReservationDayName()) + ", " + reservationDate);
-                    reserveTime.setText(upComingReservation.getBookingData().getReservationTime());
+                    reserveDate.setText(upComingReservation.getDate());
+                    reserveTime.setText(upComingReservation.getTime());
                 }
                 else {
-                    numberOfPeople.setText(upComingReservation.getBookingData().getNumberOfPeople() + " people");
-                    String[] dateParts = upComingReservation.getBookingData().getReservationDate().split("-");
+                    numberOfPeople.setText(upComingReservation.getGuests() + " people");
+                    String[] dateParts = upComingReservation.getDate().split("/");
                     String reservationDate = dateParts[2] + "/" + dateParts[1];
-                    reserveDate.setText(upComingReservation.getBookingData().getReservationDayName() + ", " + reservationDate);
-                    reserveTime.setText(upComingReservation.getBookingData().getReservationTime());
+                    reserveDate.setText(upComingReservation.getDate());
+                    reserveTime.setText(upComingReservation.getTime());
                 }
             }
 
@@ -376,8 +377,9 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), RestaurantProfileActivity.class);
                     intent.setAction(ConstantsHelper.ACTION_RESERVE_FRAGMENT);
-                    intent.putExtra(ConstantsHelper.RESTAURANT_OBJECT_KEY, upComingReservation.getRestaurant());
-                    startActivity(intent);
+                    // todo ask for restaurent id to make image clickable
+//                    intent.putExtra(ConstantsHelper.RESTAURANT_OBJECT_KEY, upComingReservation.getRestaurant());
+//                    startActivity(intent);
                 }
             });
             //======================================================================================
@@ -392,7 +394,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), EditReservationActivity.class);
-                    intent.putExtra(EDIT_RESERVATION_OBJECT_KEY, upComingReservation);
+                    intent.putExtra(EDIT_RESERVATION_OBJECT_KEY, upComingReservation.getBookingId()); // use booking id to edit reservation
                     startActivity(intent);
                 }
             });
@@ -400,7 +402,8 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
             callButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showCallAlertDialog(alertDialog, upComingReservation.getRestaurant().getPhone());
+                    // todo update ui
+//                    showCallAlertDialog(alertDialog, upComingReservation.getRestaurant().getPhone());
                 }
             });
         }
@@ -438,7 +441,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
         return Math.round(dp * density);
     }
 
-    private void showCancelAlertDialog(final AlertDialog alertDialog, final UpComingReservation upComingReservation) {
+    private void showCancelAlertDialog(final AlertDialog alertDialog, final Reservation upComingReservation) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.alert_dialog_cancel_reservation, null);
@@ -470,7 +473,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                 mPreviousReservationsAdapter.setPreviousReservationsList(null);
                 mPreviousReservationsListRecyclerView.setAdapter(mPreviousReservationsAdapter);
 
-                cancelReservation(upComingReservation.getBookingData().getReservationId());
+                cancelReservation(upComingReservation.getBookingId());
             }
         });
     }
@@ -513,14 +516,13 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
 
     @Override
     public void onUpcomingItemClick(int position) {
-        //todo
-//        showOrderDialog(null, mUpComingReservationsList.get(position));
+        // todo replace dialog with activity
+        showOrderDialog(null, mUpComingReservationsList.get(position));
     }
 
     @Override
     public void onPreviousItemClick(int position) {
-        //todo
-//        showOrderDialog(mPreviousReservationsList.get(position), null);
+        showOrderDialog(mPreviousReservationsList.get(position), null);
     }
     //==============================================================================================
     private void signInButtonClick() {

@@ -24,6 +24,7 @@ import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.model.ReservationOrder;
 import com.example.alexander.halalappv1.model.User;
 
+import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.newModels.RestaurantProfile;
 import com.example.alexander.halalappv1.reservation.UpComingReservation;
 import com.example.alexander.halalappv1.services.RestaurentProfileWebService;
@@ -139,7 +140,7 @@ public class SubmitReservationActivity extends AppCompatActivity {
         if (mUpComingReservation != null) {
             // todo
 //            mRestaurant = mUpComingReservation.getRestaurant();
-//            Picasso.with(this).load(mRestaurant.getImage()).into(mRestaurantImageImageView);
+//            Picasso.with(this).load(mRestaurant.getPicture()).into(mRestaurantImageImageView);
             mRestaurantNameTextView.setText(mRestaurant.getName());
             if (language != null) {
                 if (language.equals("français")) {
@@ -239,14 +240,13 @@ public class SubmitReservationActivity extends AppCompatActivity {
                     if (mUserId != -10) {
                         isNetworkOk = NetworkHelper.hasNetworkAccess(SubmitReservationActivity.this);
                         if (isNetworkOk) {
-                            String productsList = "";
+                            String productsList;
                             if (mReservationOrdersList == null) {
                                 productsList = "";
                             } else {
                                 Gson gson = new Gson();
-                                //todo
-//                                Type type = new TypeToken<List<Restaurant>>() {}.getType();
-//                                productsList = gson.toJson(mReservationOrdersList, type);
+                                Type type = new TypeToken<List<Restaurant>>() {}.getType();
+                                productsList = gson.toJson(mReservationOrdersList, type);
                             }
 
                             if (mUpComingReservation != null) {
