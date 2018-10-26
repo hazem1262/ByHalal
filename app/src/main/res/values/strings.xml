@@ -243,6 +243,7 @@
 	<string name="persons">Personnes</string>
 	<string name="Supprimer">Supprimer</string>
     <string name="nos_categories">Nos catégories</string>
+    <string name="annuler">Annuler</string>
     <!--=========================================================================================-->
 
 </resources>

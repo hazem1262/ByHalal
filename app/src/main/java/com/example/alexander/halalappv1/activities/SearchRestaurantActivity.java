@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.CategoriesAdapter;
+import com.example.alexander.halalappv1.adapters.HomeRestaurantAdapter;
 import com.example.alexander.halalappv1.model.City;
 import com.example.alexander.halalappv1.model.newModels.Category;
+import com.example.alexander.halalappv1.model.newModels.Restaurant;
 import com.example.alexander.halalappv1.services.GetCategoriesService;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
+import com.example.alexander.halalappv1.services.SearchRestaurantService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -29,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchRestaurantActivity extends AppCompatActivity {
+public class SearchRestaurantActivity extends AppCompatActivity implements HomeRestaurantAdapter.OnRestaurantClickListener {
 
     public static final String CITY_LATITUDE_KEY = "CityLatitude";
     public static final String CITY_LONGITUDE_KEY = "CityLongitude";
@@ -46,11 +52,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     private Button mSearchButton;
 
     private String mAction;
-    private String mSearchKeywords;
     private City mCity;
-    private String mSelectedCity;
-    private String mCityLatitude;
-    private String mCityLongitude;
 
     private int mCuisineId;
     private int mPrice;
@@ -59,11 +61,19 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     private String mLocationAction;
 
     // new design views and components
-    private RecyclerView categoriesRecyclerView;
+    private RecyclerView categoriesRecyclerView, searchRecyclerView;
     private CategoriesAdapter categoriesAdapter;
+    private HomeRestaurantAdapter searchResultAdapter;
     private ArrayList<Category> categoriesList;
-    private TextView categoriesTitle;
+    private ArrayList<Restaurant> searchResultList;
+    private TextView categoriesTitle, searchClear;
+    private ImageView searchIcon;
     private RelativeLayout searchLayout;
+    public static final String RESTAURENT_KEY = "RestaurentKey";
+    public static final String SEARCH_KEY = "searchKey";
+    private String mSearchKeywords;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,86 +89,90 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         // this is related to the new design
         initNewDesignViews();
                     //\\
-
-        findViewsById(); // (1)
-
-//        getCityDataFromSharedPreferencesAndUpdateView(); // (2)
-
         arrowBackClick();
 
-//        selectLocationTextViewClick();
-
-//        allRestaurantsLayoutClick();
-
-//        myFavouritesLayout();
-
-//        searchButtonClick();
     }
 
     // new design views initialization
     private void initNewDesignViews(){
         categoriesList = new ArrayList<>();
+        searchResultList = new ArrayList<>();
         // init recycler's adapter
         categoriesAdapter = new CategoriesAdapter(categoriesList,this);
+        searchResultAdapter = new HomeRestaurantAdapter(this,this);
+        searchResultAdapter.setRestaurantList(searchResultList);
         // init recycler
         categoriesRecyclerView = findViewById(R.id.categories_recycler_view);
         categoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         categoriesRecyclerView.setHasFixedSize(true);
         categoriesRecyclerView.setAdapter(categoriesAdapter);
+        // search result recycler init
+        searchRecyclerView = findViewById(R.id.search_recycler_view);
+        searchRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        searchRecyclerView.setHasFixedSize(true);
+        searchRecyclerView.setAdapter(searchResultAdapter);
         // init categories title
         categoriesTitle = findViewById(R.id.cat_title);
-        //relative layout to handle focus
+        //relative layout to handle focus and ignore the focus on search edit text when activity created
         searchLayout = findViewById(R.id.activity_search_layout);
+        // other views initialization
+        mArrowBackImageView = findViewById(R.id.iv_search_restaurant_arrow_back);
+        mSearchRestaurantEditText = findViewById(R.id.et_search_restaurant_search);
+        searchIcon = findViewById(R.id.search_restaurant_search_icon);
+        searchClear = findViewById(R.id.search_restaurant_clear);
+        // actions on search edit texts icons
+        watchSearchEditText();
+        clearSearchET();
+        searchAction();
         // get all categories from api
         getAllCategories();
 
     }
 
+    private void watchSearchEditText(){
+        mSearchRestaurantEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-    private void findViewsById() {
-        mArrowBackImageView = findViewById(R.id.iv_search_restaurant_arrow_back);
-        mSearchRestaurantEditText = findViewById(R.id.et_search_restaurant_search);
-//        mSelectLocationTextView = findViewById(R.id.tv_search_restaurant_location);
-//        mAllRestaurantsLayout = findViewById(R.id.search_restaurant_all_restaurants_layout);
-//        mMyFavouritesLayout = findViewById(R.id.search_restaurant_my_favourites_layout);
-//        mSearchButton = findViewById(R.id.btn_search_restaurant_search);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (mSearchRestaurantEditText.getText().length() > 0)
+                    searchClear.setVisibility(View.VISIBLE);
+                else
+                    searchClear.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (mSearchRestaurantEditText.getText().length() > 0)
+                    searchClear.setVisibility(View.VISIBLE);
+                else
+                    searchClear.setVisibility(View.GONE);
+            }
+        });
     }
 
-    /*private void getCityDataFromSharedPreferencesAndUpdateView() {
-        mSelectedCity = SharedPreferencesHelper.getSharedPreferenceString(this, ConstantsHelper.KEY_SELECTED_CITY, null);
-        mCityLatitude = SharedPreferencesHelper.getSharedPreferenceString(this, ConstantsHelper.KEY_CITY_LATITUDE, null);
-        mCityLongitude = SharedPreferencesHelper.getSharedPreferenceString(this, ConstantsHelper.KEY_CITY_LONGITUDE, null);
-
-        if (mLocationAction == null) {
-            if (getIntent().getStringExtra("XXXXX") != null) {
-                if (getIntent().getStringExtra("XXXXX").equals("search_by_location_value")) {
-                    mSelectLocationTextView.setText(getResources().getString(R.string.tv_search_restaurant_location_text));
-                } else if (getIntent().getStringExtra("XXXXX").equals("ActionSearchValue")) {
-                    mSelectLocationTextView.setText(mSelectedCity);
-                }
-            } else {
-                if (mSelectedCity != null) {
-                    mSelectLocationTextView.setText(mSelectedCity);
-                } else {
-                    mSelectLocationTextView.setText(getResources().getString(R.string.tv_search_restaurant_select_city_text));
-                }
+    private void clearSearchET(){
+        searchClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchRestaurantEditText.setText("");
             }
-        } else {
-            if (getIntent().getStringExtra("XXXXX") != null) {
-                if (getIntent().getStringExtra("XXXXX").equals("search_by_location_value")) {
-                    mSelectLocationTextView.setText(getResources().getString(R.string.tv_search_restaurant_location_text));
-                } else if (getIntent().getStringExtra("XXXXX").equals("ActionSearchValue")) {
-                    mSelectLocationTextView.setText(mSelectedCity);
-                }
-            } else {
-                mSelectLocationTextView.setText(getResources().getString(R.string.tv_search_restaurant_location_text));
-            }
-        }
+        });
+    }
 
-        if (TextUtils.isEmpty(mSelectLocationTextView.getText())) {
-            mSelectLocationTextView.setText(getResources().getString(R.string.tv_search_restaurant_select_city_text));
-        }
-    }*/
+    private void searchAction(){
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchKeywords = mSearchRestaurantEditText.getText().toString();
+                getSearchData(mSearchKeywords);
+            }
+        });
+    }
+
     //==============================================================================================
     private void arrowBackClick() {
         mArrowBackImageView.setOnClickListener(new View.OnClickListener() {
@@ -290,6 +304,9 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                         categoriesList.clear();
                         categoriesList.addAll(tempList);
                         categoriesAdapter.notifyDataSetChanged();
+                        searchRecyclerView.setVisibility(View.GONE);
+                        categoriesRecyclerView.setVisibility(View.VISIBLE);
+                        categoriesTitle.setVisibility(View.VISIBLE);
                         // set categories title with number of categories
                         String newCategoryTitle = getResources().getString(R.string.nos_categories) + " ("+ categoriesList.size() + ")";
                         categoriesTitle.setText(newCategoryTitle);
@@ -303,5 +320,48 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                 Toast.makeText(SearchRestaurantActivity.this, t.getLocalizedMessage()+"", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    // get search result from api
+    private void getSearchData(String searchKeywords) {
+        SearchRestaurantService webService = RetrofitWebService.retrofit.create(SearchRestaurantService.class);
+        // TODO at getSearchResponse() in the next line, set the searchKeywords and on the the SearchRestaurantService set the Field of search keywords
+        Call<JsonArray> call = webService.getSearchResponse();
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if (response.isSuccessful()) {
+                    JsonArray jsonArray = response.body();
+                    if (jsonArray != null) {
+                        Gson gson = new Gson();
+                        ArrayList<Restaurant> tempList = gson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<Restaurant>>(){}.getType());
+                        searchResultList.clear();
+                        searchResultList.addAll(tempList);
+                        searchResultAdapter.notifyDataSetChanged();
+                        searchRecyclerView.setVisibility(View.VISIBLE);
+                        categoriesRecyclerView.setVisibility(View.GONE);
+                        categoriesTitle.setVisibility(View.GONE);
+                        // set categories title with number of categories
+                        Log.i("searchResult",jsonArray.toString()+" ---> results");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(SearchRestaurantActivity.this, t.getLocalizedMessage()+"", Toast.LENGTH_SHORT).show();
+                Log.i("searchResult",t.getLocalizedMessage()+"");
+            }
+        });
+    }
+
+    // when search item clicked
+    @Override
+    public void onRestaurantClick(int parentPosition, int childPosition) {
+        Intent intent = new Intent(this, RestaurantProfileActivity.class);
+        intent.putExtra(RESTAURENT_KEY, childPosition);
+        intent.setAction(ConstantsHelper.ACTION_SEARCH_ACTIVITY);
+        startActivity(intent);
     }
 }

@@ -19,6 +19,7 @@ public class ConstantsHelper {
     public static final String KEY_CITY_LONGITUDE = "city_longitude";
 
     public static final String ACTION_HOME_FRAGMENT = "home_fragment";
+    public static final String ACTION_SEARCH_ACTIVITY = "search_activity";
     public static final String ACTION_SEARCH_FRAGMENT = "search_fragment";
     public static final String ACTION_RESERVE_FRAGMENT = "reserve_fragment";
     public static final String ACTION_PROFILE_FRAGMENT = "profile_fragment";
@@ -86,6 +87,7 @@ public class ConstantsHelper {
     public static final String RESTAURANTS_LIST_BODY = "list-body";
     public static final String RESTAURANTS_LIST_FOOTER = "list-footer";
     public static final String GET_ALL_CATEGORIES_API = "allCategories";
+    public static final String SEARCH_RESTAURANT = "searchRestaurant";
 
 
 }

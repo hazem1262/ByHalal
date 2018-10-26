@@ -36,29 +36,67 @@
             android:textSize="@dimen/app_text_size"
             android:layout_marginStart="60dp"
             android:layout_toEndOf="@id/iv_search_restaurant_arrow_back"
-            android:layout_marginTop="31dp" />
+            android:layout_marginTop="31dp"
+            />
 
-        <EditText
-            android:id="@+id/et_search_restaurant_search"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:layout_below="@id/tv_search_restaurant_header_label"
-            android:layout_width="384dp"
-            android:layout_height="45dp"
-            android:background="@color/search_edit_text_bg"
-            android:drawableStart="@drawable/ic_text_view_search"
-            android:fontFamily="@font/opensans_regular"
-            android:gravity="center"
-            android:paddingStart="20dp"
-            android:paddingEnd="40dp"
-            android:hint="@string/et_search_restaurant_search_text_hint"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/grey_777777"
-            android:textSize="@dimen/app_text_size"
-            android:layout_marginTop="30dp" />
+            android:id="@+id/search_edit_frame">
+            <EditText
+                android:id="@+id/et_search_restaurant_search"
+                android:layout_width="384dp"
+                android:layout_height="45dp"
+                android:background="@color/search_edit_text_bg"
+                android:inputType="text"
+                android:maxLines="1"
+                android:fontFamily="@font/opensans_regular"
+                android:gravity="center"
+                android:paddingStart="50dp"
+                android:paddingEnd="70dp"
+                android:hint="@string/et_search_restaurant_search_text_hint"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey_777777"
+                android:textSize="@dimen/app_text_size"
+                />
+            <ImageView
+                android:id="@+id/search_restaurant_search_icon"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_text_view_search"
+                />
+
+            <TextView
+                android:id="@+id/search_restaurant_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:text="@string/annuler"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                android:textSize="@dimen/app_text_size"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                />
+
+        </RelativeLayout>
+
+
 
         <TextView
             android:id="@+id/cat_title"
-            android:layout_below="@id/et_search_restaurant_search"
+            android:layout_below="@id/search_edit_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -74,7 +112,19 @@
             android:scrollbars="none"
             android:layout_width="match_parent"
             android:background="@color/modifiedPrimaryColor"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_recycler_view"
+            android:layout_below="@id/search_edit_frame"
+            android:layout_margin="30dp"
+            android:visibility="gone"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:background="@color/modifiedPrimaryColor"
+            android:layout_height="wrap_content"
+            />
 
     </RelativeLayout>
 

@@ -908,7 +908,8 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
                     intent.setAction(ConstantsHelper.ACTION_RESERVE_FRAGMENT);
                     startActivity(intent);
-                }
+                }else
+                    super.onBackPressed();
             }
         }
     }
