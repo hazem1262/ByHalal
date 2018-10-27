@@ -3,6 +3,8 @@ package com.example.alexander.halalappv1.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.alexander.halalappv1.R;
+
 public class ReservationDetailsActivity extends AppCompatActivity {
 
     @Override

@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.activities.EditReservationActivity;
+import com.example.alexander.halalappv1.activities.ReservationDetailsActivity;
 import com.example.alexander.halalappv1.activities.RestaurantProfileActivity;
 import com.example.alexander.halalappv1.model.User;
 import com.example.alexander.halalappv1.model.newModels.reservation.Reservation;
@@ -517,7 +518,9 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
     @Override
     public void onUpcomingItemClick(int position) {
         // todo replace dialog with activity
-        showOrderDialog(null, mUpComingReservationsList.get(position));
+//        showOrderDialog(null, mUpComingReservationsList.get(position));
+        Intent detailsIntent = new Intent(getContext(), ReservationDetailsActivity.class);
+        startActivity(detailsIntent);
     }
 
     @Override

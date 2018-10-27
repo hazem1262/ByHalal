@@ -46,6 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.alexander.halalappv1.activities.EditReservationActivity.RESERVATION_ID;
 import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 
 public class SubmitReservationActivity extends AppCompatActivity {
@@ -249,12 +250,13 @@ public class SubmitReservationActivity extends AppCompatActivity {
                                 productsList = gson.toJson(mReservationOrdersList, type);
                             }
 
-                            if (mUpComingReservation != null) {
+                            int reservationID = getIntent().getIntExtra(RESERVATION_ID, -10);
+                            if (reservationID != -10) {
                                 showLoadingIndicator();
                                 RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
                                 Call<JsonObject> reserveCall = webService.editReservation(
                                         mUserId,
-                                        mUpComingReservation.getRestaurant().getId(),
+                                        mRestaurantId,
                                         mFormattedDate,
                                         mSelectedTime,
                                         mSelectedNumberOfPeople,
@@ -264,20 +266,8 @@ public class SubmitReservationActivity extends AppCompatActivity {
                                         mPhoneNumber,
                                         mComments,
                                         productsList,
-                                        mUpComingReservation.getBookingData().getReservationId());
+                                        reservationID);
 
-                                Log.d("KKKKK", String.valueOf(mUserId));
-                                Log.d("KKKKK", String.valueOf(mUpComingReservation.getRestaurant().getId()));
-                                Log.d("KKKKK", String.valueOf(mFormattedDate));
-                                Log.d("KKKKK", String.valueOf(mSelectedTime));
-                                Log.d("KKKKK", String.valueOf(mSelectedNumberOfPeople));
-                                Log.d("KKKKK", String.valueOf(mFirstName));
-                                Log.d("KKKKK", String.valueOf(mLastName));
-                                Log.d("KKKKK", String.valueOf(mEmail));
-                                Log.d("KKKKK", String.valueOf(mPhoneNumber));
-                                Log.d("KKKKK", String.valueOf(mComments));
-                                Log.d("KKKKK", String.valueOf(productsList));
-                                Log.d("KKKKK", String.valueOf(mUpComingReservation.getBookingData().getReservationId()));
 
                                 reserveCall.enqueue(new Callback<JsonObject>() {
                                     @Override
@@ -413,18 +403,7 @@ public class SubmitReservationActivity extends AppCompatActivity {
                             productsList,
                             mUpComingReservation.getBookingData().getReservationId());
 
-                    Log.d("KKKKK", String.valueOf(mUserId));
-                    Log.d("KKKKK", String.valueOf(mUpComingReservation.getRestaurant().getId()));
-                    Log.d("KKKKK", String.valueOf(mFormattedDate));
-                    Log.d("KKKKK", String.valueOf(mSelectedTime));
-                    Log.d("KKKKK", String.valueOf(mSelectedNumberOfPeople));
-                    Log.d("KKKKK", String.valueOf(mFirstName));
-                    Log.d("KKKKK", String.valueOf(mLastName));
-                    Log.d("KKKKK", String.valueOf(mEmail));
-                    Log.d("KKKKK", String.valueOf(mPhoneNumber));
-                    Log.d("KKKKK", String.valueOf(mComments));
-                    Log.d("KKKKK", String.valueOf(productsList));
-                    Log.d("KKKKK", String.valueOf(mUpComingReservation.getBookingData().getReservationId()));
+
 
                     reserveCall.enqueue(new Callback<JsonObject>() {
                         @Override

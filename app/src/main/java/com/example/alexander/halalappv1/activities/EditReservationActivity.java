@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +27,15 @@ import com.example.alexander.halalappv1.model.newModels.reservation.details.Prod
 import com.example.alexander.halalappv1.model.newModels.reservation.details.ReservationDetails;
 import com.example.alexander.halalappv1.model.newModels.reservation.details.ReservationDetailsAllResponse;
 import com.example.alexander.halalappv1.model.newModels.workdays.Period;
+import com.example.alexander.halalappv1.model.newModels.workdays.WorkingDay;
+import com.example.alexander.halalappv1.model.newModels.workdays.WorkingHoursResponse;
 import com.example.alexander.halalappv1.services.ReservationDetailsResponse;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
+import com.example.alexander.halalappv1.services.WorkingHours;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
+import com.example.alexander.halalappv1.utils.NetworkHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
+import com.google.gson.JsonObject;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -48,6 +55,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 import static com.example.alexander.halalappv1.fragments.ReserveFragment.EDIT_RESERVATION_OBJECT_KEY;
 
 public class EditReservationActivity extends AppCompatActivity {
@@ -58,7 +66,15 @@ public class EditReservationActivity extends AppCompatActivity {
     public static final String SELECTED_DATE_KEY = "SelectedDate";
     public static final String SELECTED_TIME_KEY = "SelectedTime";
     public static final String SELECTED_NUMBER_PEOPLE_KEY = "SelectedNumberOfPeople";
+    public static final String RESERVATION_ID = "selectedReservationId";
+    private WorkingHoursResponse mRestaurentWorkingHours;
+    private boolean isNetworkOk;
 
+    private ConstraintLayout mReserveLayout;
+
+    private TextView mNumberOfPeopleLabelTextView;
+    private TextView mNoCapacityTextView;
+    private ProgressBar mCalendarLoadingIndicator;
     private ImageView mRestaurantImageImageView;
     private ImageView mFavouriteIconImageView;
     private ImageView mArrowBackImageView;
@@ -84,6 +100,7 @@ public class EditReservationActivity extends AppCompatActivity {
     private NumberOfPeopleAdapter mNumberOfPeopleAdapter;
     private ArrayList<String> mNumberOfPeopleList = new ArrayList<>();
 
+    private ScrollView mScrollView;
     private Restaurant mRestaurant;
     private int mUserId;
     private String mSelectedDate;
@@ -100,9 +117,17 @@ public class EditReservationActivity extends AppCompatActivity {
         mFavouriteIconImageView = findViewById(R.id.iv_edit_reservation_activity_favourite);
 //        mArrowBackImageView = findViewById(R.id.iv_edit_reservation_activity_arrow_back);
         mRestaurantNameTextView = findViewById(R.id.tv_edit_reservation_activity_restaurant_name);
+        mNumberOfPeopleLabelTextView = findViewById(R.id.tv_calendar_layout_number_of_people_label);
+        mNoCapacityTextView = findViewById(R.id.tv_calendar_layout_no_capacity_message);
+
+        mCalendarLoadingIndicator = findViewById(R.id.pb_calendar_layout_loading_indicator);
 
         mDateTimeLayout = findViewById(R.id.date_time_number_of_people_layout);
         mDateTextView = findViewById(R.id.tv_date_text);
+        mScrollView = findViewById(R.id.restaurant_profile_scroll_view);
+
+        mReserveLayout = findViewById(R.id.layout_reserve_place_an_order);
+
 //        mNumberOfPeopleTextView = findViewById(R.id.tv_number_of_people_text);
         mCalendarLayout = findViewById(R.id.edit_reservation_activity_calendar_layout);
         mMonthTextView = findViewById(R.id.tv_month_text);
@@ -116,8 +141,9 @@ public class EditReservationActivity extends AppCompatActivity {
     }
 
     private void updateMainViewsWithRestaurantData() {
+        Picasso.with(this).load(mRestaurantRes.getPicture()).into(mRestaurantImageImageView);
         if (mRestaurant != null) {
-            Picasso.with(this).load(mRestaurant.getImage()).into(mRestaurantImageImageView);
+
             if (mRestaurant.getFavourite().equals("true")) {
                 mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_pink);
             } else {
@@ -174,6 +200,24 @@ public class EditReservationActivity extends AppCompatActivity {
                 mTimeAdapter.setClickedItem(position);
                 mSelectedTime = mTimeList.get(position).toString();
                 mTimeAdapter.notifyDataSetChanged();
+                isNetworkOk = NetworkHelper.hasNetworkAccess(EditReservationActivity.this);
+                if (isNetworkOk) {
+                    mCalendarLoadingIndicator.setVisibility(View.VISIBLE);
+                    mNumberOfPeopleList.clear();
+                    mNumberOfPeopleAdapter.setNumberOfPeopleList(null);
+                    mNumberOfPeopleAdapter.setClickedItem(-10);
+                    mSelectedNumberOfPeople = null;
+                    mNumberOfPeopleLabelTextView.setVisibility(View.GONE);
+                    mNumberOfPeopleRecyclerView.setVisibility(View.GONE);
+                    mNoCapacityTextView.setVisibility(View.GONE);
+
+                    int restaurantId = mRestaurantRes.getId();
+                    String reservationDate = mSelectedDate.split("-")[2] + "-" + mSelectedDate.split("-")[1] + "-" + mSelectedDate.split("-")[0];
+                    String reservationTime = mSelectedTime;
+                    getCapacity(restaurantId, reservationDate, reservationTime);
+                } else {
+                    Toast.makeText(EditReservationActivity.this, getResources().getString(R.string.toast_message_no_internet_connection), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -191,22 +235,13 @@ public class EditReservationActivity extends AppCompatActivity {
             }
         });
 
-        mNumberOfPeopleList.add("1");
-        mNumberOfPeopleList.add("2");
-        mNumberOfPeopleList.add("3");
-        mNumberOfPeopleList.add("4");
-        mNumberOfPeopleList.add("5");
-        mNumberOfPeopleList.add("6");
-        mNumberOfPeopleList.add("7");
-        mNumberOfPeopleList.add("9");
-        mNumberOfPeopleList.add("10");
-        mNumberOfPeopleList.add("11");
-        mNumberOfPeopleList.add("12");
-        mNumberOfPeopleList.add("13");
-        mNumberOfPeopleList.add("14");
-        mNumberOfPeopleList.add("15");
+        for (int i =1; i<= mReservationDetails.getGuests(); i++){
+            mNumberOfPeopleList.add(String.valueOf(i));
+        }
         mNumberOfPeopleAdapter.setNumberOfPeopleList(mNumberOfPeopleList);
         mNumberOfPeopleRecyclerView.setAdapter(mNumberOfPeopleAdapter);
+        mNumberOfPeopleAdapter.setClickedItem(mNumberOfPeopleList.size() - 1);
+        mNumberOfPeopleAdapter.notifyDataSetChanged();
     }
 
     private void setUpCalendarView() {
@@ -255,7 +290,8 @@ public class EditReservationActivity extends AppCompatActivity {
 
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = simpleDateFormat1.parse(mReservationDetails.getDate());
             mSelectedDate = simpleDateFormat.format(date);
             Date date1 = simpleDateFormat.parse(mSelectedDate);
             mCalendarView.setSelectedDate(date1);
@@ -269,45 +305,7 @@ public class EditReservationActivity extends AppCompatActivity {
         mCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                int day = date.getCalendar().get(Calendar.DAY_OF_MONTH);
-                int month = date.getCalendar().get(Calendar.MONTH) + 1;
-                int year = date.getYear();
-                String dayString = String.valueOf(day);
-                String monthString = String.valueOf(month);
-                if (day < 10) {
-                    dayString = String.valueOf("0" + day);
-                }
-                if (month < 10) {
-                    monthString = String.valueOf("0" + month);
-                }
-
-                mSelectedDate = dayString + "/" + monthString + "/" + year;
-                mDateTextView.setText(mSelectedDate);
-                //==================================================================================
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
-                String selectedDayOfTheWeek = getSelectedDayOfTheWeek(simpleDateFormat.format(date.getDate()));
-
-                mTimeList.clear();
-                mTimeAdapter.setTimeList(null);
-                mTimeAdapter.setClickedItem(-10);
-                mSelectedTime = null;
-// todo
-//                List<WorkDay> workDaysList = mRestaurant.getWorkDays();
-//                for (int i = 0; i < workDaysList.size(); i ++) {
-//                    if (workDaysList.get(i).getDayName().equalsIgnoreCase(selectedDayOfTheWeek)) {
-//                        WorkDay workDay = workDaysList.get(i);
-//                        if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
-//                            mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
-//                            mTimeRecyclerView.setVisibility(View.VISIBLE);
-//                            mTimeList.addAll(workDay.getPeriods());
-//                            mTimeAdapter.setTimeList(mTimeList);
-//                            mTimeRecyclerView.setAdapter(mTimeAdapter);
-//                        } else {
-//                            mRestaurantIsClosedTextView.setVisibility(View.VISIBLE);
-//                            mTimeRecyclerView.setVisibility(View.INVISIBLE);
-//                        }
-//                    }
-//                }
+                setSelectedDate(date);
             }
         });
 
@@ -318,10 +316,13 @@ public class EditReservationActivity extends AppCompatActivity {
                 mMonthTextView.setText(getMonthText(date.getMonth()) + " " + date.getYear());
             }
         });
+
+        setUpTimeRecyclerView();
+
     }
 
     private void updateTimeRecyclerViewWithCurrentDayWorkingHours() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
         try {
             date = simpleDateFormat.parse(mReservationDetails.getDate());
@@ -331,14 +332,15 @@ public class EditReservationActivity extends AppCompatActivity {
         SimpleDateFormat outFormat = new SimpleDateFormat("EEEE");
         String currentDayOfTheWeek = getSelectedDayOfTheWeek(outFormat.format(date));
         //==========================================================================================
-        List<WorkDay> workDaysList = mRestaurant.getWorkDays();
+        List<WorkingDay> workDaysList = mRestaurentWorkingHours.getWorkingDays();
         for (int i = 0; i < workDaysList.size(); i ++) {
             if (workDaysList.get(i).getDayName().equalsIgnoreCase(currentDayOfTheWeek)) {
-                WorkDay workDay = workDaysList.get(i);
+                WorkingDay workDay = workDaysList.get(i);
                 if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
+
                     mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
                     mTimeRecyclerView.setVisibility(View.VISIBLE);
-//                    mTimeList.addAll(workDay.getPeriods());
+                    mTimeList.addAll(workDay.getPeriods());
                     mTimeAdapter.setTimeList(mTimeList);
                     mTimeRecyclerView.setAdapter(mTimeAdapter);
                 } else {
@@ -349,8 +351,11 @@ public class EditReservationActivity extends AppCompatActivity {
         }
 
         mSelectedTime = mReservationDetails.getTime();
+        // todo set the init time
+        boolean isTimeAvailable = false;
         for (int i = 0; i < mTimeList.size(); i ++) {
-            if (mTimeList.get(i).equals(mSelectedTime)) {
+            if (mTimeList.get(i).getHour().equals(mSelectedTime.replace("h",":"))) {
+                isTimeAvailable = true;
                 mTimeAdapter.setClickedItem(i);
                 mSelectedTime = mTimeList.get(i).getHour();
                 mTimeAdapter.notifyDataSetChanged();
@@ -360,6 +365,13 @@ public class EditReservationActivity extends AppCompatActivity {
                     mTimeRecyclerView.scrollToPosition(i);
                 }
             }
+        }
+        if (!isTimeAvailable){
+            Period p = new Period();
+            p.setHour(mReservationDetails.getTime().replace("h",":"));
+            mTimeList.add(p);
+            mTimeAdapter.setClickedItem(mTimeList.size() - 1);
+            mTimeAdapter.notifyDataSetChanged();
         }
     }
 
@@ -505,9 +517,10 @@ public class EditReservationActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(EditReservationActivity.this, SubmitReservationActivity.class);
                     // todo
-//                    intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);
+                    intent.putExtra(RESERVATION_ID, mReservationDetails.getId());
+                    intent.putExtra(RESTAURENT_KEY, mRestaurantRes.getId());
                     intent.putExtra(SELECTED_DATE_KEY, mSelectedDate);
-                    intent.putExtra(SELECTED_TIME_KEY, mSelectedTime);
+                    intent.putExtra(SELECTED_TIME_KEY, mSelectedTime.replace("h",":"));
                     intent.putExtra(SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
                     startActivity(intent);
                 }
@@ -572,6 +585,7 @@ public class EditReservationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
         mSelectedNumberOfPeople = mReservationDetails.getGuests().toString();
 //        mNumberOfPeopleTextView.setText(mSelectedNumberOfPeople);
         for (int i = 0; i < mNumberOfPeopleList.size(); i ++) {
@@ -633,9 +647,10 @@ public class EditReservationActivity extends AppCompatActivity {
                 mRestaurantRes = mReservationDetailsResponse.getRestaurant();
                 mReservationDetails = mReservationDetailsResponse.getReservation();
                 updateData();
-                setUpTimeRecyclerView();
-                setUpNumberOfPeopleRecyclerView();
                 setUpCalendarView();
+                getWorkingHours(mRestaurantRes.getId());
+
+                setUpNumberOfPeopleRecyclerView();
                 updateMainViewsWithRestaurantData();
 //                updateTimeRecyclerViewWithCurrentDayWorkingHours();
             }
@@ -643,6 +658,114 @@ public class EditReservationActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ReservationDetailsAllResponse> call, Throwable t) {
 
+            }
+        });
+    }
+
+    private void getWorkingHours(int restaurentId){
+        WorkingHours workingHours = RetrofitWebService.retrofit.create(WorkingHours.class);
+        Call<WorkingHoursResponse> restaurentWorkingHours = workingHours.getRestaurentWorkingHours(restaurentId);
+        restaurentWorkingHours.enqueue(new Callback<WorkingHoursResponse>() {
+            @Override
+            public void onResponse(Call<WorkingHoursResponse> call, Response<WorkingHoursResponse> response) {
+                mRestaurentWorkingHours = response.body();
+                updateTimeRecyclerViewWithCurrentDayWorkingHours();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = null;
+                try {
+                    date = simpleDateFormat.parse(mReservationDetails.getDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+//                setSelectedDate(CalendarDay.from(date));
+            }
+
+            @Override
+            public void onFailure(Call<WorkingHoursResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void setSelectedDate(CalendarDay date){
+        int day = date.getCalendar().get(Calendar.DAY_OF_MONTH);
+        int month = date.getCalendar().get(Calendar.MONTH) + 1;
+        int year = date.getYear();
+        String dayString = String.valueOf(day);
+        String monthString = String.valueOf(month);
+        if (day < 10) {
+            dayString = String.valueOf("0" + day);
+        }
+        if (month < 10) {
+            monthString = String.valueOf("0" + month);
+        }
+
+        mSelectedDate = dayString + "/" + monthString + "/" + year;
+        mDateTextView.setText(mSelectedDate);
+        //==================================================================================
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+        String selectedDayOfTheWeek = getSelectedDayOfTheWeek(simpleDateFormat.format(date.getDate()));
+
+        mTimeList.clear();
+        mTimeAdapter.setTimeList(null);
+        mTimeAdapter.setClickedItem(-10);
+        mSelectedTime = null;
+        List<WorkingDay> workDaysList = mRestaurentWorkingHours.getWorkingDays();
+        for (int i = 0; i < workDaysList.size(); i ++) {
+            if (workDaysList.get(i).getDayName().equalsIgnoreCase(selectedDayOfTheWeek)) {
+                WorkingDay workDay = workDaysList.get(i);
+                if (workDay.getPeriods() != null && workDay.getPeriods().size() > 0) {
+                    mRestaurantIsClosedTextView.setVisibility(View.INVISIBLE);
+                    mTimeRecyclerView.setVisibility(View.VISIBLE);
+                    mTimeList.addAll(workDay.getPeriods());
+                    mTimeAdapter.setTimeList(mTimeList);
+                    mTimeRecyclerView.setAdapter(mTimeAdapter);
+                } else {
+                    mRestaurantIsClosedTextView.setVisibility(View.VISIBLE);
+                    mTimeRecyclerView.setVisibility(View.INVISIBLE);
+                }
+            }
+        }
+    }
+    private void getCapacity(int restaurantId, String reservationDate, String reservationTime) {
+        RetrofitWebService webService = RetrofitWebService.retrofit.create(RetrofitWebService.class);
+        Call<JsonObject> call = webService.getCapacity(restaurantId, reservationDate, reservationTime);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                mCalendarLoadingIndicator.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+                    int capacity = (response.body().get("seats").getAsInt());
+                    if (capacity > 0) {
+                        mNumberOfPeopleLabelTextView.setVisibility(View.VISIBLE);
+                        mNumberOfPeopleRecyclerView.setVisibility(View.VISIBLE);
+                        mNoCapacityTextView.setVisibility(View.GONE);
+                        for (int i = 1; i <= capacity; i ++) {
+                            mNumberOfPeopleList.add(String.valueOf(i));
+                        }
+                        mNumberOfPeopleAdapter.setNumberOfPeopleList(mNumberOfPeopleList);
+                        mNumberOfPeopleRecyclerView.setAdapter(mNumberOfPeopleAdapter);
+                    } else {
+                        mNumberOfPeopleLabelTextView.setVisibility(View.GONE);
+                        mNumberOfPeopleRecyclerView.setVisibility(View.GONE);
+                        mNoCapacityTextView.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    mNumberOfPeopleLabelTextView.setVisibility(View.GONE);
+                    mNumberOfPeopleRecyclerView.setVisibility(View.GONE);
+                    mNoCapacityTextView.setVisibility(View.VISIBLE);
+                }
+
+                mScrollView.scrollTo(0, mReserveLayout.getBottom());
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                mCalendarLoadingIndicator.setVisibility(View.GONE);
+                mNumberOfPeopleLabelTextView.setVisibility(View.GONE);
+                mNumberOfPeopleRecyclerView.setVisibility(View.GONE);
+                mNoCapacityTextView.setVisibility(View.VISIBLE);
+                mScrollView.scrollTo(0, mReserveLayout.getBottom());
             }
         });
     }

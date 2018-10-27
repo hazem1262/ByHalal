@@ -674,7 +674,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         listHeaderRestaurentName.setText(headerRestaurent.getName());
         listHeaderRestaurentType.setText(headerRestaurent.getCuisineName());
         if (headerRestaurent.getPromotionAmount() > 0){
-            listHeaderRestaurentDiscount.setText(headerRestaurent + "%");
+            listHeaderRestaurentDiscount.setText(headerRestaurent.getPromotionAmount() + "%");
         }else{
             discount.setVisibility(View.GONE);
         }

@@ -238,4 +238,7 @@
 	<string name="politique">Politiques de confidentialité</string>
 	<string name="conditions">Conditions d’utilisation</string>
 	<string name="persons">Personnes</string>
+    <string name="cancel">Annuler</string>
+    <string name="edit">Modifier</string>
+    <string name="call">Appeler</string>
 </resources>
