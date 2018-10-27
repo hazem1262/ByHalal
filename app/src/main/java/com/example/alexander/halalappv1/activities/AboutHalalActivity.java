@@ -17,7 +17,7 @@ public class AboutHalalActivity extends AppCompatActivity {
     private ConstraintLayout mHelpLayout;
 
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
