@@ -327,7 +327,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
     private void getSearchData(String searchKeywords) {
         SearchRestaurantService webService = RetrofitWebService.retrofit.create(SearchRestaurantService.class);
         // TODO at getSearchResponse() in the next line, set the searchKeywords and on the the SearchRestaurantService set the Field of search keywords
-        Call<JsonArray> call = webService.getSearchResponse();
+        Call<JsonArray> call = webService.getSearchResponse(searchKeywords);
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
