@@ -306,7 +306,6 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
     // get search result from api
     private void getSearchData(String searchKeywords) {
         SearchRestaurantService webService = RetrofitWebService.retrofit.create(SearchRestaurantService.class);
-        // TODO at getSearchResponse() in the next line, set the searchKeywords and on the the SearchRestaurantService set the Field of search keywords
         Call<JsonArray> call = webService.getSearchResponse(searchKeywords);
         call.enqueue(new Callback<JsonArray>() {
             @Override
@@ -316,13 +315,19 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
                     if (jsonArray != null) {
                         Gson gson = new Gson();
                         ArrayList<Restaurant> tempList = gson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<Restaurant>>(){}.getType());
-                        searchResultList.clear();
-                        searchResultList.addAll(tempList);
-                        searchResultAdapter.notifyDataSetChanged();
-                        searchRecyclerView.setVisibility(View.VISIBLE);
-                        categoriesRecyclerView.setVisibility(View.GONE);
-                        categoriesTitle.setVisibility(View.GONE);
-                        // set categories title with number of categories
+                            searchResultList.clear();
+                            searchResultList.addAll(tempList);
+                            searchResultAdapter.notifyDataSetChanged();
+                        if (tempList.size() > 0) {
+                            searchRecyclerView.setVisibility(View.VISIBLE);
+                            categoriesRecyclerView.setVisibility(View.GONE);
+                            categoriesTitle.setVisibility(View.GONE);
+                        }else{
+                            searchRecyclerView.setVisibility(View.GONE);
+                            categoriesRecyclerView.setVisibility(View.VISIBLE);
+                            categoriesTitle.setVisibility(View.VISIBLE);
+                            Toast.makeText(SearchRestaurantActivity.this, getResources().getString(R.string.no_results), Toast.LENGTH_SHORT).show();
+                        }
                         Log.i("searchResult",jsonArray.toString()+" ---> results");
                     }
                 }

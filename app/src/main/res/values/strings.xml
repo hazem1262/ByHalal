@@ -247,6 +247,7 @@
     <string name="cancel">Annuler</string>
     <string name="edit">Modifier</string>
     <string name="call">Appeler</string>
+    <string name="no_results">No Results</string>
     <!--=========================================================================================-->
 
 </resources>
