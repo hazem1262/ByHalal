@@ -520,6 +520,8 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
         // todo replace dialog with activity
 //        showOrderDialog(null, mUpComingReservationsList.get(position));
         Intent detailsIntent = new Intent(getContext(), ReservationDetailsActivity.class);
+        detailsIntent.putExtra(EDIT_RESERVATION_OBJECT_KEY, mUpComingReservationsList.get(position).getBookingId()); // use booking id to edit reservation
+
         startActivity(detailsIntent);
     }
 

@@ -28,7 +28,7 @@
 
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/iv_upcoming_restaurant_image"
+                    android:id="@+id/restaurant_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -63,7 +63,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/opensans_bold"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:text="16 ahmed gomaa st, el kholfa2 el rashden"
                         android:textColor="@color/white"
                         android:textSize="@dimen/app_text_size" />
@@ -137,7 +137,7 @@
                                 android:src="@drawable/ic_number_of_people"
                                 android:layout_gravity="center"/>
                             <TextView
-                                android:id="@+id/tv_upcoming_reservation_persons"
+                                android:id="@+id/reservation_persons"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/opensans_regular"
@@ -214,7 +214,7 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <Button
-                        android:id="@+id/call"
+                        android:id="@+id/callBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/call"
@@ -379,7 +379,7 @@
                     android:layout_weight="3"
                     android:paddingTop="@dimen/restaurent_profile_list_padding"
                     android:paddingBottom="@dimen/restaurent_profile_list_padding"
-                    android:id="@+id/restaurant_profile_menu_layout">
+                    android:id="@+id/menu_layout">
                     <ImageView
                         android:id="@+id/iv_menu_icon"
                         android:layout_width="24dp"
