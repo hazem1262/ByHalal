@@ -50,9 +50,10 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
     private ConstraintLayout mAllRestaurantsLayout;
     private ConstraintLayout mMyFavouritesLayout;
     private Button mSearchButton;
-
+    private RelativeLayout searchLayout;
     private String mAction;
     private City mCity;
+    private TextView searchHeader;
 
     private int mCuisineId;
     private int mPrice;
@@ -68,7 +69,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
     private ArrayList<Restaurant> searchResultList;
     private TextView categoriesTitle, searchClear;
     private ImageView searchIcon;
-    private RelativeLayout searchLayout;
+    private RelativeLayout editTextSearchLayout;
     public static final String RESTAURENT_KEY = "RestaurentKey";
     public static final String SEARCH_KEY = "searchKey";
     private String mSearchKeywords;
@@ -90,6 +91,11 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
         initNewDesignViews();
                     //\\
         arrowBackClick();
+
+        if (mAction.equals(ConstantsHelper.ACTION_HOME_CATEGORIES)){
+            editTextSearchLayout.setVisibility(View.INVISIBLE);
+            searchHeader.setText("");
+        }
 
     }
 
@@ -120,6 +126,8 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
         mSearchRestaurantEditText = findViewById(R.id.et_search_restaurant_search);
         searchIcon = findViewById(R.id.search_restaurant_search_icon);
         searchClear = findViewById(R.id.search_restaurant_clear);
+        editTextSearchLayout = findViewById(R.id.search_edit_frame);
+        searchHeader = findViewById(R.id.tv_search_restaurant_header_label);
         // actions on search edit texts icons
         watchSearchEditText();
         clearSearchET();
@@ -178,19 +186,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
         mArrowBackImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mAction != null) {
-                    if (mAction.equals(ConstantsHelper.ACTION_HOME_FRAGMENT)) {
-                        Intent intent = new Intent(SearchRestaurantActivity.this, MainActivity.class);
-                        intent.putExtra(ACTION_SEARCH_KEY, getIntent().getStringExtra("XXXXX"));
-                        intent.setAction(mAction);
-                        startActivity(intent);
-                    } else if (mAction.equals(ConstantsHelper.ACTION_SEARCH_FRAGMENT)){
-                        Intent intent = new Intent(SearchRestaurantActivity.this, MainActivity.class);
-                        intent.putExtra(ACTION_SEARCH_KEY, getIntent().getStringExtra("XXXXX"));
-                        intent.setAction(mAction);
-                        startActivity(intent);
-                    }
-                }
+                onBackPressed();
             }
         });
     }
@@ -271,23 +267,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
     }*/
 
 
-    @Override
-    public void onBackPressed() {
-        if (mAction != null) {
-            if (mAction.equals(ConstantsHelper.ACTION_HOME_FRAGMENT)) {
-                Intent intent = new Intent(SearchRestaurantActivity.this, MainActivity.class);
-                intent.putExtra(ACTION_SEARCH_KEY, getIntent().getStringExtra("XXXXX"));
-                intent.setAction(mAction);
-                startActivity(intent);
-            }
-            else if (mAction.equals(ConstantsHelper.ACTION_SEARCH_FRAGMENT)){
-                Intent intent = new Intent(SearchRestaurantActivity.this, MainActivity.class);
-                intent.putExtra(ACTION_SEARCH_KEY, getIntent().getStringExtra("XXXXX"));
-                intent.setAction(mAction);
-                startActivity(intent);
-            }
-        }
-    }
+
 
     // get categories from api
     private void getAllCategories() {

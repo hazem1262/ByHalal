@@ -16,6 +16,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import com.example.alexander.halalappv1.activities.RestaurantProfileActivity;
 import com.example.alexander.halalappv1.activities.SearchRestaurantActivity;
 import com.example.alexander.halalappv1.activities.SelectLocationActivity;
 import com.example.alexander.halalappv1.activities.TableRestaurantsActivity;
+import com.example.alexander.halalappv1.adapters.CategoriesAdapter;
 import com.example.alexander.halalappv1.model.City;
 import com.example.alexander.halalappv1.adapters.RestaurantsListAdapter;
 import com.example.alexander.halalappv1.model.modifiedmodels.RestaurantsList1;
@@ -63,6 +65,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.alexander.halalappv1.utils.ConstantsHelper.ACTION_HOME_CATEGORIES;
+
 public class HomeFragment extends Fragment implements LocationListener {
 
     public HomeFragment() {}
@@ -90,6 +94,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     private TextView mActionRetryTextView;
     private TextView mErrorMessageTextView;
     private TextView mGoodMorningTextView;
+    private TextView seeAllCategories;
 
     //list header
     private TextView listHeaderName;
@@ -98,11 +103,14 @@ public class HomeFragment extends Fragment implements LocationListener {
     private TextView listHeaderRestaurentDiscount;
     private ImageView listHeaderRestaurentImage;
 	private LinearLayout listHeaderLayout;
+    private RecyclerView categoriesRecyclerView, searchRecyclerView;
+    private CategoriesAdapter categoriesAdapter;
+    private ArrayList<Category> categoriesList;
+
+
 
     private void findViewsById(View rootView) {
-//        mContainerLayout = rootView.findViewById(R.id.home_fragment_container);
         searchViewImage = rootView.findViewById(R.id.iv_home_fragment_search_icon);
-//        mSearchTextView = rootView.findViewById(R.id.tv_home_fragment_search);
         mCurrentLocationButton = rootView.findViewById(R.id.btn_home_fragment_current_location);
         mTablesRecyclerView = rootView.findViewById(R.id.rv_home_fragment_tables_list);
         mLoadingIndicator = rootView.findViewById(R.id.pb_home_fragment_loading_indicator);
@@ -115,6 +123,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         mActionRetryTextView = rootView.findViewById(R.id.tv_location_not_detected_action_retry);
         mErrorMessageTextView = rootView.findViewById(R.id.tv_home_fragment_error_message);
         mGoodMorningTextView = rootView.findViewById(R.id.tv_good_morning_label_text);
+        seeAllCategories = rootView.findViewById(R.id.see_all_category);
 
         //list header
         listHeaderName = rootView.findViewById(R.id.sectionHeader);
@@ -131,6 +140,15 @@ public class HomeFragment extends Fragment implements LocationListener {
         } else {
             mGoodMorningTextView.setText(getResources().getString(R.string.tv_good_morning_label_text) + "!");
         }
+
+        // init category recycler view
+        // init recycler
+        categoriesList = new ArrayList<>();
+        categoriesAdapter = new CategoriesAdapter(categoriesList,getContext());
+        categoriesRecyclerView = rootView.findViewById(R.id.categories_recycler_view);
+        categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
+        categoriesRecyclerView.setHasFixedSize(true);
+        categoriesRecyclerView.setAdapter(categoriesAdapter);
     }
     //==============================================================================================
     private RestaurantsListAdapter mTablesAdapter;
@@ -355,7 +373,8 @@ public class HomeFragment extends Fragment implements LocationListener {
                         mTablesList = response.body().getCategoriesWithRestaurants();
                         if (mTablesList != null && mTablesList.size() > 0) {
                             fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
-							addFooterList(mTablesList, response.body().getCategories());
+							addFooterList(response.body().getCategories());
+
                             mTablesAdapter.setRestaurantsLists(mTablesList);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
@@ -401,7 +420,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                         mTablesList = response.body().getCategoriesWithRestaurants();
                         if (mTablesList != null && mTablesList.size() > 0) {
                             fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
-							addFooterList(mTablesList, response.body().getCategories());
+							addFooterList(response.body().getCategories());
 							mTablesAdapter.setRestaurantsLists(mTablesList);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
@@ -511,6 +530,14 @@ public class HomeFragment extends Fragment implements LocationListener {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SearchRestaurantActivity.class);
                 intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
+                startActivity(intent);
+            }
+        });
+        seeAllCategories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchRestaurantActivity.class);
+                intent.setAction(ACTION_HOME_CATEGORIES);
                 startActivity(intent);
             }
         });
@@ -693,18 +720,9 @@ public class HomeFragment extends Fragment implements LocationListener {
         });
     }
 
-    private ArrayList<CategoriesWithRestaurant> addFooterList(ArrayList<CategoriesWithRestaurant> originalList, ArrayList<Category> categories){
-		CategoriesWithRestaurant footer = new CategoriesWithRestaurant();
-        footer.setCatId(1234);
-    	footer.setCatName("Nos sélections");
-    	footer.setRestaurants(new ArrayList<Restaurant>());
-    	for (int i =0; i<categories.size(); i++){
-    		footer.getRestaurants().add(new Restaurant(categories.get(i).getId(),
-					categories.get(i).getName(),
-					categories.get(i).getPicture(),
-					"",0));
-		}
-		originalList.add(footer);
-		return originalList;
+    private void addFooterList(ArrayList<Category> categories){
+        categoriesList.clear();
+        categoriesList.addAll(categories);
+        categoriesAdapter.notifyDataSetChanged();
 	}
 }

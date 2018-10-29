@@ -101,9 +101,6 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 	@Override
 	public int getItemViewType(int position) {
-    	if(position == mRestaurantsLists.size() - 1){
-    		return LIST_FOOTER;
-		}
 		return LIST_BODY;
 	}
 

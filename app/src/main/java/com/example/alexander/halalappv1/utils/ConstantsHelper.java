@@ -19,6 +19,8 @@ public class ConstantsHelper {
     public static final String KEY_CITY_LONGITUDE = "city_longitude";
 
     public static final String ACTION_HOME_FRAGMENT = "home_fragment";
+    public static final String ACTION_HOME_CATEGORIES = "home_Categories";
+
     public static final String ACTION_SEARCH_ACTIVITY = "search_activity";
     public static final String ACTION_SEARCH_FRAGMENT = "search_fragment";
     public static final String ACTION_RESERVE_FRAGMENT = "reserve_fragment";

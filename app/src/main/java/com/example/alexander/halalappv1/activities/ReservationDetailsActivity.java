@@ -9,11 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
+import com.example.alexander.halalappv1.adapters.RestaurantMenuAdapter;
+import com.example.alexander.halalappv1.model.newModels.menues.MenuItem;
 import com.example.alexander.halalappv1.model.newModels.reservation.details.Product;
 import com.example.alexander.halalappv1.model.newModels.reservation.details.ReservationDetails;
 import com.example.alexander.halalappv1.model.newModels.reservation.details.ReservationDetailsAllResponse;
@@ -23,6 +27,8 @@ import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,6 +54,11 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     private TextView chef;
     private TextView certficaionAlcohol;
     private LinearLayout menuLayout;
+    private ExpandableListView mMenuListView;
+    private RestaurantMenuAdapter mMenuAdapter;
+    private LinearLayout containner;
+    private ScrollView scrollLayout;
+
 
     private ReservationDetailsAllResponse mReservationDetailsResponse;
     private ArrayList<Product> mProducts;
@@ -56,6 +67,9 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     private com.example.alexander.halalappv1.model.newModels.reservation.details.Restaurant mRestaurantRes;
 
 
+    private List<String> mListDataHeader;
+    private HashMap<String, List<MenuItem>> mListDataChild;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +77,35 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reservation_details);
         findViewsById();
         getData();
+        //set menu list
+        mMenuListView = findViewById(R.id.elv_menu_activity_menu_list);
+        mMenuListView.setChildDivider(getResources().getDrawable(R.color.modifiedPrimaryColor));
+        mListDataHeader = new ArrayList<>();
+        mListDataChild = new HashMap<>();
     }
 
+    // setup the menu list
+    private void setUpMenuListView(){
+        String header = "Your Order";
+        if (mReservationDetails.getProducts().size() > 0){
+            mListDataHeader.add(header);
+        }
+        ArrayList<MenuItem> menuItemsList = new ArrayList<>();
+        for (int i = 0; i< mReservationDetails.getProducts().size(); i++ ){
+            Product p = mReservationDetails.getProducts().get(i);
+            MenuItem menuItem = new MenuItem(p.getId(), p.getName(), p.getQuantity().toString(), p.getPrice());
+            menuItem.setQuantity(p.getQuantity());
+            menuItemsList.add(menuItem);
+        }
+        mListDataChild.put(header, menuItemsList);
+        mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild);
+        mMenuListView.setAdapter(mMenuAdapter);
+        if (menuItemsList.size()>0){
+            mMenuListView.expandGroup(0);
+        }
+
+
+    }
     private void findViewsById(){
         restaurentName = findViewById(R.id.restaurant_name);
         restaurentAdress = findViewById(R.id.restaurantAdress);
@@ -80,7 +121,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         chef = findViewById(R.id.tv_executive_chef_value);
         certficaionAlcohol = findViewById(R.id.tv_wine_value);
         menuLayout = findViewById(R.id.menu_layout);
-
+        containner = findViewById(R.id.containnerLayout);
+        scrollLayout = findViewById(R.id.scrollLayout);
     }
 
     private void getData(){
@@ -150,6 +192,15 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // setup the list view
+        setUpMenuListView();
+        containner.invalidate();
+        // handle the change in height to linear layout
+        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(containner.getWidth(), containner.getHeight() + (200 + mReservationDetails.getProducts().size() * 200));
+        containner.setLayoutParams(parms);
+        restaurantImage.requestFocus();
+        scrollLayout.smoothScrollTo(0,0);
     }
 
     private void showCancelAlertDialog(final int upComingReservationId) {

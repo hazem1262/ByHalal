@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
@@ -14,9 +14,7 @@ import com.example.alexander.halalappv1.model.newModels.Restaurant;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 import com.whinc.widget.ratingbar.RatingBar;
 
 import java.util.ArrayList;
@@ -101,6 +99,13 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
 //                    holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
 //                }
             }
+
+            int discount = mRestaurantList.get(position).getPromotionAmount();
+            if (discount > 0){
+                holder.restaurantDiscount.setText(discount + " %");
+            }else {
+                holder.discountLayout.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -120,6 +125,8 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
         TextView restaurantCategoryTextView;
         TextView restaurantLocationTextView;
         RatingBar restaurantRateRatingBar;
+        TextView restaurantDiscount;
+        LinearLayout discountLayout;
 
         public RestaurantViewHolder(View itemView) {
             super(itemView);
@@ -129,6 +136,8 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
             restaurantCategoryTextView = itemView.findViewById(R.id.tv_home_restaurant_category);
             restaurantLocationTextView = itemView.findViewById(R.id.tv_home_restaurant_location);
             restaurantRateRatingBar = itemView.findViewById(R.id.rb_home_restaurant_rate);
+            restaurantDiscount = itemView.findViewById(R.id.discount);
+            discountLayout = itemView.findViewById(R.id.discountLayout);
 
             itemView.setOnClickListener(this);
         }
