@@ -19,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
@@ -59,12 +60,13 @@ public class SelectLocationActivity extends AppCompatActivity implements Locatio
     private ConstraintLayout mCurrentLocationLayout;
     private RecyclerView mLocationsRecyclerView;
     private ConstraintLayout mLoadingIndicator;
-
+    private TextView backText;
     private void findViewsById() {
         mArrowBackImageView = findViewById(R.id.select_location_activity_arrow_back);
         mCurrentLocationLayout = findViewById(R.id.select_location_activity_current_location_layout);
         mLocationsRecyclerView = findViewById(R.id.rv_select_location_activity_locations_list);
         mLoadingIndicator = findViewById(R.id.pb_select_location_activity_loading_indicator);
+        backText = findViewById(R.id.backText);
     }
     //==============================================================================================
     private SelectLocationAdapter mSelectLocationAdapter;
@@ -330,6 +332,12 @@ public class SelectLocationActivity extends AppCompatActivity implements Locatio
         arrowBackClick();
 
         currentLocationLayoutClick();
+        backText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override

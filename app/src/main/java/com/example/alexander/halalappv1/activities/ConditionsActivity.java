@@ -25,7 +25,7 @@ import retrofit2.Response;
 
 public class ConditionsActivity extends AppCompatActivity {
 
-    private ImageView mArrowBackImageView;
+    private TextView mArrowBackImageView;
     private TextView mConditionsTextView;
     private ConstraintLayout mLoadingIndicator;
     private boolean isNetworkOk;

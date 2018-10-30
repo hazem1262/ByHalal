@@ -25,7 +25,7 @@ import retrofit2.Response;
 
 public class PoliciesActivity extends AppCompatActivity {
 
-    private ImageView mArrowBackImageView;
+    private TextView mArrowBackImageView;
     private TextView mPoliciesTextView;
     private ConstraintLayout mLoadingIndicator;
     private boolean isNetworkOk;

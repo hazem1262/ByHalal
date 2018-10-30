@@ -18,13 +18,15 @@
         tools:context="com.example.alexander.halalappv1.activities.SearchRestaurantActivity">
 
 
-        <ImageView
+        <TextView
             android:id="@+id/iv_search_restaurant_arrow_back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:src="@drawable/ic_arrow_left_white"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/retour"
+            style="@style/backText"/>
 
         <TextView
             android:id="@+id/tv_search_restaurant_header_label"
@@ -34,6 +36,7 @@
             android:includeFontPadding="false"
             android:text="@string/tv_search_restaurant_header_label_text"
             android:textColor="@color/white"
+            android:visibility="invisible"
             android:textSize="@dimen/app_text_size"
             android:layout_marginStart="60dp"
             android:layout_toEndOf="@id/iv_search_restaurant_arrow_back"

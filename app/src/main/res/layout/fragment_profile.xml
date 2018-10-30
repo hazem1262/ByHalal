@@ -44,6 +44,13 @@
             android:nestedScrollingEnabled="false"
             />
 
+		<include
+			android:id="@+id/pb_table_restaurants_activity_loading_indicator"
+			android:layout_width="match_parent"
+			android:layout_height="200dp"
+			layout="@layout/layout_progress_bar"
+			android:visibility="gone"
+			/>
 		<android.support.constraint.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="170dp"

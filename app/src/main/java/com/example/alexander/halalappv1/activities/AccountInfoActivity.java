@@ -66,7 +66,7 @@ public class AccountInfoActivity extends AppCompatActivity {
     private EditText mPhoneNumberEditText;
     private EditText mPasswordEditText;
     private EditText mConfirmPasswordEditText;
-    private ImageView mArrowBackImageView;
+    private TextView mArrowBackImageView;
     private TextView mEditTextView;
     private ConstraintLayout mLoadingIndicator;
 

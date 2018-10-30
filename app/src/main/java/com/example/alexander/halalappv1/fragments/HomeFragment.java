@@ -73,6 +73,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
     private static final String TAG = "xxxxx";
     public static final String TABLE_ID_KEY = "RestaurantsListObject";
+    public static final String CATEGORY_NAME = "categoryName";
     public static final String RESTAURENT_KEY = "RestaurentKey";
     public static final String TABLE_OBJECT_KEY = "TableObject";
     public static final String RESTAURANT_OBJECT_KEY = "RestaurantObject";
@@ -160,9 +161,10 @@ public class HomeFragment extends Fragment implements LocationListener {
 
         mTablesAdapter = new RestaurantsListAdapter(getContext(), new RestaurantsListAdapter.OnTablesClickListener() {
             @Override
-            public void onTableClick(int position) {
+            public void onTableClick(int position, String categoryName) {
                 Intent intent = new Intent(getActivity(), TableRestaurantsActivity.class);
                 intent.putExtra(TABLE_ID_KEY, position);
+                intent.putExtra(CATEGORY_NAME, categoryName);
                 startActivity(intent);
             }
 

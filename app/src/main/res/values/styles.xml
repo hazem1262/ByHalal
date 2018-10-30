@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="backText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/pink</item>
+
+    </style>
     <!--Full Screen Style-->
     <style name="FullScreenCustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>

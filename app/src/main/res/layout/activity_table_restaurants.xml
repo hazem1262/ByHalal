@@ -20,13 +20,14 @@
 			android:orientation="vertical"
 			android:weightSum="2"
 			>
-			<ImageView
+			<TextView
 				android:id="@+id/iv_table_restaurants_activity_arrow_back"
-				android:layout_width="48dp"
-				android:layout_height="24dp"
-				android:layout_marginEnd="336dp"
-				android:layout_marginTop="4dp"
-				android:src="@drawable/ic_arrow_left_white"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="10dp"
+				android:layout_marginTop="10dp"
+				android:text="@string/retour"
+				style="@style/backText"
 				/>
 
 			<ImageView
@@ -36,6 +37,7 @@
 				android:layout_alignParentEnd="true"
 				android:layout_centerVertical="true"
 				android:layout_marginEnd="13dp"
+				android:visibility="invisible"
 				android:src="@drawable/ic_search_white" />
 		</RelativeLayout>
 
@@ -47,8 +49,10 @@
 			android:layout_marginTop="8dp"
 			android:fontFamily="@font/montserrat_semibold"
 			android:text="our selection"
+			android:textStyle="bold"
 			android:textColor="@color/white"
-			android:textSize="@dimen/app_text_size"
+			android:textSize="@dimen/app_sub_header"
+			android:layout_marginStart="10dp"
 			android:layout_marginLeft="12dp"
 			/>
 
@@ -62,7 +66,7 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/table_restaurants_activity_header_layout" />
+			 />
 
 		<!--=========================================================================================-->
 		<com.google.android.gms.maps.MapView
@@ -72,7 +76,6 @@
 			android:layout_width="0dp"
 			android:layout_height="0dp"
 			android:visibility="gone"
-			app:layout_constraintTop_toBottomOf="@+id/table_restaurants_activity_header_layout"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"/>

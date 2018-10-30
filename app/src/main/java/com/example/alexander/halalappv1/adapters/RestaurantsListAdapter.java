@@ -34,7 +34,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     public interface OnTablesClickListener {
-        void onTableClick(int position);
+        void onTableClick(int position, String name);
         void onRestaurantClick(int parentPosition, int childPosition);
     }
 
@@ -124,7 +124,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            mOnTablesClickListener.onTableClick(mRestaurantsLists.get(position).getCatId());
+            mOnTablesClickListener.onTableClick(mRestaurantsLists.get(position).getCatId(), mRestaurantsLists.get(position).getCatName());
         }
     }
 

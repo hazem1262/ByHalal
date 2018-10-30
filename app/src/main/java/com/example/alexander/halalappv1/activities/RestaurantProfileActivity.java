@@ -93,6 +93,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 //    private TextView mRestaurantPhoneNumberTextView;
 //    private TextView mRestaurantNotesTextView;
 
+    private TextView backText;
     private ConstraintLayout mLocationLayout;
     private ConstraintLayout mPhoneNumberLayout;
     private LinearLayout mMenuLayout;
@@ -161,6 +162,12 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         setUpCalendarView();
         reserveButtonClick();
         placeAnOrderButtonClick();
+        backText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     //==============================================================================================
@@ -572,6 +579,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     }
     //==============================================================================================
     private void findViewsById() {
+        backText = findViewById(R.id.backText);
         mScrollView = findViewById(R.id.restaurant_profile_scroll_view);
         mRestaurantImageImageView = findViewById(R.id.iv_restaurant_profile_restaurant_image); //
         mFavouriteIconImageView = findViewById(R.id.iv_restaurant_profile_favourite); //

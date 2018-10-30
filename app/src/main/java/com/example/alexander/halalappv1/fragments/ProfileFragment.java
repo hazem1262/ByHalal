@@ -58,6 +58,7 @@ public class ProfileFragment extends Fragment implements HomeRestaurantAdapter.O
     private TextView loggedSignOut;
     private TextView unLoggedSignIn;
     private TextView unLoggedSignUp;
+    private ConstraintLayout mLoadingIndicator;
 
 
     @Nullable
@@ -75,6 +76,7 @@ public class ProfileFragment extends Fragment implements HomeRestaurantAdapter.O
         unLoggedSignUp = rootView.findViewById(R.id.tv_profile_settings_sign_up);
         mFavouriteRestaurantsLayout = rootView.findViewById(R.id.profile_fragment_favourite_restaurants_layout);
         mFavouriteRecyclerView = rootView.findViewById(R.id.myFavRecyclerView);
+        mLoadingIndicator = rootView.findViewById(R.id.pb_table_restaurants_activity_loading_indicator);
 
         updateUserNameView();
 
@@ -207,12 +209,14 @@ public class ProfileFragment extends Fragment implements HomeRestaurantAdapter.O
     //==============================================================================================
 
     private void getFavRestaurents(){
+        showLoadingIndicator();
         int userId = SharedPreferencesHelper.getSharedPreferenceInt(getContext(), ConstantsHelper.KEY_USER_ID, 0);
 		FavouriteRestaurents webService = RetrofitWebService.retrofit.create(FavouriteRestaurents.class);
         Call<ArrayList<Restaurant>> favRestaurents = webService.getFavouriteRestaurants(userId);
         favRestaurents.enqueue(new Callback<ArrayList<Restaurant>>() {
             @Override
             public void onResponse(Call<ArrayList<Restaurant>> call, Response<ArrayList<Restaurant>> response) {
+                hideLoadingIndicator();
                 mFavResList = response.body();
                 mFavouriteRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
                 mRestaurantAdapter = new FavouriteRestaurentAdapter(getContext(), ProfileFragment.this);
@@ -238,4 +242,11 @@ public class ProfileFragment extends Fragment implements HomeRestaurantAdapter.O
 		startActivity(intent);
 		Log.i("restaurent", "parentPosition: " + parentPosition + "childPosition: " + childPosition);
 	}
+    private void showLoadingIndicator() {
+        mLoadingIndicator.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoadingIndicator() {
+        mLoadingIndicator.setVisibility(View.GONE);
+    }
 }

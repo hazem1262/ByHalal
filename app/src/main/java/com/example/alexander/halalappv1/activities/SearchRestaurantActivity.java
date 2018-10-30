@@ -44,7 +44,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
     public static final String ACTION_SEARCH_KEY = "ActionSearchKey";
     public static final String ACTION_SEARCH_VALUE = "ActionSearchValue";
 
-    private ImageView mArrowBackImageView;
+    private TextView mArrowBackImageView;
     private EditText mSearchRestaurantEditText;
     private TextView mSelectLocationTextView;
     private ConstraintLayout mAllRestaurantsLayout;
@@ -93,7 +93,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
         arrowBackClick();
 
         if (mAction.equals(ConstantsHelper.ACTION_HOME_CATEGORIES)){
-            editTextSearchLayout.setVisibility(View.INVISIBLE);
+            editTextSearchLayout.setVisibility(View.GONE);
             searchHeader.setText("");
         }
 

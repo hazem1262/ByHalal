@@ -46,6 +46,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static com.example.alexander.halalappv1.fragments.HomeFragment.CATEGORY_NAME;
 import static com.example.alexander.halalappv1.fragments.SearchFragment.RESTAURANT_ID_KEY;
 
 public class TableRestaurantsActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -54,7 +55,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
     public static final String RESTAURANT_OBJECT_KEY = "RestaurantObject";
     //==============================================================================================
     private TextView mTableNameTextView;
-    private ImageView mArrowBackImageView;
+    private TextView mArrowBackImageView;
     private RecyclerView mRestaurantsRecyclerView;
     private Button mMapButton;
     private Button mFilterButton;
@@ -379,6 +380,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
         mUserId = SharedPreferencesHelper.getSharedPreferenceInt(this, ConstantsHelper.KEY_USER_ID, -10);
         mTableId = getIntent().getIntExtra(HomeFragment.TABLE_ID_KEY, -10);
         requestRestaurents(mTableId);
+
         mCuisineId = getIntent().getIntExtra(FilterActivity.CUISINE_ID_KEY, -10);
         mPrice = getIntent().getIntExtra(FilterActivity.PRICE_KEY, -10);
         mSortBy = getIntent().getStringExtra(FilterActivity.SORT_BY_KEY);
@@ -437,6 +439,8 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
             public void onResponse(Call<ArrayList<Restaurant>> call, Response<ArrayList<Restaurant>> response) {
                 mSearchRestaurantAdapter.setRestaurantList(response.body());
                 mRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
+                String categoryName = getIntent().getStringExtra(CATEGORY_NAME);
+                mTableNameTextView.setText(categoryName + "(" + response.body().size() + ")" ) ;
             }
 
             @Override

@@ -45,14 +45,17 @@
 
         </LinearLayout>
 
-        <ImageView
+        <TextView
             android:id="@+id/policies_activity_arrow_back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_arrow_left_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/retour"
+            style="@style/backText"/>
 
         <View
             android:layout_width="match_parent"
