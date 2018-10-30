@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.model.newModels.menues.MenuItem;
@@ -104,17 +105,21 @@ public class RestaurantMenuAdapter extends BaseExpandableListAdapter {
         TextView dishPriceTextView = convertView.findViewById(R.id.tv_menu_child_dish_price);
         TextView quantityTextView = convertView.findViewById(R.id.tv_menu_child_quantity);
         View linePinkView = convertView.findViewById(R.id.line_pink);
+        ImageView plusImage = convertView.findViewById(R.id.iv_dialog_plus_sign);
 
         dishNameTextView.setText(String.valueOf(menuItem.getName()));
         dishPriceTextView.setText(String.valueOf(String.valueOf(menuItem.getPrice()) + " " + "€"));
         quantityTextView.setVisibility(View.INVISIBLE);
         linePinkView.setVisibility(View.INVISIBLE);
 
-//        if (menuItem.getQuantity() > 0) {
-//            quantityTextView.setVisibility(View.VISIBLE);
-//            linePinkView.setVisibility(View.VISIBLE);
-//            quantityTextView.setText(String.valueOf("x" + String.valueOf(menuItem.getQuantity())));
-//        }
+        if (menuItem.getQuantity() > 0) {
+            plusImage.setVisibility(View.INVISIBLE);
+            quantityTextView.setVisibility(View.VISIBLE);
+            linePinkView.setVisibility(View.VISIBLE);
+            quantityTextView.setText(String.valueOf("x" + String.valueOf(menuItem.getQuantity())));
+        }else{
+            plusImage.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }

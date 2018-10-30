@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/grey_707070">
@@ -11,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/app_text_size"
+        android:text="food"
         android:textColor="@color/white"
         android:fontFamily="@font/opensans_regular"
         android:layout_marginTop="24dp"
@@ -27,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/app_text_size"
+        android:text="10$"
         android:textColor="@color/white"
         android:fontFamily="@font/opensans_regular"
         android:layout_marginLeft="24dp"
@@ -42,7 +45,6 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/app_text_size"
         android:textColor="@color/pink"
-
         android:gravity="center"
         android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +53,7 @@
     <View
         android:id="@+id/line_pink"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="3dp"
         android:background="@color/pink"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,5 +69,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/tv_menu_child_quantity"
         app:layout_constraintRight_toRightOf="@id/tv_menu_child_dish_price"/>
+
+    <ImageView
+        android:id="@+id/iv_dialog_plus_sign"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_menu_child_dish_name"
+        app:layout_constraintHorizontal_bias="0.307"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.606"
+        android:background="@drawable/ic_plus_sign"
+        />
 
 </android.support.constraint.ConstraintLayout>
