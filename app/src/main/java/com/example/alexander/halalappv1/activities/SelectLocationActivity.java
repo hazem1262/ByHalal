@@ -31,6 +31,12 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.BasePermissionListener;
 
 import java.util.ArrayList;
 
@@ -71,6 +77,7 @@ public class SelectLocationActivity extends AppCompatActivity implements Locatio
             @Override
             public void onItemClick(int position) {
                 City city = mCitiesList.get(position);
+                SharedPreferencesHelper.setSharedPreferenceString(SelectLocationActivity.this, ConstantsHelper.KEY_SELECTED_CITY, city.getCityNameFr());
                 SharedPreferencesHelper.setSharedPreferenceString(SelectLocationActivity.this, ConstantsHelper.KEY_CITY_LATITUDE, city.getCityLatitude());
                 SharedPreferencesHelper.setSharedPreferenceString(SelectLocationActivity.this, ConstantsHelper.KEY_CITY_LONGITUDE, city.getCityLongitude());
 
@@ -166,7 +173,8 @@ public class SelectLocationActivity extends AppCompatActivity implements Locatio
 
     private boolean checkPermissions() {
         int permissionState = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        return permissionState == PackageManager.PERMISSION_GRANTED;
+        int finePermissionState = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        return ((permissionState == PackageManager.PERMISSION_GRANTED) && (finePermissionState == PackageManager.PERMISSION_GRANTED));
     }
 
     private void requestPermissions() {
@@ -174,7 +182,7 @@ public class SelectLocationActivity extends AppCompatActivity implements Locatio
     }
 
     private void startLocationPermissionRequest() {
-        ActivityCompat.requestPermissions(SelectLocationActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(SelectLocationActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
     }
 
     @Override
@@ -326,11 +334,31 @@ public class SelectLocationActivity extends AppCompatActivity implements Locatio
 
     @Override
     protected void onResume() {
-        if (checkPermissions()) {
-            if (mGpsLocationManager != null) {
-                mGpsLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000, 1000000f, this);
-            }
-        }
+        // Permission granted.
+        Dexter.withActivity(SelectLocationActivity.this)
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new BasePermissionListener(){
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        super.onPermissionGranted(response);
+                        if (checkPermissions()) {
+                            if (mGpsLocationManager != null) {
+                                mGpsLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000, 1000000f, SelectLocationActivity.this);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        super.onPermissionDenied(response);
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        super.onPermissionRationaleShouldBeShown(permission, token);
+                    }
+                }).check();
+
         super.onResume();
     }
 

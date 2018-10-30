@@ -2,6 +2,8 @@ package com.example.alexander.halalappv1.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -210,6 +212,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
         final AlertDialog cancelAlertDialog = dialogBuilder.create();
         cancelAlertDialog.show();
+        //todo
+        cancelAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView cancelTextView = dialogView.findViewById(R.id.tv_cancel_reservation_alert_dialog_action_cancel);
         TextView okTextView = dialogView.findViewById(R.id.tv_cancel_reservation_alert_dialog_action_ok);
@@ -243,7 +247,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                     String data = jsonObject.get("data").getAsString();
                     if (data != null) {
                         if (data.equals("success")) {
-                            finish();
+
+                            showConfirmDeletionDialog();
                         }
                     }
                 }
@@ -264,6 +269,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
         final AlertDialog callAlertDialog = dialogBuilder.create();
         callAlertDialog.show();
+        callAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView phoneNumberTextView = dialogView.findViewById(R.id.tv_call_alert_dialog_phone_number);
         TextView cancelTextView = dialogView.findViewById(R.id.tv_call_alert_dialog_action_cancel);
@@ -294,5 +300,26 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     }
 
 
+    private void showConfirmDeletionDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ReservationDetailsActivity.this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.confirm_cancellation, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog cancelAlertDialog = dialogBuilder.create();
+        cancelAlertDialog.show();
+        cancelAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+
+        TextView okTextView = dialogView.findViewById(R.id.tv_cancel_reservation_alert_dialog_action_ok);
+
+
+
+        okTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelAlertDialog.dismiss();
+                finish();
+            }
+        });
+    }
 }

@@ -2,19 +2,17 @@ package com.example.alexander.halalappv1.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
+import com.example.alexander.halalappv1.model.newModels.Restaurant;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
-import com.whinc.widget.ratingbar.RatingBar;
 
 import java.util.ArrayList;
 
@@ -50,13 +48,13 @@ public class FavouriteRestaurentAdapter extends RecyclerView.Adapter<FavouriteRe
 	public void onBindViewHolder(RestaurantViewHolder holder, int position) {
 		String language = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_SELECTED_LANGUAGE, "");
 		holder.restaurantNameTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
-		holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineNameFr()));
+		holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineName()));
 //		holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameFr()));
 //		if (!TextUtils.isEmpty(mRestaurantList.get(position).getRate().toString())) {
 //			holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
 //		}
 		Picasso.with(mContext)
-				.load(mRestaurantList.get(position).getImage())
+				.load(mRestaurantList.get(position).getPicture())
 				.into(holder.restaurantImageImageView);
 	}
 

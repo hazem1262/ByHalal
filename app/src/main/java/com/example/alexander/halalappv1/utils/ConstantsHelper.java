@@ -48,7 +48,7 @@ public class ConstantsHelper {
     // edit account
     public static final String EDIT_ACCOUNT_END_POINT = "editAccount";
     // my favourites
-    public static final String MY_FAVOURITES_FEED = "myFavourites";
+    public static final String MY_FAVOURITES_FEED = "newMyFavourites";
     // list restaurants
     public static final String LIST_RESTAURANTS_FEED = "restaurants";
     // cities in select location

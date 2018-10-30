@@ -241,5 +241,7 @@
     <string name="cancel">Annuler</string>
     <string name="edit">Modifier</string>
     <string name="call">Appeler</string>
+    <string name="confirmCancillation">confirm cancellation</string>
+    <string name="confirmCancellationDialog">your reservation has been cancelled</string>
 
 </resources>

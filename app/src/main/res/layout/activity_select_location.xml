@@ -95,20 +95,6 @@
 		app:layout_constraintBottom_toBottomOf="@+id/select_location_activity_current_location_layout"
 		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintRight_toRightOf="parent"/>
-    <!--<TextView-->
-        <!--android:id="@+id/tv_select_location_activity_select_a_location_label"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:text="@string/tv_select_location_activity_select_a_location_label_text"-->
-        <!--android:textSize="@dimen/app_text_size"-->
-        <!--android:textColor="@color/grey_777777"-->
-        <!--android:fontFamily="@font/opensans_regular"-->
-        <!--android:background="@color/grey_F4F4F4"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:paddingLeft="@dimen/screen_left_margin"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/select_location_activity_current_location_layout"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"/>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_select_location_activity_locations_list"

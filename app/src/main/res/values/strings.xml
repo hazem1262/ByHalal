@@ -248,6 +248,8 @@
     <string name="edit">Modifier</string>
     <string name="call">Appeler</string>
     <string name="no_results">No Results</string>
+    <string name="confirmCancillation">confirm cancellation</string>
+    <string name="confirmCancellationDialog">your reservation has been cancelled</string>
     <!--=========================================================================================-->
 
 </resources>

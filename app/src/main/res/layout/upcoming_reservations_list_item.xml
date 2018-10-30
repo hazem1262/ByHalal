@@ -12,6 +12,7 @@
     android:paddingTop="15dp">
 
 
+
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_upcoming_restaurant_image"
         android:layout_width="match_parent"

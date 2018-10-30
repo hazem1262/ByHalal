@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -74,6 +75,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private ImageView mGalleryIconImageView;
     private ConstraintLayout mLoadingIndicator;
     private TextView mRestaurantNameTextView;
+    private FrameLayout restaurantHeader;
 //    private RatingBar mRestaurantRateRatingBar;
 
     // Restaurant Information Layout
@@ -145,7 +147,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         //==========================================================================================
         favouriteIconClick();
 //        arrowBackClick();
-        restaurantImageClick();
+//        restaurantImageClick();
         //==========================================================================================
 //        phoneNumberLayoutClick();
         menuLayoutClick();
@@ -578,7 +580,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         mLoadingIndicator = findViewById(R.id.pb_restaurant_profile_loading_indicator); //
         mRestaurantNameTextView = findViewById(R.id.tv_restaurant_profile_restaurant_name); //
 //        mRestaurantRateRatingBar = findViewById(R.id.rb_restaurant_profile_restaurant_rate); //
-
+        restaurantHeader = findViewById(R.id.restaurantHeader);
         // Restaurant Information Layout Views
         mInformationLayout = findViewById(R.id.restaurant_profile_information_layout);
         mRestaurantDescriptionTextView = findViewById(R.id.tv_restaurant_profile_description); //
@@ -682,6 +684,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     }
 
     private void requestRestaurentData(){
+        loadRestaurant();
         int restaurentId = getIntent().getIntExtra(RESTAURENT_KEY, 0);
         RestaurentProfileWebService webService = RetrofitWebService.retrofit.create(RestaurentProfileWebService.class);
         int userId = SharedPreferencesHelper.getSharedPreferenceInt(RestaurantProfileActivity.this, ConstantsHelper.KEY_USER_ID, -10);
@@ -691,6 +694,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             public void onResponse(Call<RestaurantProfile> call, Response<RestaurantProfile> response) {
                 mRestaurant = response.body();
                 updateViewsWithRestaurantData();
+                showRestaurantData();
             }
 
             @Override
@@ -1009,4 +1013,17 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void loadRestaurant(){
+        mLoadingIndicator.setVisibility(View.VISIBLE);
+        restaurantHeader.setVisibility(View.GONE);
+        mInformationLayout.setVisibility(View.GONE);
+    }
+
+    private void showRestaurantData(){
+        mLoadingIndicator.setVisibility(View.GONE);
+        restaurantHeader.setVisibility(View.VISIBLE);
+        mInformationLayout.setVisibility(View.VISIBLE);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.alexander.halalappv1.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,10 +14,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
+import com.example.alexander.halalappv1.activities.RestaurantProfileActivity;
+import com.example.alexander.halalappv1.activities.TableRestaurantsActivity;
 import com.example.alexander.halalappv1.model.newModels.Category;
+import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
+import static com.example.alexander.halalappv1.fragments.HomeFragment.TABLE_ID_KEY;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
     private ArrayList<Category> myCategoryList;
@@ -93,7 +100,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         private void bindItems(final Category item) {
             Picasso.with(mContext)
                     .load(item.getPicture())
-                    .error(R.drawable.ic_launcher_background)
+                    .error(R.drawable.background_sign_in)
                     .into(categoryPicture);
             categoryName.setText(item.getName());
         }
@@ -108,7 +115,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             // getting the category id to perform action
             int categoryId = myCategoryList.get(getLayoutPosition()).getId();
             // TODO :: here perform action with ID
-            Toast.makeText(mContext, "id = " + categoryId, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mContext, TableRestaurantsActivity.class);
+            intent.putExtra(TABLE_ID_KEY, categoryId);
+            mContext.startActivity(intent);
         }
     }
 

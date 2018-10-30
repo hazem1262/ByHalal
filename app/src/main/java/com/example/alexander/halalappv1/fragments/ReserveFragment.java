@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -51,7 +53,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReserveFragment extends Fragment implements UpcomingReservationsAdapter.UpcomingListItemClickListener, PreviousReservationsAdapter.PreviousListItemClickListener {
+public class ReserveFragment extends Fragment implements UpcomingReservationsAdapter.UpcomingListItemClickListener,
+        PreviousReservationsAdapter.PreviousListItemClickListener, View.OnClickListener {
 
     public ReserveFragment() {}
 
@@ -127,6 +130,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
         LinearLayoutManager previousLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mPreviousReservationsListRecyclerView.setLayoutManager(previousLayoutManager);
         mPreviousReservationsAdapter = new PreviousReservationsAdapter(getContext(), this);
+        mPreviousReservationsAdapter.setmOnClickListner(this);
     }
     //==============================================================================================
     private ReservationObject mReservations;
@@ -220,6 +224,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                     if (data != null) {
                         if (data.equals("success")) {
                             getReservations();
+                            showConfirmDeletionDialog();
                         }
                     }
                 }
@@ -846,5 +851,70 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.supprimer : {
+                int reservationId = (int)v.getTag() ;
+                showCancelAlertDialog(reservationId);
+                break;
+            }
+        }
+    }
+
+
+    private void showCancelAlertDialog(final int upComingReservationId) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.alert_dialog_cancel_reservation, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog cancelAlertDialog = dialogBuilder.create();
+        cancelAlertDialog.show();
+        cancelAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView cancelTextView = dialogView.findViewById(R.id.tv_cancel_reservation_alert_dialog_action_cancel);
+        TextView okTextView = dialogView.findViewById(R.id.tv_cancel_reservation_alert_dialog_action_ok);
+
+        cancelTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelAlertDialog.dismiss();
+            }
+        });
+
+        okTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelAlertDialog.dismiss();
+//                showLoadingIndicator();
+
+                cancelReservation(upComingReservationId);
+            }
+        });
+    }
+
+    private void showConfirmDeletionDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.confirm_cancellation, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog cancelAlertDialog = dialogBuilder.create();
+        cancelAlertDialog.show();
+        cancelAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView deletionHeader = dialogView.findViewById(R.id.tv_cancel_reservation_alert_dialog_cancel_reservation_label);
+        TextView deletionMsg = dialogView.findViewById(R.id.tv_cancel_reservation_alert_dialog_message);
+        TextView okTextView = dialogView.findViewById(R.id.tv_cancel_reservation_alert_dialog_action_ok);
+
+        deletionHeader.setText("Confirm Deletion");
+        deletionMsg.setText("Your reservation has been deleted");
+        okTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelAlertDialog.dismiss();
+            }
+        });
     }
 }

@@ -2,7 +2,8 @@ package com.example.alexander.halalappv1.fragments;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -22,11 +23,10 @@ import com.example.alexander.halalappv1.activities.ConditionsActivity;
 import com.example.alexander.halalappv1.activities.FavouriteRestaurantsActivity;
 import com.example.alexander.halalappv1.activities.MainActivity;
 import com.example.alexander.halalappv1.activities.PoliciesActivity;
-import com.example.alexander.halalappv1.activities.ProfileSettingsActivity;
 import com.example.alexander.halalappv1.activities.RestaurantProfileActivity;
 import com.example.alexander.halalappv1.adapters.FavouriteRestaurentAdapter;
 import com.example.alexander.halalappv1.adapters.HomeRestaurantAdapter;
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
+import com.example.alexander.halalappv1.model.newModels.Restaurant;
 import com.example.alexander.halalappv1.services.FavouriteRestaurents;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
@@ -38,6 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 import static com.example.alexander.halalappv1.fragments.SearchFragment.RESTAURANT_OBJECT_KEY;
 import static com.example.alexander.halalappv1.utils.ConstantsHelper.SIGNUP;
 
@@ -133,6 +134,7 @@ public class ProfileFragment extends Fragment implements HomeRestaurantAdapter.O
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         TextView cancelTextView = dialogView.findViewById(R.id.tv_sign_out_alert_dialog_action_cancel);
         TextView signOutTextView = dialogView.findViewById(R.id.tv_sign_out_alert_dialog_action_sign_out);
 
@@ -225,16 +227,13 @@ public class ProfileFragment extends Fragment implements HomeRestaurantAdapter.O
 
             }
         });
-
-
-
     }
 
     @Override
     public void onRestaurantClick(int parentPosition, int childPosition) {
 		Restaurant restaurant = mFavResList.get(childPosition);
 		Intent intent = new Intent(getActivity(), RestaurantProfileActivity.class);
-		intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
+		intent.putExtra(RESTAURENT_KEY, restaurant.getId());
 		intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
 		startActivity(intent);
 		Log.i("restaurent", "parentPosition: " + parentPosition + "childPosition: " + childPosition);

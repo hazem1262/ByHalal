@@ -208,10 +208,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
         mArrowBackImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TableRestaurantsActivity.this, MainActivity.class);
-                intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
-                intent.putExtra(SelectLocationActivity.KEY_SEARCH_BY, getIntent().getStringExtra("XXXXX"));
-                startActivity(intent);
+                onBackPressed();
             }
         });
     }
@@ -431,13 +428,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
         mGoogleMap = googleMap;
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
-        intent.putExtra(SelectLocationActivity.KEY_SEARCH_BY, getIntent().getStringExtra("XXXXX"));
-        startActivity(intent);
-    }
+
     public void requestRestaurents(int categoryId){
         CategoryRestaurents webService = RetrofitWebService.retrofit.create(CategoryRestaurents.class);
         Call<ArrayList<Restaurant>> categoryRestaurents = webService.getCategoryRestaurents(categoryId);

@@ -23,10 +23,19 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
     private Context mContext;
     private final PreviousListItemClickListener mListItemClickListener;
     private ArrayList<Reservation> mPreviousReservationsList;
+    private View.OnClickListener mOnClickListner;
 
     public PreviousReservationsAdapter(Context context, PreviousListItemClickListener listItemClickListener) {
         this.mContext = context;
         this.mListItemClickListener = listItemClickListener;
+    }
+
+    public View.OnClickListener getmOnClickListner() {
+        return mOnClickListner;
+    }
+
+    public void setmOnClickListner(View.OnClickListener mOnClickListner) {
+        this.mOnClickListner = mOnClickListner;
     }
 
     public interface PreviousListItemClickListener {
@@ -267,18 +276,20 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
 			reservationNumberOfPeople = itemView.findViewById(R.id.tv_upcoming_reservation_persons);
 
             viewDetails.setOnClickListener(this);
-			supprimer.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(mContext, "coming soon", Toast.LENGTH_SHORT).show();
-				}
-			});
+
+			supprimer.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            mListItemClickListener.onPreviousItemClick(position);
+            if (v.getId() == R.id.supprimer){
+                supprimer.setTag(mPreviousReservationsList.get(getAdapterPosition()).getBookingId());
+                mOnClickListner.onClick(supprimer);
+            }else {
+                int position = getAdapterPosition();
+                mListItemClickListener.onPreviousItemClick(position);
+            }
+
         }
     }
 }

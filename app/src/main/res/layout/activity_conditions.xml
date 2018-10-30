@@ -86,7 +86,6 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/modifiedPrimaryColor"
         app:layout_constraintTop_toBottomOf="@+id/tv_conditions_activity_conditions_of_utilization_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

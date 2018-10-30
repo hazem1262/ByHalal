@@ -1,6 +1,6 @@
 package com.example.alexander.halalappv1.services;
 
-import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
+import com.example.alexander.halalappv1.model.newModels.Restaurant;
 import com.example.alexander.halalappv1.utils.ConstantsHelper;
 
 import java.util.ArrayList;
