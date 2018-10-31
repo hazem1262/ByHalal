@@ -139,9 +139,6 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private void updateRestaurantInformationViews() {
         String language = SharedPreferencesHelper.getSharedPreferenceString(SubmitReservationActivity.this, ConstantsHelper.KEY_SELECTED_LANGUAGE, null);
         if (mUpComingReservation != null) {
-            // todo
-//            mRestaurant = mUpComingReservation.getRestaurant();
-//            Picasso.with(this).load(mRestaurant.getPicture()).into(mRestaurantImageImageView);
             mRestaurantNameTextView.setText(mRestaurant.getName());
             if (language != null) {
                 if (language.equals("français")) {

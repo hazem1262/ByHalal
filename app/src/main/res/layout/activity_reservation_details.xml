@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/modifiedPrimaryColor"
     tools:context=".activities.ReservationDetailsActivity">
     <ScrollView
         android:layout_width="match_parent"
@@ -156,7 +157,14 @@
 
                 </LinearLayout>
 
-
+                <TextView
+                    android:id="@+id/backText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/retour"
+                    style="@style/backText"/>
 
             </FrameLayout>
 
@@ -428,23 +436,43 @@
                     android:nestedScrollingEnabled="false"
                     />
                 <RelativeLayout
+                    android:id="@+id/orderAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey_8B8989">
+                    android:background="@color/grey_262A36"
+                    android:padding="10dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Total"
-                        android:layout_marginStart="40dp"/>
+                        android:textSize="@dimen/app_sub_header"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="50dp"/>
                     <TextView
+                        android:id="@+id/totalCost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="50 $"/>
+                        android:text="50 €"
+                        android:textSize="@dimen/app_sub_header"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="10dp"/>
                 </RelativeLayout>
             </LinearLayout>
 
+            <include
+                android:id="@+id/pb_reserve_fragment_loading_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="200dp"
+                layout="@layout/layout_progress_bar"
+                android:visibility="gone"
+                />
         </LinearLayout>
     </ScrollView>
 

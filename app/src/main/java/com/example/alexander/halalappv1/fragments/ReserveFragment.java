@@ -532,7 +532,11 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
 
     @Override
     public void onPreviousItemClick(int position) {
-        showOrderDialog(mPreviousReservationsList.get(position), null);
+//        showOrderDialog(mPreviousReservationsList.get(position), null);
+        Intent detailsIntent = new Intent(getContext(), ReservationDetailsActivity.class);
+        detailsIntent.putExtra(EDIT_RESERVATION_OBJECT_KEY, mPreviousReservationsList.get(position).getBookingId()); // use booking id to edit reservation
+        detailsIntent.setAction("PreviousReservation");
+        startActivity(detailsIntent);
     }
     //==============================================================================================
     private void signInButtonClick() {

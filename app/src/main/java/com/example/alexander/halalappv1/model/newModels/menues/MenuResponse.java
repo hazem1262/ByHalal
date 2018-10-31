@@ -56,7 +56,7 @@ public class MenuResponse {
         this.name = name;
     }
 
-    public List<MenuItem> getMenuItems() {
+    public ArrayList<MenuItem> getMenuItems() {
         return menuItems;
     }
 

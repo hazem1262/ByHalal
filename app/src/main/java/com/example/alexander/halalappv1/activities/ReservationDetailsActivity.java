@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -60,18 +63,21 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     private RestaurantMenuAdapter mMenuAdapter;
     private LinearLayout containner;
     private ScrollView scrollLayout;
-
-
+    private LinearLayout btnLayout;
+    private TextView backText;
     private ReservationDetailsAllResponse mReservationDetailsResponse;
     private ArrayList<Product> mProducts;
-
+    private ConstraintLayout loadingLayout;
     private ReservationDetails mReservationDetails;
     private com.example.alexander.halalappv1.model.newModels.reservation.details.Restaurant mRestaurantRes;
-
-
+    FrameLayout headerLayout;
+    LinearLayout restaurantInfoLayout;
+    RelativeLayout orderAmount;
     private List<String> mListDataHeader;
     private HashMap<String, List<MenuItem>> mListDataChild;
+    TextView totalCost;
 
+    double total = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +90,17 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         mMenuListView.setChildDivider(getResources().getDrawable(R.color.modifiedPrimaryColor));
         mListDataHeader = new ArrayList<>();
         mListDataChild = new HashMap<>();
+        if (getIntent().getAction() != null){
+            if (getIntent().getAction().equals("PreviousReservation")){
+                btnLayout.setVisibility(View.GONE);
+            }
+        }
+        backText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     // setup the menu list
@@ -98,17 +115,27 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             MenuItem menuItem = new MenuItem(p.getId(), p.getName(), p.getQuantity().toString(), p.getPrice());
             menuItem.setQuantity(p.getQuantity());
             menuItemsList.add(menuItem);
+            total += (menuItem.getQuantity() * Double.parseDouble(menuItem.getPrice()));
         }
         mListDataChild.put(header, menuItemsList);
         mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild);
         mMenuListView.setAdapter(mMenuAdapter);
         if (menuItemsList.size()>0){
             mMenuListView.expandGroup(0);
+            totalCost.setText(total + " €");
+        }else{
+            orderAmount.setVisibility(View.INVISIBLE);
         }
 
 
     }
     private void findViewsById(){
+        totalCost = findViewById(R.id.totalCost);
+        orderAmount = findViewById(R.id.orderAmount);
+        headerLayout = findViewById(R.id.upcoming_image_date_layout);
+        loadingLayout = findViewById(R.id.pb_reserve_fragment_loading_indicator);
+        backText = findViewById(R.id.backText);
+        btnLayout = findViewById(R.id.btnLayout);
         restaurentName = findViewById(R.id.restaurant_name);
         restaurentAdress = findViewById(R.id.restaurantAdress);
         reservationDate = findViewById(R.id.tv_upcoming_reservation_date);
@@ -125,9 +152,11 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         menuLayout = findViewById(R.id.menu_layout);
         containner = findViewById(R.id.containnerLayout);
         scrollLayout = findViewById(R.id.scrollLayout);
+        restaurantInfoLayout = findViewById(R.id.restaurant_profile_information_layout);
     }
 
     private void getData(){
+        showLoading();
         int reservationId = getIntent().getIntExtra(EDIT_RESERVATION_OBJECT_KEY, 0);
         ReservationDetailsResponse webService = RetrofitWebService.retrofit.create(ReservationDetailsResponse.class);
         Call<ReservationDetailsAllResponse> menuResponse = webService.getReservationDetails(reservationId);
@@ -139,7 +168,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 mRestaurantRes = mReservationDetailsResponse.getRestaurant();
                 mReservationDetails = mReservationDetailsResponse.getReservation();
                 updateData();
-
+                hideLoading();
             }
 
             @Override
@@ -321,5 +350,21 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void showLoading(){
+        loadingLayout.setVisibility(View.VISIBLE);
+        headerLayout.setVisibility(View.GONE);
+        btnLayout.setVisibility(View.GONE);
+        orderAmount.setVisibility(View.INVISIBLE);
+        restaurantInfoLayout.setVisibility(View.GONE);
+    }
+
+    private void hideLoading(){
+        loadingLayout.setVisibility(View.GONE);
+        headerLayout.setVisibility(View.VISIBLE);
+        btnLayout.setVisibility(View.VISIBLE);
+        orderAmount.setVisibility(View.VISIBLE);
+        restaurantInfoLayout.setVisibility(View.VISIBLE);
     }
 }

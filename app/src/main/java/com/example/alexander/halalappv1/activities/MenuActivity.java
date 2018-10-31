@@ -28,6 +28,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.alexander.halalappv1.activities.EditReservationActivity.ACTION_EDIT_RESERVE;
+import static com.example.alexander.halalappv1.activities.EditReservationActivity.RESERVATION_ID;
 import static com.example.alexander.halalappv1.activities.RestaurantProfileActivity.RESTAURANT_ID_KEY;
 import static com.example.alexander.halalappv1.activities.RestaurantProfileActivity.RESTAURANT_NAME_KEY;
 import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
@@ -61,6 +63,7 @@ public class MenuActivity extends AppCompatActivity {
     private double mTotalPrice = 0.00;
     private String mAction;
 
+    private ArrayList<ReservationOrder> mOldReservationOrdersList = new ArrayList<>();
     private ArrayList<ReservationOrder> mReservationOrdersList = new ArrayList<>();
     //==============================================================================================
     private void updateRestaurantNameView() {
@@ -76,11 +79,50 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
+
+    private void updateMenuList(ArrayList<MenuItem> oldMenu){
+        if (getIntent().getAction() != null){
+            if (getIntent().getAction().equals(ACTION_EDIT_RESERVE)){
+                mOldReservationOrdersList = getIntent().getParcelableArrayListExtra(MenuActivity.RESERVATION_ORDERS_LIST_KEY);
+                for (int i = 0; i<oldMenu.size(); i++){
+                    for (int j = 0; j<mOldReservationOrdersList.size(); j++){
+                        if (oldMenu.get(i).getId() == mOldReservationOrdersList.get(j).getId()){
+                            oldMenu.get(i).setQuantity(mOldReservationOrdersList.get(j).getQuantity());
+                            // add item to order and update check out layout
+
+                            boolean isTagged = isItemTagged(oldMenu.get(i));
+                            if (isTagged) {
+                                for (int k = 0; k < mReservationOrdersList.size(); k ++) {
+                                    if (mReservationOrdersList.get(k).getId() == oldMenu.get(k).getId()) {
+                                        ReservationOrder reservationOrder = mReservationOrdersList.get(k);
+                                        reservationOrder.setId(oldMenu.get(i).getId());
+                                        reservationOrder.setQuantity(oldMenu.get(i).getQuantity());
+                                    }
+                                }
+                            } else {
+                                ReservationOrder reservationOrder = new ReservationOrder();
+                                reservationOrder.setId(oldMenu.get(i).getId());
+                                reservationOrder.setQuantity(oldMenu.get(i).getQuantity());
+                                mReservationOrdersList.add(reservationOrder);
+                            }
+                            mTotalPrice += Double.parseDouble(oldMenu.get(i).getPrice()) * oldMenu.get(i).getQuantity();
+                            mTotalQuantity += oldMenu.get(i).getQuantity();
+                            mTotalQuantityTextView.setText(String.valueOf("x" + mTotalQuantity));
+                            mTotalPriceTextView.setText(String.valueOf(mTotalPrice + " €"));
+                        }
+                    }
+                }
+            }
+        }
+    }
     // setup the menu list
     private void setUpMenuListView() {
         for (int i = 0; i < mMenuList.size(); i ++) {
             mListDataHeader.add(mMenuList.get(i).getName());
+            //  update menu if edit reservation action
+            updateMenuList(mMenuList.get(i).getMenuItems());
             mListDataChild.put(mMenuList.get(i).getName(), mMenuList.get(i).getMenuItems());
+
         }
 
         mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild);
@@ -111,7 +153,7 @@ public class MenuActivity extends AppCompatActivity {
                 });
             }
 
-            else if (mAction.equals(EditReservationActivity.ACTION_EDIT_RESERVE)) {
+            else if (mAction.equals(ACTION_EDIT_RESERVE)) {
                 mMenuListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -228,8 +270,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuActivity.this, SubmitReservationActivity.class);
-                // todo update to diff bitween update reservation and order reservation
-//                intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);
+                int reservationId = getIntent().getIntExtra(RESERVATION_ID, -10);
+                intent.putExtra(RESERVATION_ID, reservationId);
                 int restaurentId = getIntent().getIntExtra(RESTAURANT_ID_KEY, 0);
                 intent.putExtra(RESTAURENT_KEY, restaurentId);
                 String restaurantName = getIntent().getStringExtra(RESTAURANT_NAME_KEY);
@@ -272,7 +314,7 @@ public class MenuActivity extends AppCompatActivity {
                 mSelectedNumberOfPeople = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_NUMBER_PEOPLE_KEY);
             }
 
-            else if (mAction.equals(EditReservationActivity.ACTION_EDIT_RESERVE)) {
+            else if (mAction.equals(ACTION_EDIT_RESERVE)) {
                 mCheckoutOrderLayout.setVisibility(View.VISIBLE);
                 mUpComingReservation = getIntent().getParcelableExtra(EditReservationActivity.UPCOMING_RESERVATION_OBJECT_KEY);
                 if (mUpComingReservation != null) {

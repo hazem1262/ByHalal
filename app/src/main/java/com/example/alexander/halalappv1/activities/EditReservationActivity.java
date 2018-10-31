@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.NumberOfPeopleAdapter;
 import com.example.alexander.halalappv1.adapters.TimeAdapter;
+import com.example.alexander.halalappv1.model.ReservationOrder;
 import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.modifiedmodels.WorkDay;
 import com.example.alexander.halalappv1.model.newModels.menues.MenuItem;
@@ -55,6 +56,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.alexander.halalappv1.activities.MenuActivity.RESERVATION_ORDERS_LIST_KEY;
+import static com.example.alexander.halalappv1.activities.RestaurantProfileActivity.RESTAURANT_ID_KEY;
 import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 import static com.example.alexander.halalappv1.fragments.ReserveFragment.EDIT_RESERVATION_OBJECT_KEY;
 
@@ -111,6 +114,7 @@ public class EditReservationActivity extends AppCompatActivity {
     private ReservationDetails mReservationDetails;
     private com.example.alexander.halalappv1.model.newModels.reservation.details.Restaurant mRestaurantRes;
     private int mTotalQuantity;
+    private ArrayList<ReservationOrder> mReservationOrdersList = new ArrayList<>();
     //==============================================================================================
     private void findViewsById() {
         mRestaurantImageImageView = findViewById(R.id.iv_edit_reservation_activity_restaurant_image);
@@ -516,12 +520,12 @@ public class EditReservationActivity extends AppCompatActivity {
                     Toast.makeText(EditReservationActivity.this, getResources().getString(R.string.toast_message_select_number_of_people), Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(EditReservationActivity.this, SubmitReservationActivity.class);
-                    // todo
                     intent.putExtra(RESERVATION_ID, mReservationDetails.getId());
                     intent.putExtra(RESTAURENT_KEY, mRestaurantRes.getId());
                     intent.putExtra(SELECTED_DATE_KEY, mSelectedDate);
                     intent.putExtra(SELECTED_TIME_KEY, mSelectedTime.replace("h",":"));
                     intent.putExtra(SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
+                    intent.putExtra(RESERVATION_ORDERS_LIST_KEY, mReservationOrdersList);
                     startActivity(intent);
                 }
             }
@@ -542,11 +546,15 @@ public class EditReservationActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(EditReservationActivity.this, MenuActivity.class);
                     //todo invest how to send details to menu
-//                    intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);
+//                    intent.putExtra(UPCOMING_RESERVATION_OBJECT_KEY, mUpComingReservation);c
+                    intent.putExtra(RESERVATION_ID, mReservationDetails.getId());
                     intent.putExtra(SELECTED_DATE_KEY, mSelectedDate);
                     intent.putExtra(SELECTED_TIME_KEY, mSelectedTime);
                     intent.putExtra(SELECTED_NUMBER_PEOPLE_KEY, mSelectedNumberOfPeople);
                     intent.setAction(ACTION_EDIT_RESERVE);
+                    int restaurantId = mRestaurantRes.getId();
+                    intent.putExtra(RESTAURANT_ID_KEY, restaurantId);
+                    intent.putExtra(RESERVATION_ORDERS_LIST_KEY, mReservationOrdersList);
                     startActivity(intent);
                 }
             }
@@ -652,7 +660,8 @@ public class EditReservationActivity extends AppCompatActivity {
 
                 setUpNumberOfPeopleRecyclerView();
                 updateMainViewsWithRestaurantData();
-//                updateTimeRecyclerViewWithCurrentDayWorkingHours();
+//                updateTimeRecyclerViewWithCurrentDayWorkingHours();;
+                setUpMenuListView();
             }
 
             @Override
@@ -662,6 +671,17 @@ public class EditReservationActivity extends AppCompatActivity {
         });
     }
 
+    // setup the menu list
+    private void setUpMenuListView(){
+
+        for (int i = 0; i< mReservationDetails.getProducts().size(); i++ ){
+            ReservationOrder reservationOrder = new ReservationOrder();
+            reservationOrder.setId(mReservationDetails.getProducts().get(i).getId());
+            reservationOrder.setQuantity(mReservationDetails.getProducts().get(i).getQuantity());
+            mReservationOrdersList.add(reservationOrder);
+        }
+
+    }
     private void getWorkingHours(int restaurentId){
         WorkingHours workingHours = RetrofitWebService.retrofit.create(WorkingHours.class);
         Call<WorkingHoursResponse> restaurentWorkingHours = workingHours.getRestaurentWorkingHours(restaurentId);

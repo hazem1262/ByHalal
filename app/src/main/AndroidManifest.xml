@@ -117,7 +117,10 @@
             android:name=".activities.HelpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBarCustomTheme" />
-        <activity android:name=".activities.ReservationDetailsActivity"></activity>
+        <activity android:name=".activities.ReservationDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBarCustomTheme"
+            />
     </application>
 
 </manifest>

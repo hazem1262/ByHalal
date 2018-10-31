@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
@@ -56,6 +57,12 @@ public class FavouriteRestaurentAdapter extends RecyclerView.Adapter<FavouriteRe
 		Picasso.with(mContext)
 				.load(mRestaurantList.get(position).getPicture())
 				.into(holder.restaurantImageImageView);
+		/*int discount = mRestaurantList.get(position).getPromotionAmount();
+		if (discount > 0){
+			holder.restaurantDiscountAmount.setText(discount + " %");
+		}else {
+			holder.discountLayout.setVisibility(View.INVISIBLE);
+		}*/
 	}
 
 	@Override
@@ -73,6 +80,8 @@ public class FavouriteRestaurentAdapter extends RecyclerView.Adapter<FavouriteRe
 		RoundedImageView restaurantImageImageView;
 		TextView restaurantNameTextView;
 		TextView restaurantCategoryTextView;
+		LinearLayout discountLayout;
+		TextView restaurantDiscountAmount;
 //		TextView restaurantLocationTextView;
 //		RatingBar restaurantRateRatingBar;
 
@@ -82,6 +91,8 @@ public class FavouriteRestaurentAdapter extends RecyclerView.Adapter<FavouriteRe
 			restaurantImageImageView = itemView.findViewById(R.id.iv_home_restaurant_image);
 			restaurantNameTextView = itemView.findViewById(R.id.tv_home_restaurant_name);
 			restaurantCategoryTextView = itemView.findViewById(R.id.tv_home_restaurant_category);
+			discountLayout = itemView.findViewById(R.id.restaurantDiscount);
+			restaurantDiscountAmount = itemView.findViewById(R.id.restaurantDiscountAmount);
 //			restaurantLocationTextView = itemView.findViewById(R.id.tv_home_restaurant_location);
 //			restaurantRateRatingBar = itemView.findViewById(R.id.rb_home_restaurant_rate);
 
