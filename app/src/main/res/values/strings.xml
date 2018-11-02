@@ -2,42 +2,42 @@
     <string name="app_name">B&amp;Y</string>
     <!--=========================================================================================-->
     <!--SignInActivity-->
-    <string name="et_sign_in_activity_email_hint">Email</string>
-    <string name="et_sign_in_activity_password_hint">Password</string>
-    <string name="btn_sign_in_activity_sign_in_text">Sign in</string>
-    <string name="btn_sign_in_activity_facebook_sign_in_text">Sign in with facebook</string>
-    <string name="btn_sign_in_activity_create_new_account_text">Create new account</string>
-    <string name="tv_sign_in_activity_forget_password_text">Forgot password ?</string>
+    <string name="et_sign_in_activity_email_hint">E-mail</string>
+    <string name="et_sign_in_activity_password_hint">Mot de passe</string>
+    <string name="btn_sign_in_activity_sign_in_text">Connexion</string>
+    <string name="btn_sign_in_activity_facebook_sign_in_text">Connexion avec Facebook</string>
+    <string name="btn_sign_in_activity_create_new_account_text">Inscription</string>
+    <string name="tv_sign_in_activity_forget_password_text">Mot de passe oublié ?</string>
 
-    <string name="sign_in_activity_toast_message_email_is_required">Email Is Required</string>
-    <string name="sign_in_activity_toast_message_invalid_email">Invalid Email</string>
-    <string name="sign_in_activity_toast_message_password_is_required">Password Is Required</string>
-    <string name="sign_in_activity_toast_message_no_internet_connection">No Internet Connection</string>
-    <string name="sign_in_activity_toast_message_wrong_email_or_wrong_password">Wrong Email Or Wrong Password</string>
-    <string name="sign_in_activity_toast_message_problem_sign_in_try_again_later">Problem Sign In, Try Again Later.</string>
+    <string name="sign_in_activity_toast_message_email_is_required">Le courriel est requis</string>
+    <string name="sign_in_activity_toast_message_invalid_email">Email invalide</string>
+    <string name="sign_in_activity_toast_message_password_is_required">Mot de passe requis</string>
+    <string name="sign_in_activity_toast_message_no_internet_connection">Pas de connexion Internet</string>
+    <string name="sign_in_activity_toast_message_wrong_email_or_wrong_password">Mauvais courriel ou mot de passe erroné</string>
+    <string name="sign_in_activity_toast_message_problem_sign_in_try_again_later">Problème de connexion, réessayez plus tard</string>
     <!--=========================================================================================-->
     <!--SignUpActivity-->
-    <string name="et_sign_up_activity_first_name_text">First name</string>
-    <string name="et_sign_up_activity_family_name_text">Family name</string>
-    <string name="et_sign_up_activity_email_hint">Email</string>
-    <string name="et_sign_up_activity_mobile_number_hint">Mobile number</string>
-    <string name="et_sign_up_activity_password_hint">Password</string>
-    <string name="et_sign_up_activity_retype_password_hint">Re-type Password</string>
-    <string name="btn_sign_up_activity_sign_up_text">Sign up</string>
-    <string name="btn_sign_up_activity_facebook_sign_up_text">Sign up with facebook</string>
+    <string name="et_sign_up_activity_first_name_text">Prénom</string>
+    <string name="et_sign_up_activity_family_name_text">Nom</string>
+    <string name="et_sign_up_activity_email_hint">E-mail</string>
+    <string name="et_sign_up_activity_mobile_number_hint">Numéro de téléphone</string>
+    <string name="et_sign_up_activity_password_hint">Mot de passe</string>
+    <string name="et_sign_up_activity_retype_password_hint">Confirmez</string>
+    <string name="btn_sign_up_activity_sign_up_text">Inscription</string>
+    <string name="btn_sign_up_activity_facebook_sign_up_text">Inscription avec Facebook</string>
 
-    <string name="sign_up_activity_toast_message_first_name_is_required">First Name Is Required</string>
-    <string name="sign_up_activity_toast_message_family_name_is_required">Family Name Is Required</string>
-    <string name="sign_up_activity_toast_message_email_is_required">Email Is Required</string>
-    <string name="sign_up_activity_toast_message_invalid_email">Invalid Email</string>
-    <string name="sign_up_activity_toast_message_mobile_number_is_required">Mobile Number Is Required</string>
-    <string name="sign_up_activity_toast_message_invalid_mobile_number">Invalid Mobile Number</string>
-    <string name="sign_up_activity_toast_message_password_is_required">Password Is Required</string>
-    <string name="sign_up_activity_toast_message_password_is_at_least_6_chars">Password Must Be At Least 6 Characters</string>
-    <string name="sign_up_activity_toast_message_retyped_password_is_required">Re-typed Password Is Required</string>
-    <string name="sign_up_activity_toast_message_password_and_retyped_password_do_not_match">Password And Re-typed Password don\'t match</string>
-    <string name="sign_up_activity_toast_message_account_already_exists">Account Already Exists</string>
-    <string name="sign_up_activity_toast_message_problem_sign_up_try_again_later">Problem Sign Up, Try Again Later.</string>
+    <string name="sign_up_activity_toast_message_first_name_is_required">Le prénom est requis</string>
+    <string name="sign_up_activity_toast_message_family_name_is_required">Nom de famille est requis</string>
+    <string name="sign_up_activity_toast_message_email_is_required">Le courriel est requis</string>
+    <string name="sign_up_activity_toast_message_invalid_email">Email invalide</string>
+    <string name="sign_up_activity_toast_message_mobile_number_is_required">Numéro de mobile est requis</string>
+    <string name="sign_up_activity_toast_message_invalid_mobile_number">Numéro de portable invalide</string>
+    <string name="sign_up_activity_toast_message_password_is_required">Mot de passe requis</string>
+    <string name="sign_up_activity_toast_message_password_is_at_least_6_chars">Le mot de passe doit être au moins de 6 caractères</string>
+    <string name="sign_up_activity_toast_message_retyped_password_is_required">Mot de passe re-tapé est requis</string>
+    <string name="sign_up_activity_toast_message_password_and_retyped_password_do_not_match">Mot de passe et Retaper le mot de passe ne correspondent pas</string>
+    <string name="sign_up_activity_toast_message_account_already_exists">Le compte existe déjà</string>
+    <string name="sign_up_activity_toast_message_problem_sign_up_try_again_later">Problème d\'inscription, réessayez plus tard</string>
     <!--=========================================================================================-->
     <!--HomeFragment-->
     <string name="tv_home_search_text">Chercher</string>
@@ -51,177 +51,178 @@
     <string name="btn_search_fragment_list_text">Liste</string>
     <!--=========================================================================================-->
     <!--ReserveFragment-->
-    <string name="tv_reserve_fragment_my_reservations_label_text">My reservations</string>
-    <string name="tv_reserve_fragment_up_coming_reservations_label_text">Upcoming reservations</string>
-    <string name="tv_reserve_fragment_previous_reservations_label_text">Previous reservations</string>
-    <string name="tv_reserve_fragment_error_message_text">No reservations</string>
-    <string name="btn_reserve_alert_dialog_cancel_text">Cancel</string>
-    <string name="btn_reserve_alert_dialog_edit_text">Edit</string>
-    <string name="btn_reserve_alert_dialog_call_text">Call</string>
+    <string name="tv_reserve_fragment_my_reservations_label_text">Mes réservations</string>
+    <string name="tv_reserve_fragment_up_coming_reservations_label_text">À venir</string>
+    <string name="tv_reserve_fragment_previous_reservations_label_text">Précédentes</string>
+    <string name="tv_reserve_fragment_error_message_text">Aucune réservations</string>
+    <string name="btn_reserve_alert_dialog_cancel_text">Annuler</string>
+    <string name="btn_reserve_alert_dialog_edit_text">Modifier</string>
+    <string name="btn_reserve_alert_dialog_call_text">Appeler</string>
     <!--=========================================================================================-->
     <!--ProfileFragment-->
-    <string name="tv_my_profile_label_text">My profile</string>
-    <string name="tv_profile_favourite_restaurants_label_text">Favourite restaurants</string>
-    <string name="tv_profile_fragment_user_name_text">Settings</string>
+    <string name="tv_my_profile_label_text">Mon Profil</string>
+    <string name="tv_profile_favourite_restaurants_label_text">Restaurants favoris</string>
+    <string name="tv_profile_fragment_user_name_text">paramètres</string>
     <!--=========================================================================================-->
     <!--ProfileSettingsActivity-->
-    <string name="tv_profile_settings_label_text">Settings</string>
-    <string name="tv_profile_settings_account_info_label_text">Account info.</string>
-    <string name="tv_profile_settings_about_by_hallal_label_text">About By hallal</string>
-    <string name="tv_profile_settings_language_label_text">Language</string>
+    <string name="tv_profile_settings_label_text">Réglages</string>
+    <string name="tv_profile_settings_account_info_label_text">Infos du compte</string>
+    <string name="tv_profile_settings_about_by_hallal_label_text">À propos</string>
+    <string name="tv_profile_settings_language_label_text">Langue</string>
     <string name="tv_profile_settings_language_english_label_text">English</string>
-    <string name="tv_profile_settings_language_french_label_text">French</string>
-    <string name="tv_profile_settings_sign_out_text">Sign out</string>
+    <string name="tv_profile_settings_language_french_label_text">Français</string>
+    <string name="tv_profile_settings_sign_out_text">Déconnexion</string>
     <!--=========================================================================================-->
     <!--AccountInfoActivity-->
-    <string name="tv_profile_acc_info_my_info_label_text">My info</string>
-    <string name="tv_profile_acc_info_first_name_label_text">First name</string>
-    <string name="tv_profile_acc_info_last_name_label_text">Last name</string>
-    <string name="tv_profile_acc_info_email_label_text">Email</string>
-    <string name="tv_profile_acc_info_phone_number_label_text">Phone number</string>
-    <string name="tv_profile_acc_info_password_label_text">Password</string>
-    <string name="tv_profile_acc_info_confirm_password_label_text">Confirm password</string>
-    <string name="tv_profile_acc_info_edit_text">Edit</string>
-    <string name="tv_profile_acc_info_save_text">Save</string>
+    <string name="tv_profile_acc_info_my_info_label_text">Mes informations</string>
+    <string name="tv_profile_acc_info_first_name_label_text">Prénom</string>
+    <string name="tv_profile_acc_info_last_name_label_text">Nom</string>
+    <string name="tv_profile_acc_info_email_label_text">E-mail</string>
+    <string name="tv_profile_acc_info_phone_number_label_text">Numéro</string>
+    <string name="tv_profile_acc_info_password_label_text">Mot de passe</string>
+    <string name="tv_profile_acc_info_confirm_password_label_text">Confirmez le mot de passe</string>
+    <string name="tv_profile_acc_info_edit_text">Modifier</string>
+    <string name="tv_profile_acc_info_save_text">enregistrer</string>
     <!--=========================================================================================-->
     <!--AboutHalalActivity-->
-    <string name="tv_about_halal_about_by_halal_label_text">About By halal</string>
-    <string name="tv_about_halal_confidentiality_policies_label_text">Confidentiality policies</string>
-    <string name="tv_about_halal_conditions_of_utilization_label_text">Conditions of utilization</string>
-    <string name="tv_about_halal_help_and_assistance_label_text">Help and assistance</string>
+    <string name="tv_about_halal_about_by_halal_label_text">À propos</string>
+    <string name="tv_about_halal_confidentiality_policies_label_text">Politique de confidentialité</string>
+    <string name="tv_about_halal_conditions_of_utilization_label_text">Conditions d\'utilisations</string>
+    <string name="tv_about_halal_help_and_assistance_label_text">Aide et assistance</string>
     <!--=========================================================================================-->
     <!--FavouriteRestaurantsActivity-->
-    <string name="favourite_restaurants_activity_my_profile_label_text">My profile</string>
-    <string name="favourite_restaurants_activity_favourite_restaurants_label_text">Favourite restaurants</string>
-    <string name="tv_favourite_restaurants_activity_error_message_text">There are no favourites</string>
+    <string name="favourite_restaurants_activity_my_profile_label_text">Mon profil</string>
+    <string name="favourite_restaurants_activity_favourite_restaurants_label_text">Restaurants favoris</string>
+    <string name="tv_favourite_restaurants_activity_error_message_text">Il n\'y a pas de favoris</string>
     <!--=========================================================================================-->
     <!--FilterActivity-->
-    <string name="tv_layout_filter_sort_and_filter_label_text">Sort &amp; filter</string>
-    <string name="tv_layout_filter_price_layout_price_label_text">Price</string>
-    <string name="tv_layout_filter_sort_by_layout_sort_by_label_text">Sort by</string>
-    <string name="tv_layout_filter_reset_text">Reset</string>
-    <string name="btn_layout_filter_show_options_text">Show options</string>
+    <string name="tv_layout_filter_sort_and_filter_label_text">Trier &amp; Filtrer</string>
+    <string name="tv_layout_filter_price_layout_price_label_text">Prix</string>
+    <string name="tv_layout_filter_sort_by_layout_sort_by_label_text">Trier par</string>
+    <string name="tv_layout_filter_reset_text">Effacer</string>
+    <string name="btn_layout_filter_show_options_text">Voir les restaurants</string>
     <!--=========================================================================================-->
     <!--MenuActivity-->
     <string name="tv_menu_activity_menu_label_text">Menu</string>
-    <string name="tv_checkout_order_checkout_order_label_text">Checkout order</string>
-    <string name="tv_dialog_quantity_label_quantity">Quantity</string>
-    <string name="tv_dialog_add_text">Add</string>
+    <string name="tv_checkout_order_checkout_order_label_text">Réserver</string>
+    <string name="tv_dialog_quantity_label_quantity">Quantité</string>
+    <string name="tv_dialog_add_text">Ajouter</string>
     <!--=========================================================================================-->
     <!--RestaurantProfileActivity-->
-    <string name="tv_time_label_text">Hour</string>
-    <string name="tv_calendar_layout_number_of_people_label_text">Number of people</string>
-    <string name="tv_calendar_layout_no_capacity_message_text">The restaurant is full for this hour</string>
-    <string name="tv_calendar_layout_restaurant_is_closed_message_text">Your restaurant is closed today</string>
-    <string name="btn_calendar_layout_reserve_text">Reserve</string>
-    <string name="btn_calendar_layout_place_an_order_text">Place an order</string>
+    <string name="tv_time_label_text">Horaires</string>
+    <string name="tv_calendar_layout_number_of_people_label_text">Nombre de personnes</string>
+    <string name="tv_calendar_layout_no_capacity_message_text">Le restaurant est complet pour cette heure</string>
+    <string name="tv_calendar_layout_restaurant_is_closed_message_text">Votre restaurant est fermé aujourd’hui</string>
+    <string name="btn_calendar_layout_reserve_text">Réserver</string>
+    <string name="btn_calendar_layout_place_an_order_text">Ajouter son menu</string>
     <string name="tv_cuisine_label_text">Cuisine</string>
-    <string name="tv_executive_chef_label_text">Executive Chef</string>
-    <string name="tv_neighbourhood_label_text">Neighbourhood</string>
+    <string name="tv_executive_chef_label_text">Le chef</string>
+    <string name="tv_neighbourhood_label_text">Ville</string>
     <string name="tv_restaurant_profile_certifications_label_text">Certifications</string>
-    <string name="tv_visitors_label_text">Satisfied Clients</string>
-    <string name="tv_certificate_label_text">Organisation of certificate</string>
-    <string name="tv_wine_label_text">Alcohol</string>
-    <string name="tv_restaurant_profile_additional_information_label_text">Additional Information</string>
-    <string name="tv_restaurant_menu_label_text">Restaurant Menu</string>
-    <string name="tv_restaurant_website_label_text">Restaurant Website</string>
-    <string name="tv_restaurant_working_hours_label_text">Working Hours</string>
+    <string name="tv_visitors_label_text">Clients Satisfaits</string>
+    <string name="tv_certificate_label_text">Organisme de certification</string>
+    <string name="tv_wine_label_text">Alcool</string>
+    <string name="tv_restaurant_profile_additional_information_label_text">Informations du restaurant</string>
+    <string name="tv_restaurant_menu_label_text">Carte du restaurant</string>
+    <string name="tv_restaurant_website_label_text">Site du restaurant</string>
+    <string name="tv_restaurant_working_hours_label_text">Horaires</string>
     <string name="tv_restaurant_profile_notes_label_text">Notes</string>
     <!--=========================================================================================-->
     <!--SearchRestaurantActivity-->
-    <string name="tv_search_restaurant_header_label_text">Search restaurant</string>
-    <string name="et_search_restaurant_search_text_hint">Search</string>
-    <string name="tv_search_restaurant_location_text">Current location</string>
-    <string name="tv_search_restaurant_select_city_text">Select city</string>
-    <string name="tv_search_restaurant_all_restaurants_label_text">All Restaurants</string>
-    <string name="tv_search_restaurant_my_favourites_label_text">My favourites</string>
-    <string name="btn_search_restaurant_search_text">Search</string>
+    <string name="tv_search_restaurant_header_label_text">Rechercher</string>
+    <string name="et_search_restaurant_search_text_hint">Rechercher</string>
+    <string name="tv_search_restaurant_location_text">Localisation actuelle</string>
+    <string name="tv_search_restaurant_select_city_text">Sélectionnez une ville</string>
+    <string name="tv_search_restaurant_all_restaurants_label_text">Tous les restaurants</string>
+    <string name="tv_search_restaurant_my_favourites_label_text">Mes favoris</string>
+    <string name="btn_search_restaurant_search_text">Rechercher</string>
     <!--=========================================================================================-->
     <!--SelectLocationActivity-->
-    <string name="tv_select_location_activity_select_location_label_text">Select location</string>
-    <string name="tv_select_location_activity_current_location_text">Current location</string>
-    <string name="tv_select_location_activity_select_a_location_label_text">Select a location</string>
+    <string name="tv_select_location_activity_select_location_label_text">Votre position</string>
+    <string name="tv_select_location_activity_current_location_text">Position actuelle</string>
+    <string name="tv_select_location_activity_select_a_location_label_text">Choisissez une ville</string>
     <!--=========================================================================================-->
     <!--SubmitReservationActivity-->
-    <string name="tv_submit_reservation_activity_number_of_people_text">people</string>
-    <string name="tv_submit_reservation_activity_client_details_label_text">Client details</string>
-    <string name="tv_submit_reservation_activity_first_name_label_text">First Name</string>
-    <string name="tv_submit_reservation_activity_last_name_label_text">Last Name</string>
-    <string name="tv_submit_reservation_activity_phone_number_label_text">Phone Number</string>
-    <string name="tv_submit_reservation_activity_email_label_text">Email</string>
-    <string name="tv_submit_reservation_activity_add_comment_label_text">Add comment</string>
-    <string name="et_submit_reservation_activity_write_comment_hint">Write comment here</string>
-    <string name="btn_submit_reservation_activity_submit_text">Submit</string>
+    <string name="tv_submit_reservation_activity_number_of_people_text">Personnes</string>
+    <string name="tv_submit_reservation_activity_client_details_label_text">Vos Informations</string>
+    <string name="tv_submit_reservation_activity_first_name_label_text">Prénom</string>
+    <string name="tv_submit_reservation_activity_last_name_label_text">Nom</string>
+    <string name="tv_submit_reservation_activity_phone_number_label_text">Numéro de téléphone</string>
+    <string name="tv_submit_reservation_activity_email_label_text">E-mail</string>
+    <string name="tv_submit_reservation_activity_add_comment_label_text">Commentaires</string>
+    <string name="et_submit_reservation_activity_write_comment_hint">Occasions spéciales, allergies, demandes spécifiques…</string>
+    <string name="btn_submit_reservation_activity_submit_text">Terminer sa réservation</string>
     <!--=========================================================================================-->
     <!--WorkingHoursActivity-->
-    <string name="tv_working_hours_label_text">WORKING HOURS</string>
+    <string name="tv_working_hours_label_text">Horaires</string>
     <!--=========================================================================================-->
     <!--GalleryActivity-->
-    <string name="tv_gallery_activity_gallery_label_text">GALLERY</string>
+    <string name="tv_gallery_activity_gallery_label_text">Galerie</string>
     <!--=========================================================================================-->
     <!--HelpActivity-->
-    <string name="tv_help_activity_help_message_text">Please write us your issue or iquiry so we can help.</string>
-    <string name="et_help_activity_user_issue_hint">Your message</string>
-    <string name="btn_help_activity_send_text">Send</string>
+    <string name="tv_help_activity_help_message_text">S\'il vous plaît écrivez-nous votre problème ou enquête afin que nous puissions vous aider.</string>
+    <string name="et_help_activity_user_issue_hint">Votre message</string>
+    <string name="btn_help_activity_send_text">Envoyer</string>
     <!--=========================================================================================-->
     <!--Call Alert Dialog-->
-    <string name="tv_call_alert_dialog_call_label_text">Call</string>
-    <string name="tv_call_alert_dialog_message_text">You’re about to make a call</string>
-    <string name="tv_call_alert_dialog_action_cancel_text">Cancel</string>
-    <string name="tv_call_alert_dialog_action_call_text">Call</string>
+    <string name="tv_call_alert_dialog_call_label_text">Appeler</string>
+    <string name="tv_call_alert_dialog_message_text">Vous êtes sur le point d\'appeler, continuer ?</string>
+    <string name="tv_call_alert_dialog_action_cancel_text">Annuler</string>
+    <string name="tv_call_alert_dialog_action_call_text">Appeler</string>
 
     <!--Cancel Reservation Alert Dialog-->
-    <string name="tv_cancel_reservation_alert_dialog_cancel_reservation_label_text">Cancel reservation</string>
-    <string name="tv_cancel_reservation_alert_dialog_message_text">Are you sure you want to canel this reservation ?</string>
-    <string name="tv_cancel_reservation_alert_dialog_action_cancel_text">Cancel</string>
-    <string name="tv_cancel_reservation_alert_dialog_action_ok_text">OK</string>
+    <string name="tv_cancel_reservation_alert_dialog_cancel_reservation_label_text">Annuler</string>
+    <string name="tv_cancel_reservation_alert_dialog_message_text">Souhaitez-vous annuler cette réservation ?</string>
+    <string name="tv_cancel_reservation_alert_dialog_action_cancel_text">Non</string>
+    <string name="tv_cancel_reservation_alert_dialog_action_ok_text">Oui</string>
 
     <!--Sign out Alert Dialog-->
-    <string name="tv_sign_out_alert_dialog_sign_out_label_text">Sign out</string>
-    <string name="tv_sign_out_alert_dialog_dialog_message_text">Are you sure you want to sign out ?</string>
-    <string name="tv_sign_out_alert_dialog_action_cancel_text">Cancel</string>
-    <string name="tv_sign_out_alert_dialog_action_sign_out_text">Sign out</string>
+    <string name="tv_sign_out_alert_dialog_sign_out_label_text">Déconnexion</string>
+    <string name="tv_sign_out_alert_dialog_dialog_message_text">Souhaitez-vous vous déconnecter ?</string>
+    <string name="tv_sign_out_alert_dialog_action_cancel_text">Annuler</string>
+    <string name="tv_sign_out_alert_dialog_action_sign_out_text">Déconnexion</string>
 
     <!--Submit Reservation Alert Dialog-->
-    <string name="tv_submit_reservation_alert_dialog_submit_reservation_message">Are you sure you want to submit reservation ?</string>
-    <string name="tv_submit_reservation_alert_dialog_action_cancel_text">Cancel</string>
-    <string name="tv_submit_reservation_alert_dialog_action_submit_text">Submit</string>
+    <string name="tv_submit_reservation_alert_dialog_submit_reservation_message">Vous êtes sur le point de réserver, continuer ?</string>
+    <string name="tv_submit_reservation_alert_dialog_action_cancel_text">Annuler</string>
+    <string name="tv_submit_reservation_alert_dialog_action_submit_text">Continuer</string>
 
     <!--No Connection Alert Dialog-->
-    <string name="layout_no_connection_header_text">No connection</string>
-    <string name="layout_no_connection_error_message_text">Please turn on wifi or cellular data</string>
-    <string name="tv_layout_no_connection_action_ok_text">OK</string>
+    <string name="layout_no_connection_header_text">Pas de connection</string>
+    <string name="layout_no_connection_error_message_text">Veuillez activer le wifi ou les données cellulaires</string>
+    <string name="tv_layout_no_connection_action_ok_text">Oui</string>
     <!--=========================================================================================-->
     <!--permission not granted, grant permission-->
     <string name="tv_permission_not_granted_oops_label_text">Oops!</string>
-    <string name="tv_permission_not_granted_error_message_text">Location permission is needed. Please grant permission.</string>
-    <string name="tv_permission_not_granted_action_grant_permission_text">GRANT PERMISSION</string>
+    <string name="tv_permission_not_granted_error_message_text">La permission de localisation est nécessaire. S\'il vous plaît accorder la permission.</string>
+    <string name="tv_permission_not_granted_action_grant_permission_text">DONNER LA PERMISSION</string>
 
     <!--gps disabled, turn on gps-->
     <string name="tv_gps_disabled_oops_label_text">Oops!</string>
-    <string name="tv_gps_disabled_error_message_text">Please turn on GPS, or select city.</string>
+    <string name="tv_gps_disabled_error_message_text">Veuillez activer le GPS ou sélectionner la ville.</string>
+
 
     <!--data not found for that location-->
     <string name="tv_data_not_found_oops_label_text">Oops!</string>
-    <string name="tv_data_not_found_error_message_text">There is no restaurants here, kindly select another city from above.</string>
+    <string name="tv_data_not_found_error_message_text">Aucun restaurants partenaires ici, veuillez sélectionner une ville au dessus.</string>
 
     <!--location not detected, try again-->
     <string name="tv_location_not_detected_oops_label_text">Oops!</string>
-    <string name="tv_location_not_detected_error_message_text">Location not detected, try again.</string>
-    <string name="tv_location_not_detected_action_retry_text">RETRY</string>
+    <string name="tv_location_not_detected_error_message_text">Emplacement non détecté, réessayez.</string>
+    <string name="tv_location_not_detected_action_retry_text">RECOMMENCEZ</string>
     <!--=========================================================================================-->
-    <string name="toast_message_error_updating_your_data">error updating your data</string>
-    <string name="toast_message_select_date">please select date</string>
-    <string name="toast_message_select_time">please select time</string>
-    <string name="toast_message_select_number_of_people">please select number of people</string>
-    <string name="toast_message_message_submitted_successfully">message submitted successfully</string>
-    <string name="toast_message_error_submitting_your_message">error submitting your message</string>
-    <string name="toast_message_no_internet_connection">check your connection and try again</string>
-    <string name="toast_message_an_error_has_occurred">an error has occurred</string>
-    <string name="toast_message_turn_on_gps_and_try_again">turn on GPS and try again</string>
-    <string name="toast_message_error_submitting_your_order">error submitting your order</string>
-    <string name="toast_message_error_getting_your_data">error getting your data</string>
-    <string name="toast_message_restaurants_list_is_empty">restaurants list empty</string>
+    <string name="toast_message_error_updating_your_data">erreur mettant à jour vos données</string>
+    <string name="toast_message_select_date">S\'il vous plaît sélectionner la date</string>
+    <string name="toast_message_select_time">S\'il vous plaît sélectionnez l\'heure</string>
+    <string name="toast_message_select_number_of_people">S\'il vous plaît sélectionner le nombre de personnes</string>
+    <string name="toast_message_message_submitted_successfully">message envoyé avec succès</string>
+    <string name="toast_message_error_submitting_your_message">erreur lors de l\'envoi de votre message</string>
+    <string name="toast_message_no_internet_connection">vérifiez votre connexion et réessayez</string>
+    <string name="toast_message_an_error_has_occurred">une erreur est survenue</string>
+    <string name="toast_message_turn_on_gps_and_try_again">activer le GPS et réessayer</string>
+    <string name="toast_message_error_submitting_your_order">erreur lors de la réservation</string>
+    <string name="toast_message_error_getting_your_data">erreur lors de l\'obtention de vos données</string>
+    <string name="toast_message_restaurants_list_is_empty">liste des restaurants vide</string>
     <!--=========================================================================================-->
     <string name="permission_rationale">Location permission is needed for core functionality.</string>
     <string name="permission_denied_explanation">Permission was denied, but is needed for core functionality.</string>
@@ -232,7 +233,7 @@
     <string name="restaurentDescription">Le mot du restaurant</string>
     <string name="viewDetails">View details</string>
     <string name="myFavorities">Mes restaurants favoris</string>
-    <string name="myInformation">My Information</string>
+    <string name="myInformation">Mon Information</string>
     <string name="politique">Politiques de confidentialité</string>
     <string name="conditions">Conditions d’utilisation</string>
     <string name="signup">Inscription</string>
