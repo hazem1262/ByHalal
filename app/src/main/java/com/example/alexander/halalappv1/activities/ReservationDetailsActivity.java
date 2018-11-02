@@ -163,12 +163,13 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         menuResponse.enqueue(new Callback<ReservationDetailsAllResponse>() {
             @Override
             public void onResponse(Call<ReservationDetailsAllResponse> call, Response<ReservationDetailsAllResponse> response) {
+                hideLoading();
                 mReservationDetailsResponse = response.body();
                 mProducts = mReservationDetailsResponse.getReservation().getProducts();
                 mRestaurantRes = mReservationDetailsResponse.getRestaurant();
                 mReservationDetails = mReservationDetailsResponse.getReservation();
                 updateData();
-                hideLoading();
+
             }
 
             @Override
@@ -182,7 +183,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         restaurentName.setText(mRestaurantRes.getName());
         restaurentAdress.setText(mRestaurantRes.getAddress());
         reservationDate.setText(mReservationDetails.getDate());
-        reservationTime.setText(mReservationDetails.getTime().replace("h",":"));
+        reservationTime.setText(mReservationDetails.getTime());
         reservationNumberOfPeople.setText(mReservationDetails.getGuests() + " Persons");
         Picasso.with(this).load(mRestaurantRes.getPicture()).into(restaurantImage);
 

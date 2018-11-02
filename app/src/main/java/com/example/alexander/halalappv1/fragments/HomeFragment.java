@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     public static final String RESTAURANT_OBJECT_KEY = "RestaurantObject";
     //==============================================================================================
     private ConstraintLayout mContainerLayout;
+    private LinearLayout ourSelectionLinearLayout;
     private ImageView searchViewImage;
     private ConstraintLayout mSearchLayout;
     private TextView mSearchTextView;
@@ -110,7 +111,9 @@ public class HomeFragment extends Fragment implements LocationListener {
 
 
 
+
     private void findViewsById(View rootView) {
+        ourSelectionLinearLayout = rootView.findViewById(R.id.ourSelectionLinearLayout);
         searchViewImage = rootView.findViewById(R.id.iv_home_fragment_search_icon);
         mCurrentLocationButton = rootView.findViewById(R.id.btn_home_fragment_current_location);
         mTablesRecyclerView = rootView.findViewById(R.id.rv_home_fragment_tables_list);
@@ -190,12 +193,14 @@ public class HomeFragment extends Fragment implements LocationListener {
 		listHeaderLayout.setVisibility(View.VISIBLE);
         mTablesRecyclerView.setVisibility(View.VISIBLE);
         categoriesRecyclerView.setVisibility(View.VISIBLE);
+        ourSelectionLinearLayout.setVisibility(View.VISIBLE);
     }
 
     private void hideData() {
 		listHeaderLayout.setVisibility(View.GONE);
         mTablesRecyclerView.setVisibility(View.GONE);
         categoriesRecyclerView.setVisibility(View.GONE);
+        ourSelectionLinearLayout.setVisibility(View.GONE);
 
     }
 

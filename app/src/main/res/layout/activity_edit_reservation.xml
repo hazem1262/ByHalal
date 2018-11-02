@@ -18,7 +18,7 @@
         <FrameLayout
             android:id="@+id/headerLayout"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="230dp">
             <ImageView
                 android:id="@+id/iv_edit_reservation_activity_restaurant_image"
                 android:layout_width="match_parent"
@@ -52,7 +52,8 @@
                     android:layout_height="wrap_content"
                     android:text="Pepenero"
                     android:textColor="@color/white"
-                    android:textSize="40sp"
+                    android:textSize="35sp"
+                    android:gravity="center"
                     android:fontFamily="@font/montserrat_semibold"
                     android:includeFontPadding="false"
                     />
@@ -62,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text="11 Rue d'eghtien 1265"
                     android:textSize="18sp"
+                    android:gravity="center"
                     android:textColor="@color/white"
                     android:fontFamily="@font/opensans_regular"
                     android:includeFontPadding="false"/>

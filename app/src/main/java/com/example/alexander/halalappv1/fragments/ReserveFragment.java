@@ -32,6 +32,7 @@ import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.activities.EditReservationActivity;
 import com.example.alexander.halalappv1.activities.ReservationDetailsActivity;
 import com.example.alexander.halalappv1.activities.RestaurantProfileActivity;
+import com.example.alexander.halalappv1.activities.SearchRestaurantActivity;
 import com.example.alexander.halalappv1.model.User;
 import com.example.alexander.halalappv1.model.newModels.reservation.Reservation;
 import com.example.alexander.halalappv1.reservation.PreviousReservation;
@@ -53,6 +54,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.alexander.halalappv1.utils.ConstantsHelper.ACTION_HOME_CATEGORIES;
+
 public class ReserveFragment extends Fragment implements UpcomingReservationsAdapter.UpcomingListItemClickListener,
         PreviousReservationsAdapter.PreviousListItemClickListener, View.OnClickListener {
 
@@ -73,7 +76,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
     private ConstraintLayout mReservationsLayout;
     private ConstraintLayout mSignInSignUpLayout;
     private boolean isLoggedIn;
-
+    private LinearLayout noReservationLayout;
     private ConstraintLayout mSignInLayout;
     private Button mCreateNewAccountButton;
     private ConstraintLayout mSignUpLayout;
@@ -85,8 +88,11 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
     private RecyclerView mPreviousReservationsListRecyclerView;
     private ConstraintLayout mLoadingIndicator;
     private TextView mErrorMessageTextView;
+    private Button goToCategories;
 
     private void findViewsById(View rootView) {
+        noReservationLayout = rootView.findViewById(R.id.noReservationLayout);
+        goToCategories = rootView.findViewById(R.id.goToCategories);
         mUpcomingReservationsTextView = rootView.findViewById(R.id.tv_reserve_fragment_up_coming_reservations_label);
         mUpcomingReservationsListRecyclerView = rootView.findViewById(R.id.rv_reserve_fragment_up_coming_reservations_list);
         mPreviousReservationsTextView = rootView.findViewById(R.id.tv_reserve_fragment_previous_reservations_label);
@@ -179,7 +185,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                                 mPreviousReservationsTextView.setVisibility(View.GONE);
                                 mPreviousReservationsListRecyclerView.setVisibility(View.GONE);
 
-                                mErrorMessageTextView.setVisibility(View.VISIBLE);
+                                noReservationLayout.setVisibility(View.VISIBLE);
                             }
                         } else {
                             mUpcomingReservationsTextView.setVisibility(View.GONE);
@@ -187,7 +193,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                             mPreviousReservationsTextView.setVisibility(View.GONE);
                             mPreviousReservationsListRecyclerView.setVisibility(View.GONE);
 
-                            mErrorMessageTextView.setVisibility(View.VISIBLE);
+                            noReservationLayout.setVisibility(View.VISIBLE);
                         }
                     } else {
                         mUpcomingReservationsTextView.setVisibility(View.GONE);
@@ -206,7 +212,7 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                     mUpcomingReservationsListRecyclerView.setVisibility(View.GONE);
                     mPreviousReservationsTextView.setVisibility(View.GONE);
                     mPreviousReservationsListRecyclerView.setVisibility(View.GONE);
-                    mErrorMessageTextView.setVisibility(View.VISIBLE);
+                    noReservationLayout.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -260,6 +266,28 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
         setUPPreviousReservationsRecyclerView(); // (3)
 
         isLoggedIn = SharedPreferencesHelper.getSharedPreferenceBoolean(getContext(), ConstantsHelper.KEY_IS_LOGGED_IN, false);
+        setupInitialData();
+        //==========================================================================================
+        signInButtonClick();
+
+        signUpButtonClick();
+
+        createNewAccountButtonClick();
+
+        signUpArrowBackImageViewClick();
+        goToCategories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchRestaurantActivity.class);
+                intent.setAction(ACTION_HOME_CATEGORIES);
+                startActivity(intent);
+            }
+        });
+
+        return rootView;
+    }
+
+    private void setupInitialData() {
         if (isLoggedIn) {
             mReservationsLayout.setVisibility(View.VISIBLE);
             mSignInSignUpLayout.setVisibility(View.GONE);
@@ -275,23 +303,19 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                 mPreviousReservationsTextView.setVisibility(View.GONE);
                 mPreviousReservationsListRecyclerView.setVisibility(View.GONE);
 
-                mErrorMessageTextView.setVisibility(View.VISIBLE);
+                noReservationLayout.setVisibility(View.VISIBLE);
                 mErrorMessageTextView.setText(getResources().getString(R.string.toast_message_no_internet_connection));
             }
         } else {
             mReservationsLayout.setVisibility(View.GONE);
             mSignInSignUpLayout.setVisibility(View.VISIBLE);
         }
-        //==========================================================================================
-        signInButtonClick();
+    }
 
-        signUpButtonClick();
-
-        createNewAccountButtonClick();
-
-        signUpArrowBackImageViewClick();
-
-        return rootView;
+    @Override
+    public void onStart() {
+        super.onStart();
+        setupInitialData();
     }
 
     private void showOrderDialog(final Reservation previousReservation, final Reservation upComingReservation) {

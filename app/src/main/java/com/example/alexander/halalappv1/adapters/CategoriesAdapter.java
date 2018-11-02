@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static com.example.alexander.halalappv1.fragments.HomeFragment.CATEGORY_NAME;
 import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 import static com.example.alexander.halalappv1.fragments.HomeFragment.TABLE_ID_KEY;
 
@@ -116,6 +117,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             int categoryId = myCategoryList.get(getLayoutPosition()).getId();
             // TODO :: here perform action with ID
             Intent intent = new Intent(mContext, TableRestaurantsActivity.class);
+            intent.putExtra(CATEGORY_NAME, myCategoryList.get(getLayoutPosition()).getName());
             intent.putExtra(TABLE_ID_KEY, categoryId);
             mContext.startActivity(intent);
         }

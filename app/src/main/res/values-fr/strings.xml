@@ -55,7 +55,7 @@
     <string name="tv_reserve_fragment_my_reservations_label_text">Mes réservations</string>
     <string name="tv_reserve_fragment_up_coming_reservations_label_text">À venir</string>
     <string name="tv_reserve_fragment_previous_reservations_label_text">Précédentes</string>
-    <string name="tv_reserve_fragment_error_message_text">Aucune réservations</string>
+    <string name="tv_reserve_fragment_error_message_text">Aucune réservations pour la moment</string>
     <string name="btn_reserve_alert_dialog_cancel_text">Annuler</string>
     <string name="btn_reserve_alert_dialog_edit_text">Modifier</string>
     <string name="btn_reserve_alert_dialog_call_text">Appeler</string>

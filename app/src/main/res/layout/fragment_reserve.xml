@@ -114,19 +114,41 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-        <TextView
-            android:id="@+id/tv_reserve_fragment_error_message"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/noReservationLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tv_reserve_fragment_error_message_text"
-            android:textSize="@dimen/app_text_size"
-            android:textColor="@color/grey_777777"
-            android:fontFamily="@font/opensans_bold"
+            android:orientation="vertical"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_reserve_fragment_error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text= "@string/tv_reserve_fragment_error_message_text"
+                android:textSize="@dimen/app_text_size"
+                android:textColor="@color/grey_777777"
+                android:fontFamily="@font/opensans_bold"
+                />
+            <Button
+                android:layout_marginTop="30dp"
+                android:id="@+id/goToCategories"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:text="@string/nos_categories"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/opensans_light"
+                android:textAllCaps="false"
+                android:background="@drawable/shape_bg_pink_b_pink_br_4"
+                android:layout_marginRight="8dp"/>
+        </LinearLayout>
+
 
     </android.support.constraint.ConstraintLayout>
 

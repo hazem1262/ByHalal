@@ -76,7 +76,7 @@
 			android:nestedScrollingEnabled="false"
 			/>
 		<LinearLayout
-			android:id="@+id/linearLayout"
+			android:id="@+id/ourSelectionLinearLayout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"

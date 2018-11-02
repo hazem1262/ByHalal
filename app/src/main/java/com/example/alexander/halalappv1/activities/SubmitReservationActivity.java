@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,10 +100,15 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private String mComments;
 
     private boolean isNetworkOk;
-
+    private LinearLayout notLoggedUser;
     private ArrayList<ReservationOrder> mReservationOrdersList;
+    private ConstraintLayout signInLayOut;
+    private ConstraintLayout signUpLayout;
 
     private void findViewsById() {
+        signInLayOut = findViewById(R.id.signInLayOut);
+        signUpLayout = findViewById(R.id.signUpLayout);
+        notLoggedUser = findViewById(R.id.notLoggedUser);
         backText = findViewById(R.id.retourSignIn);
         mRestaurantImageImageView = findViewById(R.id.iv_submit_reservation_activity_restaurant_image);
         mArrowBackImageView = findViewById(R.id.iv_submit_reservation_activity_arrow_back);
@@ -149,19 +155,19 @@ public class SubmitReservationActivity extends AppCompatActivity {
                 }
             }
             mReserveDateTextView.setText(mSelectedDate);
-            mReserveTimeTextView.setText(mSelectedTime);
+            mReserveTimeTextView.setText(mSelectedTime.replace(":","h"));
         } else {
             Picasso.with(this).load(mRestaurant.getPicture()).into(mRestaurantImageImageView);
             mRestaurantNameTextView.setText(mRestaurant.getName());
             if (language != null) {
-                if (language.equals("français")) {
+                if (true) {
                     mNumberOfPeopleTextView.setText(mSelectedNumberOfPeople + " personnes");
                 } else {
                     mNumberOfPeopleTextView.setText(mSelectedNumberOfPeople + " People");
                 }
             }
             mReserveDateTextView.setText(mSelectedDate);
-            mReserveTimeTextView.setText(mSelectedTime);
+            mReserveTimeTextView.setText(mSelectedTime.replace(":","h"));
         }
     }
 
@@ -516,13 +522,15 @@ public class SubmitReservationActivity extends AppCompatActivity {
         isLoggedIn = SharedPreferencesHelper.getSharedPreferenceBoolean(this, ConstantsHelper.KEY_IS_LOGGED_IN, false);
         if (isLoggedIn) {
             mReservationFormLayout.setVisibility(View.VISIBLE);
-            mSignInSignUpLayout.setVisibility(View.GONE);
+//            mSignInSignUpLayout.setVisibility(View.GONE);
+            notLoggedUser.setVisibility(View.GONE);
 
             mUserId = SharedPreferencesHelper.getSharedPreferenceInt(this, ConstantsHelper.KEY_USER_ID, -10);
             updatePersonalInformationViews();
         } else {
             mReservationFormLayout.setVisibility(View.GONE);
-            mSignInSignUpLayout.setVisibility(View.VISIBLE);
+//            mSignInSignUpLayout.setVisibility(View.VISIBLE);
+            notLoggedUser.setVisibility(View.VISIBLE);
             backText.setVisibility(View.INVISIBLE);
         }
 
@@ -537,8 +545,34 @@ public class SubmitReservationActivity extends AppCompatActivity {
         createNewAccountButtonClick();
 
         signUpArrowBackImageViewClick();
+
+        signInLayOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSignInLayout();
+            }
+        });
+
+        signUpLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSignUpLayout();
+            }
+        });
     }
 
+    private void showSignInLayout(){
+        mSignInSignUpLayout.setVisibility(View.VISIBLE);
+        mSignInLayout.setVisibility(View.VISIBLE);
+        notLoggedUser.setVisibility(View.GONE);
+    }
+
+    private void showSignUpLayout(){
+        mSignInSignUpLayout.setVisibility(View.VISIBLE);
+        mSignUpLayout.setVisibility(View.VISIBLE);
+        notLoggedUser.setVisibility(View.GONE);
+        mSignUpArrowBackImageView.setVisibility(View.INVISIBLE);
+    }
     @Override
     public void onBackPressed() {
         if (mSignUpLayout.getVisibility() == View.VISIBLE) {
@@ -855,6 +889,7 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private void showAndUpdateReservationForm() {
         mReservationFormLayout.setVisibility(View.VISIBLE);
         mSignInSignUpLayout.setVisibility(View.GONE);
+        notLoggedUser.setVisibility(View.GONE);
         mUserId = SharedPreferencesHelper.getSharedPreferenceInt(this, ConstantsHelper.KEY_USER_ID, -10);
         updatePersonalInformationViews();
         hideSoftKeyboard();

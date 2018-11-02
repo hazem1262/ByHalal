@@ -402,27 +402,27 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
 
         filterButtonClick();
 
-        if (mTable != null) {
-            mTableName = mTable.getListNameEn();
-            if (!TextUtils.isEmpty(mTableName)) {
-                mTableNameTextView.setText(mTableName + "(" + mTable.getRestaurants().size() + ")" ) ;
-            }
-
-            if (mCuisineId != -10 && mPrice != -10 && ! TextUtils.isEmpty(mSortBy)) {
-                showLoadingIndicator();
-//                getListRestaurants(mUserId, mTable.getListId(), 0, 0, "", mCuisineId, mPrice, mSortBy);
-            }
-
-            else {
-//                mRestaurantsList = (ArrayList<Restaurant>) mTable.getRestaurants();
-//                if (mRestaurantsList != null && mRestaurantsList.size() > 0) {
-//                    mSearchRestaurantAdapter.setRestaurantList(mRestaurantsList);
-//                    mRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
+//        if (mTable != null) {
+//            mTableName = mTable.getListNameEn();
+//            if (!TextUtils.isEmpty(mTableName)) {
+//                mTableNameTextView.setText(mTableName + "(" + mTable.getRestaurants().size() + ")" ) ;
+//            }
 //
-//                    mRestaurantsMapAdapter.setRestaurantList(mRestaurantsList);
-//                    mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);
-                }
-            }
+//            if (mCuisineId != -10 && mPrice != -10 && ! TextUtils.isEmpty(mSortBy)) {
+//                showLoadingIndicator();
+////                getListRestaurants(mUserId, mTable.getListId(), 0, 0, "", mCuisineId, mPrice, mSortBy);
+//            }
+//
+//            else {
+////                mRestaurantsList = (ArrayList<Restaurant>) mTable.getRestaurants();
+////                if (mRestaurantsList != null && mRestaurantsList.size() > 0) {
+////                    mSearchRestaurantAdapter.setRestaurantList(mRestaurantsList);
+////                    mRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
+////
+////                    mRestaurantsMapAdapter.setRestaurantList(mRestaurantsList);
+////                    mRestaurantsMapRecyclerView.setAdapter(mRestaurantsMapAdapter);
+//                }
+//            }
         }
 //    }
 

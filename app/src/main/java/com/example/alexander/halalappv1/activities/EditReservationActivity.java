@@ -97,7 +97,7 @@ public class EditReservationActivity extends AppCompatActivity {
     private TextView mRestaurantIsClosedTextView;
     private Button mReserveButton;
     private Button mPlaceAnOrderButton;
-
+    private TextView restaurantAddress;
     private TimeAdapter mTimeAdapter;
     private ArrayList<Period> mTimeList = new ArrayList<>();
     boolean isListItemClickable;
@@ -121,6 +121,7 @@ public class EditReservationActivity extends AppCompatActivity {
     private TextView backText;
     //==============================================================================================
     private void findViewsById() {
+        restaurantAddress = findViewById(R.id.tv_restaurant_profile_location_address);
         restaurantProfile = findViewById(R.id.restaurant_profile_information_layout);
         headerLayout = findViewById(R.id.headerLayout);
         mRestaurantImageImageView = findViewById(R.id.iv_edit_reservation_activity_restaurant_image);
@@ -154,15 +155,15 @@ public class EditReservationActivity extends AppCompatActivity {
 
     private void updateMainViewsWithRestaurantData() {
         Picasso.with(this).load(mRestaurantRes.getPicture()).into(mRestaurantImageImageView);
-        if (mRestaurant != null) {
+        if (mRestaurantRes != null) {
 
-            if (mRestaurant.getFavourite().equals("true")) {
+            /*if (mRestaurant.getFavourite().equals("true")) {
                 mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_pink);
             } else {
                 mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_empty);
-            }
-            mRestaurantNameTextView.setText(mRestaurant.getName());
-            mRestaurantRateRatingBar.setCount((mRestaurant.getRate()));
+            }*/
+            mRestaurantNameTextView.setText(mRestaurantRes.getName());
+            restaurantAddress.setText(mRestaurantRes.getAddress());
         }
     }
 
@@ -603,6 +604,7 @@ public class EditReservationActivity extends AppCompatActivity {
             mCalendarView.setSelectionColor(getResources().getColor(R.color.pink));
             mCalendarView.setCurrentDate(date);
             mSelectedDate = dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
+
         } catch (ParseException e) {
             e.printStackTrace();
         }

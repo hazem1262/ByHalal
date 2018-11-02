@@ -882,47 +882,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             findViewById(R.id.restaurant_profile_scroll_view).scrollTo(0, 0);
             isCalendarVisible = false;
         } else {
-            if (mAction != null) {
-
-                // When comes from HomeFragment
-                if (mAction.equals(ConstantsHelper.ACTION_HOME_FRAGMENT)) {
-                    Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
-                    intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
-                    startActivity(intent);
-                }
-                // When comes from TableRestaurantsActivity
-                else if (mAction.equals(ConstantsHelper.ACTION_TABLE_RESTAURANT_ACTIVITY)) {
-                    Intent intent = new Intent(RestaurantProfileActivity.this, TableRestaurantsActivity.class);
-                    intent.putExtra(HomeFragment.TABLE_ID_KEY, getIntent().getIntExtra(HomeFragment.TABLE_ID_KEY, -10));
-                    intent.putExtra(HomeFragment.TABLE_OBJECT_KEY, mTable);
-                    startActivity(intent);
-                }
-                // When comes from SearchFragment
-                else if (mAction.equals(ConstantsHelper.ACTION_SEARCH_FRAGMENT)) {
-                    Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
-                    intent.setAction(ConstantsHelper.ACTION_SEARCH_FRAGMENT);
-                    startActivity(intent);
-                }
-                else if (mAction.split("-").length > 1) {
-                    // When comes from FavouriteRestaurantsActivity
-                    if (mAction.equals(mAction.split("-")[0] + "-" + mAction.split("-")[1] + "-" + ConstantsHelper.ACTION_FAVOURITE_RESTAURANTS_ACTIVITY)) {
-                        Intent intent = new Intent(RestaurantProfileActivity.this, FavouriteRestaurantsActivity.class);
-                        intent.setAction(mAction.split("-")[0] + "-" + mAction.split("-")[1]);
-                        startActivity(intent);
-                    }
-                    else if (mAction.equals(mAction.split("-")[0] + "-" + ConstantsHelper.ACTION_FAVOURITE_RESTAURANTS_ACTIVITY)) {
-                        Intent intent = new Intent(RestaurantProfileActivity.this, FavouriteRestaurantsActivity.class);
-                        intent.setAction(mAction.split("-")[0]);
-                        startActivity(intent);
-                    }
-                }
-                else if (mAction.equals(ConstantsHelper.ACTION_RESERVE_FRAGMENT)) {
-                    Intent intent = new Intent(RestaurantProfileActivity.this, MainActivity.class);
-                    intent.setAction(ConstantsHelper.ACTION_RESERVE_FRAGMENT);
-                    startActivity(intent);
-                }else
-                    super.onBackPressed();
-            }
+            super.onBackPressed();
         }
     }
 
