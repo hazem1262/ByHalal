@@ -47,6 +47,7 @@ import retrofit2.Response;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static com.example.alexander.halalappv1.fragments.HomeFragment.CATEGORY_NAME;
+import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
 import static com.example.alexander.halalappv1.fragments.SearchFragment.RESTAURANT_ID_KEY;
 
 public class TableRestaurantsActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -108,6 +109,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
                 Intent intent = new Intent(TableRestaurantsActivity.this, RestaurantProfileActivity.class);
                 intent.putExtra(HomeFragment.TABLE_ID_KEY, mTableId);
                 intent.putExtra(HomeFragment.TABLE_OBJECT_KEY, mTable);
+                intent.putExtra(RESTAURENT_KEY, restaurant.getId());
 //                intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
                 intent.setAction(ConstantsHelper.ACTION_TABLE_RESTAURANT_ACTIVITY);
                 startActivity(intent);
@@ -438,6 +440,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
             @Override
             public void onResponse(Call<ArrayList<Restaurant>> call, Response<ArrayList<Restaurant>> response) {
                 mSearchRestaurantAdapter.setRestaurantList(response.body());
+                mRestaurantsList = response.body();
                 mRestaurantsRecyclerView.setAdapter(mSearchRestaurantAdapter);
                 String categoryName = getIntent().getStringExtra(CATEGORY_NAME);
                 mTableNameTextView.setText(categoryName + "(" + response.body().size() + ")" ) ;

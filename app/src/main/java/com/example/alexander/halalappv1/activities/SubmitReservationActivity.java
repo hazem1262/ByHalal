@@ -69,9 +69,9 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private Button mCreateNewAccountButton;
     private ConstraintLayout mSignUpLayout;
     private TextView mSignUpArrowBackImageView;
-
+    private TextView backText;
     private ImageView mRestaurantImageImageView;
-    private ImageView mArrowBackImageView;
+    private TextView mArrowBackImageView;
     private TextView mRestaurantNameTextView;
     private TextView mNumberOfPeopleTextView;
     private TextView mReserveDateTextView;
@@ -103,6 +103,7 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private ArrayList<ReservationOrder> mReservationOrdersList;
 
     private void findViewsById() {
+        backText = findViewById(R.id.retourSignIn);
         mRestaurantImageImageView = findViewById(R.id.iv_submit_reservation_activity_restaurant_image);
         mArrowBackImageView = findViewById(R.id.iv_submit_reservation_activity_arrow_back);
         mRestaurantNameTextView = findViewById(R.id.tv_submit_reservation_activity_restaurant_name);
@@ -522,6 +523,7 @@ public class SubmitReservationActivity extends AppCompatActivity {
         } else {
             mReservationFormLayout.setVisibility(View.GONE);
             mSignInSignUpLayout.setVisibility(View.VISIBLE);
+            backText.setVisibility(View.INVISIBLE);
         }
 
         arrowBackClick();

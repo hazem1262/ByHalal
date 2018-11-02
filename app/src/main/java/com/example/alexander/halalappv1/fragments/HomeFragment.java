@@ -189,11 +189,14 @@ public class HomeFragment extends Fragment implements LocationListener {
     private void showData() {
 		listHeaderLayout.setVisibility(View.VISIBLE);
         mTablesRecyclerView.setVisibility(View.VISIBLE);
+        categoriesRecyclerView.setVisibility(View.VISIBLE);
     }
 
     private void hideData() {
 		listHeaderLayout.setVisibility(View.GONE);
         mTablesRecyclerView.setVisibility(View.GONE);
+        categoriesRecyclerView.setVisibility(View.GONE);
+
     }
 
     private void showPermissionNotGrantedError() {
