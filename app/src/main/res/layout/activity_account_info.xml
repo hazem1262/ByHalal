@@ -50,6 +50,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tv_my_profile_label_text"
                     android:textSize="@dimen/app_header"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/white"
                     android:fontFamily="@font/montserrat_semibold"/>
 

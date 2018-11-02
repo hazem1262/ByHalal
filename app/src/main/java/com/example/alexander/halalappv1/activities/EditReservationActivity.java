@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -84,7 +85,7 @@ public class EditReservationActivity extends AppCompatActivity {
     private ImageView mGalleryIconImageView;
     private TextView mRestaurantNameTextView;
     private RatingBar mRestaurantRateRatingBar;
-
+    private ConstraintLayout mLoadingIndicator;
     private LinearLayout mDateTimeLayout;
     private TextView mDateTextView;
     private TextView mNumberOfPeopleTextView;
@@ -115,11 +116,18 @@ public class EditReservationActivity extends AppCompatActivity {
     private com.example.alexander.halalappv1.model.newModels.reservation.details.Restaurant mRestaurantRes;
     private int mTotalQuantity;
     private ArrayList<ReservationOrder> mReservationOrdersList = new ArrayList<>();
+    private FrameLayout headerLayout;
+    private LinearLayout restaurantProfile;
+    private TextView backText;
     //==============================================================================================
     private void findViewsById() {
+        restaurantProfile = findViewById(R.id.restaurant_profile_information_layout);
+        headerLayout = findViewById(R.id.headerLayout);
         mRestaurantImageImageView = findViewById(R.id.iv_edit_reservation_activity_restaurant_image);
         mFavouriteIconImageView = findViewById(R.id.iv_edit_reservation_activity_favourite);
+        mLoadingIndicator = findViewById(R.id.pb_conditions_activity_loading_indicator);
 //        mArrowBackImageView = findViewById(R.id.iv_edit_reservation_activity_arrow_back);
+        backText = findViewById(R.id.backText);
         mRestaurantNameTextView = findViewById(R.id.tv_edit_reservation_activity_restaurant_name);
         mNumberOfPeopleLabelTextView = findViewById(R.id.tv_calendar_layout_number_of_people_label);
         mNoCapacityTextView = findViewById(R.id.tv_calendar_layout_no_capacity_message);
@@ -575,6 +583,12 @@ public class EditReservationActivity extends AppCompatActivity {
 //        galleryIconClick();
         reserveButtonClick();
         placeAnOrderButtonClick();
+        backText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         //==========================================================================================
     }
 
@@ -616,12 +630,7 @@ public class EditReservationActivity extends AppCompatActivity {
             mReserveButton.setVisibility(View.GONE);
         }
     }
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(EditReservationActivity.this, MainActivity.class);
-        intent.setAction(ConstantsHelper.ACTION_RESERVE_FRAGMENT);
-        startActivity(intent);
-    }
+
 
     private void markAsFavourite(int userId, int restaurantId) {
         if (userId != -10 && restaurantId >= 0) {
@@ -644,6 +653,7 @@ public class EditReservationActivity extends AppCompatActivity {
     }
 
     private void getData(){
+        showLoadingIndicator();
         int reservationId = getIntent().getIntExtra(EDIT_RESERVATION_OBJECT_KEY, 0);
         ReservationDetailsResponse webService = RetrofitWebService.retrofit.create(ReservationDetailsResponse.class);
         Call<ReservationDetailsAllResponse> menuResponse = webService.getReservationDetails(reservationId);
@@ -662,6 +672,7 @@ public class EditReservationActivity extends AppCompatActivity {
                 updateMainViewsWithRestaurantData();
 //                updateTimeRecyclerViewWithCurrentDayWorkingHours();;
                 setUpMenuListView();
+                hideLoadingIndicator();
             }
 
             @Override
@@ -790,4 +801,17 @@ public class EditReservationActivity extends AppCompatActivity {
         });
     }
 
+    private void showLoadingIndicator() {
+
+        mLoadingIndicator.setVisibility(View.VISIBLE);
+        headerLayout.setVisibility(View.GONE);
+        mCalendarLayout.setVisibility(View.GONE);
+    }
+
+    private void hideLoadingIndicator() {
+
+        mLoadingIndicator.setVisibility(View.GONE);
+        headerLayout.setVisibility(View.VISIBLE);
+        mCalendarLayout.setVisibility(View.VISIBLE);
+    }
 }

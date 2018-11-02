@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/modifiedPrimaryColor"
-    tools:background="@color/white">
+    >
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/menu_activity_header_layout"
@@ -24,30 +24,33 @@
             android:orientation="vertical"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="56dp"
-            android:layout_marginRight="56dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:gravity="left">
-
             <TextView
-                android:id="@+id/tv_menu_activity_menu_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_menu_activity_menu_label_text"
-                android:textSize="@dimen/app_text_size"
-                android:textColor="@color/pink"
-                android:fontFamily="@font/opensans_regular"
-                android:gravity="center"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/retour"
+                style="@style/backText"
+                android:id="@+id/backText"/>
+
+
 
             <TextView
+
                 android:id="@+id/tv_menu_activity_restaurant_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pepenero"
                 android:textSize="@dimen/app_sub_header"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center"/>

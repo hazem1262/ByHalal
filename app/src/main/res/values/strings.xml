@@ -40,15 +40,15 @@
     <string name="sign_up_activity_toast_message_problem_sign_up_try_again_later">Problem Sign Up, Try Again Later.</string>
     <!--=========================================================================================-->
     <!--HomeFragment-->
-    <string name="tv_home_search_text">Search</string>
-    <string name="tv_good_morning_label_text">Good Morning</string>
-    <string name="btn_home_current_location_text">Current Location</string>
-    <string name="tv_see_all_text">See all</string>
+    <string name="tv_home_search_text">Chercher</string>
+    <string name="tv_good_morning_label_text">Bonjour</string>
+    <string name="btn_home_current_location_text">Position actuelle</string>
+    <string name="tv_see_all_text">Voir tous</string>
     <!--=========================================================================================-->
     <!--SearchFragment-->
-    <string name="btn_search_fragment_map_text">Map</string>
-    <string name="btn_search_fragment_filter_text">Filter</string>
-    <string name="btn_search_fragment_list_text">List</string>
+    <string name="btn_search_fragment_map_text">Carte</string>
+    <string name="btn_search_fragment_filter_text">Filtre</string>
+    <string name="btn_search_fragment_list_text">Liste</string>
     <!--=========================================================================================-->
     <!--ReserveFragment-->
     <string name="tv_reserve_fragment_my_reservations_label_text">My reservations</string>

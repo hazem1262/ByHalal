@@ -19,6 +19,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="@dimen/screen_left_margin"
         android:layout_marginRight="8dp"
+        android:text="menu"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

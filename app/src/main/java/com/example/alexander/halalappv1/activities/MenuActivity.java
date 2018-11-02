@@ -46,7 +46,7 @@ public class MenuActivity extends AppCompatActivity {
     private ConstraintLayout mCheckoutOrderLayout;
     private TextView mTotalQuantityTextView;
     private TextView mTotalPriceTextView;
-
+    private TextView backText;
     private RestaurantMenuAdapter mMenuAdapter;
     private List<String> mListDataHeader;
     private HashMap<String, List<MenuItem>> mListDataChild;
@@ -301,8 +301,13 @@ public class MenuActivity extends AppCompatActivity {
         mMenuListView.setChildDivider(getResources().getDrawable(R.color.modifiedPrimaryColor));
         mListDataHeader = new ArrayList<>();
         mListDataChild = new HashMap<>();
-
-
+        backText = findViewById(R.id.backText);
+        backText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mAction = getIntent().getAction();
         if (mAction != null) {
 

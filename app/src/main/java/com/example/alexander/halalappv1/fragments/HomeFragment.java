@@ -377,7 +377,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                             fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
 							addFooterList(response.body().getCategories());
 
-                            mTablesAdapter.setRestaurantsLists(mTablesList);
+                            mTablesAdapter.setRestaurantsLists(removeEmptyCategories(mTablesList));
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
                         } else {
@@ -423,7 +423,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                         if (mTablesList != null && mTablesList.size() > 0) {
                             fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
 							addFooterList(response.body().getCategories());
-							mTablesAdapter.setRestaurantsLists(mTablesList);
+							mTablesAdapter.setRestaurantsLists(removeEmptyCategories(mTablesList));
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
                         } else {
@@ -456,6 +456,16 @@ public class HomeFragment extends Fragment implements LocationListener {
         }
     }
     //==============================================================================================
+
+    private ArrayList<CategoriesWithRestaurant> removeEmptyCategories(ArrayList<CategoriesWithRestaurant> restaurantsLists){
+        ArrayList<CategoriesWithRestaurant> restaurantsListsWithoutEmpty = new ArrayList<CategoriesWithRestaurant>();
+        for (int i =0 ; i<restaurantsLists.size(); i++){
+            if (restaurantsLists.get(i).getRestaurants().size()>0){
+                restaurantsListsWithoutEmpty.add(restaurantsLists.get(i));
+            }
+        }
+        return restaurantsListsWithoutEmpty;
+    }
     private LocationManager mGpsLocationManager;
 
     @Override

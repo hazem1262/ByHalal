@@ -16,6 +16,7 @@
         android:orientation="vertical"
         >
         <FrameLayout
+            android:id="@+id/headerLayout"
             android:layout_width="match_parent"
             android:layout_height="200dp">
             <ImageView
@@ -84,6 +85,14 @@
                     android:textColor="@color/colorAccent"
                     android:fontFamily="@font/opensans_regular"/>
             </LinearLayout>
+            <TextView
+                android:id="@+id/backText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retour"
+                style="@style/backText"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"/>
         </FrameLayout>
         <include
             android:id="@+id/pb_restaurant_profile_loading_indicator"
@@ -536,5 +545,12 @@
                 app:layout_constraintRight_toRightOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
+        <include
+            android:id="@+id/pb_conditions_activity_loading_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/layout_progress_bar"
+            android:visibility="gone"
+            />
     </LinearLayout>
 </ScrollView>

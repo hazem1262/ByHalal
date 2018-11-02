@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grey_707070">
+    android:background="#2A2E39">
 
     <TextView
         android:id="@+id/tv_menu_child_dish_name"
