@@ -50,7 +50,7 @@ public class WorkingHoursAdapter extends RecyclerView.Adapter<WorkingHoursAdapte
                 String dayNameFr = mWorkDaysList.get(position).getDayNameFr();
                 if (!TextUtils.isEmpty(dayNameFr)) {
                     if (dayNameFr.equalsIgnoreCase(currentDayOfTheWeek)) {
-                        holder.dayTextView.setTextColor(Color.parseColor("#000000"));
+                        holder.dayTextView.setTextColor(Color.parseColor("#FFFFFF"));
                         holder.dayTextView.setTextAppearance(R.style.CurrentDayStyle);
                         holder.dayTextView.setText(String.valueOf(mWorkDaysList.get(position).getDayNameFr()));
                         holder.timeTextView.setTextColor(Color.parseColor("#000000"));
@@ -80,7 +80,7 @@ public class WorkingHoursAdapter extends RecyclerView.Adapter<WorkingHoursAdapte
                 String dayNameEn = mWorkDaysList.get(position).getDayName();
                 if (!TextUtils.isEmpty(dayNameEn)) {
                     if (dayNameEn.equalsIgnoreCase(currentDayOfTheWeek)) {
-                        holder.dayTextView.setTextColor(Color.parseColor("#000000"));
+                        holder.dayTextView.setTextColor(Color.parseColor("#FFFFFF"));
                         holder.dayTextView.setTextAppearance(R.style.CurrentDayStyle);
                         holder.dayTextView.setText(String.valueOf(mWorkDaysList.get(position).getDayName()));
                         holder.timeTextView.setTextColor(Color.parseColor("#000000"));

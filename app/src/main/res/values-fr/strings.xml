@@ -117,15 +117,15 @@
     <string name="btn_calendar_layout_reserve_text">Réserver</string>
     <string name="btn_calendar_layout_place_an_order_text">Ajouter son menu</string>
     <string name="tv_cuisine_label_text">Cuisine</string>
-    <string name="tv_executive_chef_label_text">Le chef</string>
+    <string name="tv_executive_chef_label_text">Chef</string>
     <string name="tv_neighbourhood_label_text">Ville</string>
     <string name="tv_restaurant_profile_certifications_label_text">Certifications</string>
     <string name="tv_visitors_label_text">Clients Satisfaits</string>
     <string name="tv_certificate_label_text">Organisme de certification</string>
     <string name="tv_wine_label_text">Alcool</string>
     <string name="tv_restaurant_profile_additional_information_label_text">Informations du restaurant</string>
-    <string name="tv_restaurant_menu_label_text">Carte du restaurant</string>
-    <string name="tv_restaurant_website_label_text">Site du restaurant</string>
+    <string name="tv_restaurant_menu_label_text">Menu</string>
+    <string name="tv_restaurant_website_label_text">Site Web</string>
     <string name="tv_restaurant_working_hours_label_text">Horaires</string>
     <string name="tv_restaurant_profile_notes_label_text">Notes</string>
     <!--=========================================================================================-->
@@ -229,10 +229,10 @@
     <string name="settings">Settings</string>
     <string name="location_settings_inadequate_warning">The location settings on the device are not adequate to run this sample. Fix in Settings.</string>
 
-    <string name="restaurentDescription">Le mot du restaurant</string>
+    <string name="restaurentDescription">Les infos utiles</string>
 
     <string name="reserve">Reserve</string>
-    <string name="certification">Certification/Alcohol</string>
+    <string name="certification">Certification / Alcohol</string>
     <string name="viewDetails">View details</string>
 	<string name="myFavorities">Mes restaurants favoris</string>
 	<string name="myInformation">My Information</string>

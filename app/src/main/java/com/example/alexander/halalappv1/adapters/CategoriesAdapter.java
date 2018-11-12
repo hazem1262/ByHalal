@@ -101,7 +101,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         private void bindItems(final Category item) {
             Picasso.with(mContext)
                     .load(item.getPicture())
-                    .error(R.drawable.background_sign_in)
+                    .error(R.drawable.category)
                     .into(categoryPicture);
             categoryName.setText(item.getName());
         }

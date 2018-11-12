@@ -3,18 +3,15 @@ package com.example.alexander.halalappv1.adapters;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import android.util.TimingLogger;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.model.newModels.CategoriesWithRestaurant;
 import com.example.alexander.halalappv1.model.newModels.Restaurant;
-import com.example.alexander.halalappv1.utils.ConstantsHelper;
-import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
 
 import java.util.ArrayList;
 
@@ -25,12 +22,13 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private ArrayList<CategoriesWithRestaurant> mRestaurantsLists;
     private final OnTablesClickListener mOnTablesClickListener;
 
-    private LinearLayoutManager mLayoutManager;
     private HomeRestaurantAdapter mRestaurantAdapter;
+	private RecyclerView.RecycledViewPool viewPool;
 
     public RestaurantsListAdapter(Context context, OnTablesClickListener onTablesClickListener) {
         this.mContext = context;
         this.mOnTablesClickListener = onTablesClickListener;
+		viewPool = new RecyclerView.RecycledViewPool();
     }
 
     public interface OnTablesClickListener {
@@ -58,36 +56,23 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.home_tables_list_item, viewGroup, false);
         RestaurantsListViewHolder viewHolder = new RestaurantsListViewHolder(view);
-        mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        if (viewType == LIST_BODY){
-			mRestaurantAdapter = new HomeRestaurantAdapter(mContext, this);
-		}else if (viewType == LIST_FOOTER){
-			mRestaurantAdapter = new HomeRestaurantAdapter(mContext, this,true);
-		}
-
+		mRestaurantAdapter = new HomeRestaurantAdapter(mContext, this);
+		viewHolder.restaurantsRecyclerView.setRecycledViewPool(viewPool);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        String language = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_SELECTED_LANGUAGE, "");
-        if (getItemViewType(position) == LIST_BODY || getItemViewType(position) == LIST_FOOTER){
-			RestaurantsListViewHolder bodyHolder = (RestaurantsListViewHolder) holder;
-			if (!TextUtils.isEmpty(language)) {
-				if (language.equals("français")) {
-					bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getCatName()));
-				} else {
-					bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getCatName()));
-				}
-			} else {
-				bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getCatName()));
-			}
 
-			bodyHolder.restaurantsRecyclerView.setLayoutManager(mLayoutManager);
-			mRestaurantAdapter.setRestaurantList((ArrayList<Restaurant>) mRestaurantsLists.get(position).getRestaurants());
-			mRestaurantAdapter.setTablePosition(position);
-			bodyHolder.restaurantsRecyclerView.setAdapter(mRestaurantAdapter);
-		}
+        TimingLogger logger = new TimingLogger("scroll", "onbind");
+        logger.addSplit("before onbindview");
+		RestaurantsListViewHolder bodyHolder = (RestaurantsListViewHolder) holder;
+		bodyHolder.tableHeaderTextView.setText(String.valueOf(mRestaurantsLists.get(position).getCatName()));
+		mRestaurantAdapter.setRestaurantList((ArrayList<Restaurant>) mRestaurantsLists.get(position).getRestaurants());
+		mRestaurantAdapter.setTablePosition(position);
+		bodyHolder.restaurantsRecyclerView.setAdapter(mRestaurantAdapter);
+        logger.addSplit("after onbindview");
+        logger.dumpToLog();
     }
 
     @Override
@@ -99,10 +84,6 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
-	@Override
-	public int getItemViewType(int position) {
-		return LIST_BODY;
-	}
 
 	//==============================================================================================
     class RestaurantsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -117,7 +98,10 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             tableHeaderTextView = itemView.findViewById(R.id.tv_home_table_header);
             seeAllTextView = itemView.findViewById(R.id.tv_home_see_all);
             restaurantsRecyclerView = itemView.findViewById(R.id.rv_home_restaurants);
-
+            restaurantsRecyclerView.setHasFixedSize(true);
+            restaurantsRecyclerView.setItemViewCacheSize(5);
+            restaurantsRecyclerView.setDrawingCacheEnabled(true);
+            restaurantsRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             seeAllTextView.setOnClickListener(this);
         }
 
@@ -129,7 +113,4 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
 
-    private final int LIST_HEADER = 1;
-    private final int LIST_BODY = 2;
-    private final int LIST_FOOTER = 3;
 }

@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
-import com.example.alexander.halalappv1.fragments.HomeFragment;
 import com.example.alexander.halalappv1.adapters.NumberOfPeopleAdapter;
 import com.example.alexander.halalappv1.adapters.TimeAdapter;
 
@@ -134,6 +133,9 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private String mSelectedTime;
     private String mSelectedNumberOfPeople;
     private WorkingHoursResponse mRestaurentWorkingHours;
+    private LinearLayout calHeader;
+    private TextView calBackText;
+    private TextView restName;
     //==============================================================================================
 
     @Override
@@ -168,6 +170,12 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        calBackText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     //==============================================================================================
@@ -187,13 +195,16 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isCalendarVisible) {
                     mCalendarLayout.setVisibility(View.GONE);
+                    calHeader.setVisibility(View.GONE);
                     mInformationLayout.setVisibility(View.VISIBLE);
                     findViewById(R.id.restaurant_profile_scroll_view).scrollTo(0, 0);
                     isCalendarVisible = false;
                 } else {
                     setUpCalendarView();
                     mCalendarLayout.setVisibility(View.VISIBLE);
+                    calHeader.setVisibility(View.VISIBLE);
                     mInformationLayout.setVisibility(View.GONE);
+                    restaurantHeader.setVisibility(View.GONE);
                     mScrollView.scrollTo(0, mInformationLayout.getHeight());
                     isCalendarVisible = true;
                 }
@@ -280,33 +291,13 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         calendar.add(Calendar.DAY_OF_YEAR, 90);
 
         CharSequence[] charSequences = new CharSequence[7];
-        if (mLanguage != null) {
-            if (mLanguage.equals("français")) {
-                charSequences[0] = "D";
-                charSequences[1] = "L";
-                charSequences[2] = "M";
-                charSequences[3] = "M";
-                charSequences[4] = "J";
-                charSequences[5] = "V";
-                charSequences[6] = "S";
-            } else {
-                charSequences[0] = "S";
-                charSequences[1] = "M";
-                charSequences[2] = "T";
-                charSequences[3] = "W";
-                charSequences[4] = "T";
-                charSequences[5] = "F";
-                charSequences[6] = "S";
-            }
-        } else {
-            charSequences[0] = "S";
-            charSequences[1] = "M";
-            charSequences[2] = "T";
-            charSequences[3] = "W";
-            charSequences[4] = "T";
-            charSequences[5] = "F";
-            charSequences[6] = "S";
-        }
+        charSequences[0] = "D";
+        charSequences[1] = "L";
+        charSequences[2] = "M";
+        charSequences[3] = "M";
+        charSequences[4] = "J";
+        charSequences[5] = "V";
+        charSequences[6] = "S";
 
         mCalendarView.setWeekDayLabels(charSequences);
         mCalendarView.setWeekDayTextAppearance(R.style.CustomTextAppearance);
@@ -579,6 +570,9 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     }
     //==============================================================================================
     private void findViewsById() {
+        restName = findViewById(R.id.restName);
+        calBackText = findViewById(R.id.calBackText);
+        calHeader = findViewById(R.id.calenderHeader);
         backText = findViewById(R.id.backText);
         mScrollView = findViewById(R.id.restaurant_profile_scroll_view);
         mRestaurantImageImageView = findViewById(R.id.iv_restaurant_profile_restaurant_image); //
@@ -637,12 +631,19 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         mUserId = SharedPreferencesHelper.getSharedPreferenceInt(this, ConstantsHelper.KEY_USER_ID, -10);
 
         Picasso.with(this).load(mRestaurant.getPicture()).into(mRestaurantImageImageView);
-        if (mRestaurant.getFavourite().equals("true")) {
-            mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_pink);
-        } else {
-            mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_empty);
+        int userId = SharedPreferencesHelper.getSharedPreferenceInt(RestaurantProfileActivity.this, ConstantsHelper.KEY_USER_ID, -10);
+        if (userId == -10){
+            mFavouriteIconImageView.setVisibility(View.INVISIBLE);
+        }else {
+            if (mRestaurant.getFavourite().equals("true")) {
+                mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_pink);
+            } else {
+                mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_empty);
+            }
         }
+
         mRestaurantNameTextView.setText(String.valueOf(mRestaurant.getName()));
+        restName.setText(String.valueOf(mRestaurant.getName()));
 //        if (!TextUtils.isEmpty(mRestaurant.getRate().toString())) {
 ////            mRestaurantRateRatingBar.setCount(Integer.parseInt(mRestaurant.getRate().toString()));
 //        }
@@ -655,7 +656,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             } else {
 //                mCertificateTextView.setText(mRestaurant.getCertification());
             }
-            mWineTextView.setText(mRestaurant.getCertification() + "/" + String.valueOf(mRestaurant.getAlcohol()));
+            mWineTextView.setText(mRestaurant.getCertification() + " / " + String.valueOf(mRestaurant.getAlcohol()));
             if ((mRestaurant.getVisitors()) > 1000){
                 String formattedVistors = new DecimalFormat("##.#").format((mRestaurant.getVisitors()) / 1000 );
                 mVisitorsTextView.setText(formattedVistors + " K");
@@ -676,7 +677,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             } else {
 //                mCertificateTextView.setText(mRestaurant.getCertification());
             }
-            mWineTextView.setText(mRestaurant.getCertification() + "/" + String.valueOf(mRestaurant.getAlcohol()));
+            mWineTextView.setText(mRestaurant.getCertification() + " / " + String.valueOf(mRestaurant.getAlcohol()));
             if ((mRestaurant.getVisitors()) > 1000){
                 String formattedVistors = new DecimalFormat("##.#").format((mRestaurant.getVisitors()) / 1000 );
                 mVisitorsTextView.setText(formattedVistors + " K");
@@ -878,7 +879,9 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (isCalendarVisible) {
             mCalendarLayout.setVisibility(View.GONE);
+            calHeader.setVisibility(View.GONE);
             mInformationLayout.setVisibility(View.VISIBLE);
+            restaurantHeader.setVisibility(View.VISIBLE);
             findViewById(R.id.restaurant_profile_scroll_view).scrollTo(0, 0);
             isCalendarVisible = false;
         } else {

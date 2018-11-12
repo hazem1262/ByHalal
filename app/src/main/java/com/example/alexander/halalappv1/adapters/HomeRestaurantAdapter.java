@@ -27,17 +27,11 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
     private ArrayList<Restaurant> mRestaurantList;
     private int mTablePosition;
 
-    private Boolean footerList = false;
 
 
     public HomeRestaurantAdapter(Context context, OnRestaurantClickListener onRestaurantClickListener ) {
         this.mContext = context;
         this.mOnRestaurantClickListener = onRestaurantClickListener;
-    }
-    public HomeRestaurantAdapter(Context context, OnRestaurantClickListener onRestaurantClickListener, Boolean footerList ) {
-        this.mContext = context;
-        this.mOnRestaurantClickListener = onRestaurantClickListener;
-        this.footerList = footerList;
     }
 
     public interface OnRestaurantClickListener {
@@ -56,12 +50,7 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
     //==============================================================================================
     @Override
     public RestaurantViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view;
-        if (footerList){
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.home_restaurants_list_footer_item, viewGroup, false);
-        }else{
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.home_restaurant_list_item, viewGroup, false);
-        }
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.home_restaurant_list_item, viewGroup, false);
 
         RestaurantViewHolder viewHolder = new RestaurantViewHolder(view);
         return viewHolder;
@@ -69,43 +58,19 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
 
     @Override
     public void onBindViewHolder(RestaurantViewHolder holder, int position) {
-        String language = SharedPreferencesHelper.getSharedPreferenceString(mContext, ConstantsHelper.KEY_SELECTED_LANGUAGE, "");
+        holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineName()));
 
-        if (!TextUtils.isEmpty(language)) {
-            if (language.equals("français")) {
-                Picasso.with(mContext)
-                        .load(mRestaurantList.get(position).getPicture())
-                        .into(holder.restaurantImageImageView);
-                if (footerList){
-					holder.restaurantImageImageView.setCornerRadius((float) 20);
-				}
-                holder.restaurantNameTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
-                holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineName()));
-//                holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameFr()));
-//                if (!TextUtils.isEmpty(mRestaurantList.get(position).getRate().toString())) {
-//                    holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
-//                }
-            } else {
-                Picasso.with(mContext)
-                        .load(mRestaurantList.get(position).getPicture())
-                        .into(holder.restaurantImageImageView);
-				if (footerList){
-					holder.restaurantImageImageView.setCornerRadius((float) 20);
-				}
-                holder.restaurantNameTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
-                holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getCuisineName()));
-//                holder.restaurantLocationTextView.setText(String.valueOf(mRestaurantList.get(position).getCityNameEn()));
-//                if (!TextUtils.isEmpty(mRestaurantList.get(position).getRate().toString())) {
-//                    holder.restaurantRateRatingBar.setCount(Integer.parseInt(mRestaurantList.get(position).getRate().toString()));
-//                }
-            }
+        holder.restaurantNameTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
 
-            int discount = mRestaurantList.get(position).getPromotionAmount();
-            if (discount > 0){
-                holder.restaurantDiscount.setText(discount + " %");
-            }else {
-                holder.discountLayout.setVisibility(View.INVISIBLE);
-            }
+        Picasso.with(mContext)
+                .load(mRestaurantList.get(position).getPicture())
+                .error(R.drawable.category)
+                .into(holder.restaurantImageImageView);
+        int discount = mRestaurantList.get(position).getPromotionAmount();
+        if (discount > 0){
+            holder.restaurantDiscount.setText(discount + " %");
+        }else {
+            holder.discountLayout.setVisibility(View.INVISIBLE);
         }
     }
 

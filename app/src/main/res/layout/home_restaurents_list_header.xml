@@ -3,7 +3,7 @@
 	android:id="@+id/headerRestaurent"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="250dp"
+	android:layout_height="264dp"
 	android:background="@color/modifiedPrimaryColor"
 	android:orientation="vertical"
 	android:gravity="center"
@@ -16,7 +16,9 @@
 		android:layout_height="wrap_content"
 		android:textColor="@color/white"
 		android:textSize="@dimen/app_sub_header"
-		android:text="A la une"/>
+		android:fontFamily="@font/avenir_heavy"
+		android:text="A la une"
+		android:layout_marginBottom="10dp"/>
 	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
@@ -39,11 +41,13 @@
 				android:textSize="@dimen/app_header"
 				android:textColor="@color/white"
 				android:textStyle="bold"
+				android:fontFamily="@font/avenir_black"
 				android:id="@+id/headerResturantName"/>
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="Grill"
+				android:fontFamily="@font/avenir_roman"
 				android:textSize="@dimen/app_text_size"
 				android:textColor="@color/white"
 				android:id="@+id/headerRestaurentType"/>
@@ -67,6 +71,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="-10%"
+					android:fontFamily="@font/avenir_black"
 					android:textSize="@dimen/app_text_size"
 					android:textColor="@color/white"/>
 				<TextView
@@ -74,6 +79,7 @@
 					android:layout_height="wrap_content"
 					android:text="sur l’addition"
 					android:textColor="@color/white"
+					android:fontFamily="@font/avenir_medium"
 					android:textSize="@dimen/app_text_small"
 					/>
 			</LinearLayout>

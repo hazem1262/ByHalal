@@ -38,7 +38,7 @@
 		android:text="Italian"
 		android:textColor="@color/colorAccent"
 		android:textSize="12sp"
-		android:layout_marginBottom="16dp"
+		android:layout_marginBottom="5dp"
 		android:layout_marginLeft="@dimen/screen_left_margin"
 		app:layout_constraintBottom_toTopOf="@+id/tv_search_restaurant_name"
 		app:layout_constraintStart_toStartOf="parent"

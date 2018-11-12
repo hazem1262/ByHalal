@@ -117,6 +117,12 @@ public class HomeFragment extends Fragment implements LocationListener {
         searchViewImage = rootView.findViewById(R.id.iv_home_fragment_search_icon);
         mCurrentLocationButton = rootView.findViewById(R.id.btn_home_fragment_current_location);
         mTablesRecyclerView = rootView.findViewById(R.id.rv_home_fragment_tables_list);
+        mTablesRecyclerView.setHasFixedSize(true);
+        mTablesRecyclerView.setItemViewCacheSize(5);
+        mTablesRecyclerView.setDrawingCacheEnabled(true);
+        mTablesRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+
         mLoadingIndicator = rootView.findViewById(R.id.pb_home_fragment_loading_indicator);
         mPermissionNotGrantedLayout = rootView.findViewById(R.id.home_fragment_permission_not_granted_layout);
         mGpsDisabledLayout = rootView.findViewById(R.id.home_fragment_gps_disabled_layout);
@@ -160,7 +166,6 @@ public class HomeFragment extends Fragment implements LocationListener {
 
     private void setUpTablesRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
-        mTablesRecyclerView.setLayoutManager(layoutManager);
 
         mTablesAdapter = new RestaurantsListAdapter(getContext(), new RestaurantsListAdapter.OnTablesClickListener() {
             @Override
@@ -386,6 +391,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 							addFooterList(response.body().getCategories());
 
                             mTablesAdapter.setRestaurantsLists(removeEmptyCategories(mTablesList));
+
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
                         } else {
