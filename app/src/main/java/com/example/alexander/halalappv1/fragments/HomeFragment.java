@@ -121,6 +121,9 @@ public class HomeFragment extends Fragment implements LocationListener {
         mTablesRecyclerView.setItemViewCacheSize(5);
         mTablesRecyclerView.setDrawingCacheEnabled(true);
         mTablesRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
+        layoutManager.setInitialPrefetchItemCount(3);
+        mTablesRecyclerView.setLayoutManager(layoutManager);
 
 
         mLoadingIndicator = rootView.findViewById(R.id.pb_home_fragment_loading_indicator);
@@ -153,12 +156,12 @@ public class HomeFragment extends Fragment implements LocationListener {
 
         // init category recycler view
         // init recycler
-        categoriesList = new ArrayList<>();
+        /*categoriesList = new ArrayList<>();
         categoriesAdapter = new CategoriesAdapter(categoriesList,getContext());
         categoriesRecyclerView = rootView.findViewById(R.id.categories_recycler_view);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
         categoriesRecyclerView.setHasFixedSize(true);
-        categoriesRecyclerView.setAdapter(categoriesAdapter);
+        categoriesRecyclerView.setAdapter(categoriesAdapter);*/
     }
     //==============================================================================================
     private RestaurantsListAdapter mTablesAdapter;
@@ -195,17 +198,17 @@ public class HomeFragment extends Fragment implements LocationListener {
     }
 
     private void showData() {
-		listHeaderLayout.setVisibility(View.VISIBLE);
+//		listHeaderLayout.setVisibility(View.VISIBLE);
         mTablesRecyclerView.setVisibility(View.VISIBLE);
-        categoriesRecyclerView.setVisibility(View.VISIBLE);
-        ourSelectionLinearLayout.setVisibility(View.VISIBLE);
+//        categoriesRecyclerView.setVisibility(View.VISIBLE);
+//        ourSelectionLinearLayout.setVisibility(View.VISIBLE);
     }
 
     private void hideData() {
-		listHeaderLayout.setVisibility(View.GONE);
+//		listHeaderLayout.setVisibility(View.GONE);
         mTablesRecyclerView.setVisibility(View.GONE);
-        categoriesRecyclerView.setVisibility(View.GONE);
-        ourSelectionLinearLayout.setVisibility(View.GONE);
+//        categoriesRecyclerView.setVisibility(View.GONE);
+//        ourSelectionLinearLayout.setVisibility(View.GONE);
 
     }
 
@@ -387,11 +390,15 @@ public class HomeFragment extends Fragment implements LocationListener {
                     if (response.isSuccessful()) {
                         mTablesList = response.body().getCategoriesWithRestaurants();
                         if (mTablesList != null && mTablesList.size() > 0) {
-                            fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
-							addFooterList(response.body().getCategories());
+//                            fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
+//							addFooterList(response.body().getCategories());
 
-                            mTablesAdapter.setRestaurantsLists(removeEmptyCategories(mTablesList));
-
+							ArrayList<Object> allData = new ArrayList<>();
+							allData.add(response.body().getRestaurantOfTheWeek());
+							allData.addAll(removeEmptyCategories(mTablesList));
+							allData.add(response.body().getCategories());
+                            mTablesAdapter.setRestaurantsLists(allData);
+                            mTablesAdapter.setHasStableIds(true);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
                         } else {
@@ -435,9 +442,14 @@ public class HomeFragment extends Fragment implements LocationListener {
                     if (response.isSuccessful()) {
                         mTablesList = response.body().getCategoriesWithRestaurants();
                         if (mTablesList != null && mTablesList.size() > 0) {
-                            fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
-							addFooterList(response.body().getCategories());
-							mTablesAdapter.setRestaurantsLists(removeEmptyCategories(mTablesList));
+//                            fillRestaurentHeader(response.body().getRestaurantOfTheWeek());
+//							addFooterList(response.body().getCategories());
+                            ArrayList<Object> allData = new ArrayList<>();
+                            allData.add(response.body().getRestaurantOfTheWeek());
+                            allData.addAll(removeEmptyCategories(mTablesList));
+                            allData.add(response.body().getCategories());
+                            mTablesAdapter.setRestaurantsLists(allData);
+                            mTablesAdapter.setHasStableIds(true);
                             mTablesRecyclerView.setAdapter(mTablesAdapter);
 							showData();
                         } else {
@@ -471,8 +483,8 @@ public class HomeFragment extends Fragment implements LocationListener {
     }
     //==============================================================================================
 
-    private ArrayList<CategoriesWithRestaurant> removeEmptyCategories(ArrayList<CategoriesWithRestaurant> restaurantsLists){
-        ArrayList<CategoriesWithRestaurant> restaurantsListsWithoutEmpty = new ArrayList<CategoriesWithRestaurant>();
+    private ArrayList<Object> removeEmptyCategories(ArrayList<CategoriesWithRestaurant> restaurantsLists){
+        ArrayList<Object> restaurantsListsWithoutEmpty = new ArrayList<Object>();
         for (int i =0 ; i<restaurantsLists.size(); i++){
             if (restaurantsLists.get(i).getRestaurants().size()>0){
                 restaurantsListsWithoutEmpty.add(restaurantsLists.get(i));
@@ -559,14 +571,14 @@ public class HomeFragment extends Fragment implements LocationListener {
                 startActivity(intent);
             }
         });
-        seeAllCategories.setOnClickListener(new View.OnClickListener() {
+        /*seeAllCategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SearchRestaurantActivity.class);
                 intent.setAction(ACTION_HOME_CATEGORIES);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     private void currentLocationButtonClick() {

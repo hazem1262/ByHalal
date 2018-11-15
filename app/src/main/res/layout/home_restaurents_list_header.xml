@@ -7,7 +7,7 @@
 	android:background="@color/modifiedPrimaryColor"
 	android:orientation="vertical"
 	android:gravity="center"
-	android:visibility="gone"
+	android:visibility="visible"
 	tools:visibility="visible"
 	xmlns:tools="http://schemas.android.com/tools">
 	<TextView
