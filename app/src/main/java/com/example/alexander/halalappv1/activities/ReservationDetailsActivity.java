@@ -118,7 +118,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             total += (menuItem.getQuantity() * Double.parseDouble(menuItem.getPrice()));
         }
         mListDataChild.put(header, menuItemsList);
-        mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild);
+        mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild, false);
         mMenuListView.setAdapter(mMenuAdapter);
         if (menuItemsList.size()>0){
             mMenuListView.expandGroup(0);

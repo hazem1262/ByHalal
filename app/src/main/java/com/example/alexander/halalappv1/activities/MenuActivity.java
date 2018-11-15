@@ -67,7 +67,11 @@ public class MenuActivity extends AppCompatActivity {
     private ArrayList<ReservationOrder> mReservationOrdersList = new ArrayList<>();
     //==============================================================================================
     private void updateRestaurantNameView() {
-        mRestaurantNameTextView.setText(mRestaurantName);
+        String restaurentHeader = mRestaurantName + " - La carte";
+        if(getIntent().getAction() != null){
+            restaurentHeader = "Ajouter votre menu";
+        }
+        mRestaurantNameTextView.setText(restaurentHeader);
     }
 
     private void arrowBackClick() {
@@ -124,22 +128,31 @@ public class MenuActivity extends AppCompatActivity {
             mListDataChild.put(mMenuList.get(i).getName(), mMenuList.get(i).getMenuItems());
 
         }
+        Boolean onlyView = true;
+        mAction = getIntent().getAction();
+        if(mAction != null){
+            if(mAction.equals(RestaurantProfileActivity.ACTION_RESERVE) ||
+                    mAction.equals(ACTION_EDIT_RESERVE)){
+                onlyView = false;
+            }
+        }
 
-        mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild);
+
+        mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild, onlyView);
         mMenuListView.setAdapter(mMenuAdapter);
 
-        for (int i = 0; i < mMenuList.size(); i ++){
-            mMenuListView.expandGroup(i);
-        }
-        mMenuListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                if (mLastExpandedPosition != -1 && groupPosition != mLastExpandedPosition) {
-                    mMenuListView.collapseGroup(mLastExpandedPosition);
-                }
-                mLastExpandedPosition = groupPosition;
-            }
-        });
+//        for (int i = 0; i < mMenuList.size(); i ++){
+//            mMenuListView.expandGroup(i);
+//        }
+//        mMenuListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+//            @Override
+//            public void onGroupExpand(int groupPosition) {
+//                if (mLastExpandedPosition != -1 && groupPosition != mLastExpandedPosition) {
+//                    mMenuListView.collapseGroup(mLastExpandedPosition);
+//                }
+//                mLastExpandedPosition = groupPosition;
+//            }
+//        });
 
         if (mAction != null) {
             if (mAction.equals(RestaurantProfileActivity.ACTION_RESERVE)) {

@@ -18,11 +18,13 @@ public class RestaurantMenuAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private List<String> mListDataHeader;
     private HashMap<String, List<MenuItem>> mListDataChild;
+    private Boolean onlyView = false;
 
-    public RestaurantMenuAdapter(Context context, List<String> listDataHeader, HashMap<String, List<MenuItem>> listDataChild) {
+    public RestaurantMenuAdapter(Context context, List<String> listDataHeader, HashMap<String, List<MenuItem>> listDataChild, Boolean onlyView) {
         this.mContext = context;
         this.mListDataHeader = listDataHeader;
         this.mListDataChild = listDataChild;
+        this.onlyView = onlyView;
     }
 
     @Override
@@ -82,10 +84,10 @@ public class RestaurantMenuAdapter extends BaseExpandableListAdapter {
 //            convertView.findViewById(R.id.menu_header_line_separator).setVisibility(View.VISIBLE);
 //        }
 
-//        int imageResourceId = isExpanded ? R.drawable.ic_arrow_down_black : R.drawable.ic_arrow_right_black;
-//        ImageView arrowImageView = convertView.findViewById(R.id.iv_menu_header_arrow);
-//        arrowImageView.setImageResource(imageResourceId);
-//
+        int imageResourceId = isExpanded ? R.drawable.ic_arrow_down_black : R.drawable.ic_arrow_right_white;
+        ImageView arrowImageView = convertView.findViewById(R.id.iv_menu_header_arrow);
+        arrowImageView.setImageResource(imageResourceId);
+
         TextView menuHeaderTextView = convertView.findViewById(R.id.tv_menu_header_header);
         menuHeaderTextView.setText(String.valueOf(menuHeader));
 
@@ -121,6 +123,9 @@ public class RestaurantMenuAdapter extends BaseExpandableListAdapter {
             plusImage.setVisibility(View.VISIBLE);
         }
 
+        if (onlyView){
+            plusImage.setVisibility(View.INVISIBLE);
+        }
         return convertView;
     }
 
