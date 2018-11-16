@@ -2,7 +2,6 @@ package com.example.alexander.halalappv1.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.model.newModels.Restaurant;
-import com.example.alexander.halalappv1.utils.ConstantsHelper;
-import com.example.alexander.halalappv1.utils.SharedPreferencesHelper;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 import com.whinc.widget.ratingbar.RatingBar;

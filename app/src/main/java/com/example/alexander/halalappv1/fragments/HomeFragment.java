@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
 
     private void findViewsById(View rootView) {
-        ourSelectionLinearLayout = rootView.findViewById(R.id.ourSelectionLinearLayout);
+//        ourSelectionLinearLayout = rootView.findViewById(R.id.ourSelectionLinearLayout);
         searchViewImage = rootView.findViewById(R.id.iv_home_fragment_search_icon);
         mCurrentLocationButton = rootView.findViewById(R.id.btn_home_fragment_current_location);
         mTablesRecyclerView = rootView.findViewById(R.id.rv_home_fragment_tables_list);

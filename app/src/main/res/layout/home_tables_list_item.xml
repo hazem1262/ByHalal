@@ -7,16 +7,11 @@
 	android:layout_height="wrap_content"
 	xmlns:tools="http://schemas.android.com/tools">
 
-	<LinearLayout
-		android:id="@+id/linearLayout"
-		android:layout_width="match_parent"
+	<com.google.android.flexbox.FlexboxLayout
 		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginEnd="8dp"
-		android:orientation="horizontal"
-		>
-
+		android:layout_width="match_parent"
+		app:flexDirection="row"
+		app:flexWrap="wrap">
 		<TextView
 			android:id="@+id/tv_home_table_header"
 			android:layout_width="wrap_content"
@@ -25,9 +20,9 @@
 			android:layout_marginTop="16dp"
 			android:fontFamily="@font/avenir_heavy"
 			android:includeFontPadding="false"
-			android:text="Les meilleurs restaurants"
+			android:text="Les meilleurs restaurant"
 			android:textColor="@color/white"
-			android:textSize="20sp"/>
+			android:textSize="@dimen/app_sub_header"/>
 
 		<TextView
 			android:id="@+id/tv_home_see_all"
@@ -35,13 +30,13 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="20dp"
 			android:layout_marginTop="16dp"
-			android:layout_marginBottom="5dp"
 			android:fontFamily="@font/avenir_light"
 			android:includeFontPadding="false"
 			android:text="@string/tv_see_all_text"
+			android:gravity="center"
 			android:textColor="@color/grey_E0DCDC"
 			android:textSize="@dimen/app_text_size" />
-	</LinearLayout>
+	</com.google.android.flexbox.FlexboxLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_home_restaurants"
