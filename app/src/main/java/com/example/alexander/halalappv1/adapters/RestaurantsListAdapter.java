@@ -1,6 +1,7 @@
 package com.example.alexander.halalappv1.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,13 +12,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
+import com.example.alexander.halalappv1.activities.RestaurantProfileActivity;
+import com.example.alexander.halalappv1.activities.SearchRestaurantActivity;
 import com.example.alexander.halalappv1.model.newModels.CategoriesWithRestaurant;
 import com.example.alexander.halalappv1.model.newModels.Category;
 import com.example.alexander.halalappv1.model.newModels.Restaurant;
 import com.example.alexander.halalappv1.model.newModels.RestaurantOfTheWeek;
+import com.example.alexander.halalappv1.utils.ConstantsHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
+import static com.example.alexander.halalappv1.utils.ConstantsHelper.ACTION_HOME_CATEGORIES;
 
 public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements HomeRestaurantAdapter.OnRestaurantClickListener {
@@ -124,10 +131,11 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             super(v);
             tv_home_table_header = v.findViewById(R.id.tv_home_table_header);
             see_all_category = v.findViewById(R.id.see_all_category);
+            see_all_category.setOnClickListener(this);
             categories_recycler_view = v.findViewById(R.id.categories_recycler_view);
             // init recycler
             categoriesList = new ArrayList<>();
-            categoriesAdapter = new CategoriesAdapter(categoriesList,mContext);
+            categoriesAdapter = new CategoriesAdapter(categoriesList, mContext);
             categories_recycler_view.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL, false));
             categories_recycler_view.setHasFixedSize(true);
             categories_recycler_view.setAdapter(categoriesAdapter);
@@ -140,7 +148,11 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
         @Override
         public void onClick(View v) {
-
+            if (v.getId() == R.id.see_all_category){
+                Intent intent = new Intent(mContext, SearchRestaurantActivity.class);
+                intent.setAction(ACTION_HOME_CATEGORIES);
+                mContext.startActivity(intent);
+            }
         }
     }
     //==============================================================================================
@@ -157,6 +169,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             headerResturantName = v.findViewById(R.id.headerResturantName);
             headerRestaurentType = v.findViewById(R.id.headerRestaurentType);
             discount = v.findViewById(R.id.discount);
+            restaurentListHeaderImage.setOnClickListener(this);
         }
         public void bindView(RestaurantOfTheWeek headerRestaurent){
             Picasso.with(mContext)
@@ -169,10 +182,16 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }else{
                 discount.setVisibility(View.GONE);
             }
+            restaurentListHeaderImage.setTag(headerRestaurent.getId());
         }
         @Override
         public void onClick(View v) {
-
+            if (v.getId() == R.id.restaurentListHeaderImage){
+                Intent intent = new Intent(mContext, RestaurantProfileActivity.class);
+                intent.putExtra(RESTAURENT_KEY, (int)v.getTag());
+                intent.setAction(ConstantsHelper.ACTION_HOME_FRAGMENT);
+                mContext.startActivity(intent);
+            }
         }
     }
     //==============================================================================================
@@ -182,6 +201,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         TextView seeAllTextView;
         RecyclerView restaurantsRecyclerView;
         private HomeRestaurantAdapter mRestaurantAdapter;
+        private ArrayList<Restaurant> bodyList = new ArrayList<>();
 
 
         public RestaurantsListViewHolder(View itemView) {
@@ -191,7 +211,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             seeAllTextView = itemView.findViewById(R.id.tv_home_see_all);
             restaurantsRecyclerView = itemView.findViewById(R.id.rv_home_restaurants);
             restaurantsRecyclerView.setHasFixedSize(true);
-            restaurantsRecyclerView.setItemViewCacheSize(5);
+            restaurantsRecyclerView.setItemViewCacheSize(20);
             restaurantsRecyclerView.setDrawingCacheEnabled(true);
             restaurantsRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             seeAllTextView.setOnClickListener(this);
@@ -201,6 +221,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL, false);
             layoutManager.setInitialPrefetchItemCount(5);
             restaurantsRecyclerView.setLayoutManager(layoutManager);
+            mRestaurantAdapter.setRestaurantList(bodyList);
             mRestaurantAdapter.setHasStableIds(true);
             restaurantsRecyclerView.setRecycledViewPool(viewPool);
             restaurantsRecyclerView.setAdapter(mRestaurantAdapter);
@@ -210,6 +231,8 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public void bindView(CategoriesWithRestaurant categoriesWithRestaurant){
             tableHeaderTextView.setText(String.valueOf(categoriesWithRestaurant.getCatName()));
             mRestaurantAdapter.setRestaurantList((ArrayList<Restaurant>) categoriesWithRestaurant.getRestaurants());
+            bodyList.clear();
+            bodyList.addAll((ArrayList<Restaurant>) categoriesWithRestaurant.getRestaurants());
             mRestaurantAdapter.setTablePosition(getAdapterPosition());
             mRestaurantAdapter.notifyDataSetChanged();
         }

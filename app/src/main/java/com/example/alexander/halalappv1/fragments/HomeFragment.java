@@ -571,14 +571,14 @@ public class HomeFragment extends Fragment implements LocationListener {
                 startActivity(intent);
             }
         });
-        /*seeAllCategories.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchRestaurantActivity.class);
-                intent.setAction(ACTION_HOME_CATEGORIES);
-                startActivity(intent);
-            }
-        });*/
+//        seeAllCategories.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), SearchRestaurantActivity.class);
+//                intent.setAction(ACTION_HOME_CATEGORIES);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void currentLocationButtonClick() {
