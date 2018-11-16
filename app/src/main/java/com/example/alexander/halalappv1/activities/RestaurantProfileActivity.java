@@ -94,7 +94,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
     private TextView backText;
     private ConstraintLayout mLocationLayout;
-    private ConstraintLayout mPhoneNumberLayout;
+    private LinearLayout mPhoneNumberLayout;
     private LinearLayout mMenuLayout;
     private LinearLayout mWebsiteLayout;
     private ConstraintLayout mWorkingHoursLayout;
@@ -152,7 +152,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 //        arrowBackClick();
 //        restaurantImageClick();
         //==========================================================================================
-//        phoneNumberLayoutClick();
+        phoneNumberLayoutClick();
         menuLayoutClick();
         websiteLayoutClick();
 //        workingHoursLayoutClick();
@@ -599,7 +599,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 //        mRestaurantNotesTextView = findViewById(R.id.tv_restaurant_profile_notes); //
         //==========================================================================================
         mLocationLayout = findViewById(R.id.restaurant_profile_location_layout);
-        mPhoneNumberLayout = findViewById(R.id.restaurant_profile_phone_number_layout);
+        mPhoneNumberLayout = findViewById(R.id.restaurant_profile_phone);
         mMenuLayout = findViewById(R.id.restaurant_profile_menu_layout);
         mWebsiteLayout = findViewById(R.id.restaurant_profile_website_layout);
         mWorkingHoursLayout = findViewById(R.id.restaurant_profile_working_hours_layout);
@@ -820,19 +820,19 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         });
     }
 
-//    private void phoneNumberLayoutClick() {
-//        mPhoneNumberLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String phoneNumber = String.format("tel: %s", mRestaurant.getPhone());
-//                Intent intent = new Intent(Intent.ACTION_DIAL);
-//                intent.setData(Uri.parse(phoneNumber));
-//                if (intent.resolveActivity(getPackageManager()) != null) {
-//                    startActivity(intent);
-//                }
-//            }
-//        });
-//    }
+    private void phoneNumberLayoutClick() {
+        mPhoneNumberLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNumber = String.format("tel: %s", mRestaurant.getPhone());
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(phoneNumber));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+    }
 
     private void menuLayoutClick() {
         mMenuLayout.setOnClickListener(new View.OnClickListener() {

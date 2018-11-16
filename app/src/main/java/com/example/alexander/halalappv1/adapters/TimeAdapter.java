@@ -49,7 +49,7 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeViewHolder
             holder.timeTextView.setTextColor(Color.parseColor("#FFFFFF"));
         } else {
             holder.timeTextView.setBackgroundResource(R.drawable.shape_bg_white_b_grey_br_4);
-            holder.timeTextView.setTextColor(Color.parseColor("#000000"));
+            holder.timeTextView.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
 

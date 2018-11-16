@@ -19,12 +19,12 @@
 			android:layout_width="match_parent"
 			android:layout_height="370dp"
 			android:id="@+id/restaurantHeader"
-			tools:visibility="gone">
+			>
 			<ImageView
 				android:id="@+id/iv_restaurant_profile_restaurant_image"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:scaleType="centerCrop"
+				android:scaleType="fitXY"
 				android:src="@drawable/background_search_header"
 				/>
 			<LinearLayout
@@ -134,12 +134,11 @@
 				android:background="@drawable/shape_bg_transparent_b_pink_br_8"
 				android:layout_margin="10dp"
 				android:padding="12dp"
-				tools:visibility="gone"
 				>
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="@string/reserve"
+					android:text="Réserver"
 					android:textSize="20sp"
 					android:gravity="center"
 					android:textColor="@color/colorAccent"
@@ -161,7 +160,7 @@
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:text="@string/restaurentDescription"
+				android:text="Le mot du restaurant"
 				android:textColor="@color/white"
 				android:textStyle="bold"
 				android:textSize="20sp"
@@ -186,7 +185,7 @@
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:text="Le mot du restaurant"
+				android:text="@string/restaurentDescription"
 				android:textColor="@color/white"
 				android:paddingStart="40dp"
 				android:textStyle="bold"
@@ -333,6 +332,7 @@
 					app:layout_constraintRight_toRightOf="parent"
 					app:layout_constraintTop_toTopOf="parent" />
 			</LinearLayout>
+
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -368,6 +368,43 @@
 					app:layout_constraintRight_toRightOf="parent"
 					app:layout_constraintTop_toTopOf="parent" />
 			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_weight="3"
+				android:paddingTop="@dimen/restaurent_profile_list_padding"
+				android:paddingBottom="@dimen/restaurent_profile_list_padding"
+				android:id="@+id/restaurant_profile_phone">
+				<ImageView
+					android:layout_width="24dp"
+					android:layout_height="24dp"
+					android:layout_weight=".25"
+					android:layout_marginLeft="@dimen/screen_left_margin"
+					android:src="@drawable/ic_restaurant_call_pink"
+					/>
+				<TextView
+					android:id="@+id/tv_restaurant_call"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.9"
+					android:text="@string/tv_profile_acc_info_phone_number_label_text"
+					android:textSize="15sp"
+					android:textColor="@color/white"
+					android:fontFamily="@font/avenir_medium"
+					android:includeFontPadding="false"/>
+				<ImageView
+					android:layout_width="0dp"
+					android:layout_height="18dp"
+					android:layout_weight=".1"
+					android:src="@drawable/ic_arrow_right_pinc"
+					android:layout_marginRight="@dimen/screen_right_margin"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
+			</LinearLayout>
+
 		</LinearLayout>
 
 
@@ -444,9 +481,10 @@
 				app:mcv_tileHeight="match_parent"
 				android:background="@color/modifiedPrimaryColor"
 				app:mcv_showOtherDates="out_of_range"
-				app:mcv_headerTextAppearance="@style/CustomTextAppearance"
+				app:mcv_headerTextAppearance="@style/CustomTextHeaderAppearance"
 				app:mcv_dateTextAppearance="@style/CustomTextDayAppearance"
 				app:mcv_weekDayTextAppearance="@style/CustomTextAppearance"
+
 				app:layout_constraintTop_toBottomOf="@+id/month_layout"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"/>

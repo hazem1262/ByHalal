@@ -84,7 +84,7 @@ public class RestaurantMenuAdapter extends BaseExpandableListAdapter {
 //            convertView.findViewById(R.id.menu_header_line_separator).setVisibility(View.VISIBLE);
 //        }
 
-        int imageResourceId = isExpanded ? R.drawable.ic_arrow_down_black : R.drawable.ic_arrow_right_white;
+        int imageResourceId = isExpanded ? R.drawable.arrow_down : R.drawable.ic_arrow_right_white;
         ImageView arrowImageView = convertView.findViewById(R.id.iv_menu_header_arrow);
         arrowImageView.setImageResource(imageResourceId);
 
