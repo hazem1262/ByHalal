@@ -59,7 +59,7 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
                 String[] reservationDateParts = mPreviousReservationsList.get(position).getDate().split("-");
                 String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
 //                String reservationDay = getDayNameFrench(mPreviousReservationsList.get(position).getBookingData().getReservationDayName());
-                holder.reservationDateTextView.setText(reservationDate);
+                holder.reservationDateTextView.setText(mPreviousReservationsList.get(position).getDate());
 
                 String reservationTime = mPreviousReservationsList.get(position).getTime();
                 String numberOfPeople = getNumberTextFrench(mPreviousReservationsList.get(position).getGuests().toString());
@@ -70,7 +70,7 @@ public class PreviousReservationsAdapter extends RecyclerView.Adapter<PreviousRe
                 String[] reservationDateParts = mPreviousReservationsList.get(position).getDate().split("/");
                 String reservationDate = reservationDateParts[2] + "/" + reservationDateParts[1] + "/" + reservationDateParts[0];
 //                String reservationDay = mPreviousReservationsList.get(position).getBookingData().getReservationDayName();
-                holder.reservationDateTextView.setText(reservationDate);
+                holder.reservationDateTextView.setText(mPreviousReservationsList.get(position).getDate());
 
                 String reservationTime = mPreviousReservationsList.get(position).getTime();
                 String numberOfPeople = getNumberTextEnglish(mPreviousReservationsList.get(position).getGuests().toString());

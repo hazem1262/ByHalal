@@ -2,10 +2,13 @@ package com.example.alexander.halalappv1.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -396,6 +399,7 @@ public class FilterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
+
 
         mAction = getIntent().getAction();
         mTable = getIntent().getParcelableExtra(HomeFragment.TABLE_OBJECT_KEY);

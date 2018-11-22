@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
@@ -83,6 +86,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_details);
+
         findViewsById();
         getData();
         //set menu list
@@ -105,7 +109,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
     // setup the menu list
     private void setUpMenuListView(){
-        String header = "Your Order";
+        String header = "Ce que j’ai commandé";
         if (mReservationDetails.getProducts().size() > 0){
             mListDataHeader.add(header);
         }

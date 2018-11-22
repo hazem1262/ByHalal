@@ -1,10 +1,13 @@
 package com.example.alexander.halalappv1.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.example.alexander.halalappv1.R;
@@ -22,6 +25,7 @@ public class AboutHalalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_halal);
+
 
         mArrowBakcImageView = findViewById(R.id.about_halal_arrow_back);
         mPoliciesLayout = findViewById(R.id.about_halal_confidentiality_policies_layout);

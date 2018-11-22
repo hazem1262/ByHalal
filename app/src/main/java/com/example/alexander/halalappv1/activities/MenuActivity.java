@@ -2,11 +2,14 @@ package com.example.alexander.halalappv1.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -303,6 +306,7 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
 
         mRestaurantNameTextView = findViewById(R.id.tv_menu_activity_restaurant_name);
         mArrowBackImageView = findViewById(R.id.iv_menu_activity_arrow_back);

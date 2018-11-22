@@ -1,5 +1,6 @@
 package com.example.alexander.halalappv1.activities;
 
+import android.os.Build;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +45,7 @@ public class PoliciesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_policies);
+
 
         mArrowBackImageView = findViewById(R.id.policies_activity_arrow_back);
         mPoliciesTextView = findViewById(R.id.tv_policies_activity_policies);

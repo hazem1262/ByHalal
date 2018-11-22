@@ -61,6 +61,7 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
 
         Picasso.with(mContext)
                 .load(mRestaurantList.get(position).getPicture())
+                .fit()
                 .error(R.drawable.category)
                 .into(holder.restaurantImageImageView);
         int discount = mRestaurantList.get(position).getPromotionAmount();

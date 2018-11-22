@@ -1,10 +1,13 @@
 package com.example.alexander.halalappv1.activities;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +30,7 @@ public class WorkingHoursActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_working_hours);
+
 
         mRestaurantName = getIntent().getStringExtra("RestaurantName");
         mWorkDaysList = getIntent().getParcelableArrayListExtra("workDaysList");

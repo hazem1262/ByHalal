@@ -52,8 +52,8 @@
     <!--=========================================================================================-->
     <!--ReserveFragment-->
     <string name="tv_reserve_fragment_my_reservations_label_text">Mes réservations</string>
-    <string name="tv_reserve_fragment_up_coming_reservations_label_text">À venir</string>
-    <string name="tv_reserve_fragment_previous_reservations_label_text">Précédentes</string>
+    <string name="tv_reserve_fragment_up_coming_reservations_label_text">Les bons moments à venir</string>
+    <string name="tv_reserve_fragment_previous_reservations_label_text">Mes anciennes résas</string>
     <string name="tv_reserve_fragment_error_message_text">Aucune réservations pour la moment</string>
     <string name="btn_reserve_alert_dialog_cancel_text">Annuler</string>
     <string name="btn_reserve_alert_dialog_edit_text">Modifier</string>
@@ -166,13 +166,13 @@
     <!--=========================================================================================-->
     <!--Call Alert Dialog-->
     <string name="tv_call_alert_dialog_call_label_text">Appeler</string>
-    <string name="tv_call_alert_dialog_message_text">Vous êtes sur le point d\'appeler, continuer ?</string>
+    <string name="tv_call_alert_dialog_message_text">Vous êtes sur le point d’appeler ce numéro</string>
     <string name="tv_call_alert_dialog_action_cancel_text">Annuler</string>
     <string name="tv_call_alert_dialog_action_call_text">Appeler</string>
 
     <!--Cancel Reservation Alert Dialog-->
-    <string name="tv_cancel_reservation_alert_dialog_cancel_reservation_label_text">Annuler</string>
-    <string name="tv_cancel_reservation_alert_dialog_message_text">Souhaitez-vous annuler cette réservation ?</string>
+    <string name="tv_cancel_reservation_alert_dialog_cancel_reservation_label_text">Suppression de réservation</string>
+    <string name="tv_cancel_reservation_alert_dialog_message_text">Souhaitez vous supprimer votre réservation ?</string>
     <string name="tv_cancel_reservation_alert_dialog_action_cancel_text">Non</string>
     <string name="tv_cancel_reservation_alert_dialog_action_ok_text">Oui</string>
 
