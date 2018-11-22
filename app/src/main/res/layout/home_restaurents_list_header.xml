@@ -3,12 +3,13 @@
 	android:id="@+id/headerRestaurent"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="264dp"
+	android:layout_height="320dp"
 	android:background="@color/modifiedPrimaryColor"
 	android:orientation="vertical"
 	android:gravity="center"
 	android:visibility="visible"
 	tools:visibility="visible"
+	android:layout_marginBottom="25dp"
 	xmlns:tools="http://schemas.android.com/tools">
 	<TextView
 		android:id="@+id/sectionHeader"
@@ -17,7 +18,7 @@
 		android:textColor="@color/white"
 		android:textSize="@dimen/app_sub_header"
 		android:fontFamily="@font/avenir_heavy"
-		android:text="A la une"
+		android:text="À la une"
 		android:layout_marginBottom="10dp"/>
 	<FrameLayout
 		android:layout_width="match_parent"
@@ -65,7 +66,8 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:orientation="vertical"
-				android:padding="5dp"
+				android:paddingRight="8dp"
+				android:paddingLeft="8dp"
 				android:background="@drawable/discount_header"
 				android:gravity="center">
 				<TextView

@@ -37,7 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
                 android:background="@drawable/discount_header"
                 android:id="@+id/discountLayout"
                 android:gravity="center">
@@ -82,7 +83,6 @@
         android:textColor="@color/pink"
         android:fontFamily="@font/avenir_black"
         android:includeFontPadding="false"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 

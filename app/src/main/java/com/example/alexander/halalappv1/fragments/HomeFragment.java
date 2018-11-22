@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -92,6 +93,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     private ConstraintLayout mLocationNotDetectedLayout;
     private LinearLayout discount;
 
+    private LinearLayout bonjourLayout;
     private TextView mActionGrantPermissionTextView;
     private TextView mActionRetryTextView;
     private TextView mErrorMessageTextView;
@@ -124,7 +126,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         layoutManager.setInitialPrefetchItemCount(3);
         mTablesRecyclerView.setLayoutManager(layoutManager);
-
+        bonjourLayout = rootView.findViewById(R.id.bonjourLayout);
 
         mLoadingIndicator = rootView.findViewById(R.id.pb_home_fragment_loading_indicator);
         mPermissionNotGrantedLayout = rootView.findViewById(R.id.home_fragment_permission_not_granted_layout);
@@ -635,6 +637,24 @@ public class HomeFragment extends Fragment implements LocationListener {
 
         setUpTablesRecyclerView(); // (2)
         //==========================================================================================
+
+        //
+        ViewTreeObserver viewTreeObserver = bonjourLayout.getViewTreeObserver();
+        if (viewTreeObserver.isAlive()) {
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    bonjourLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    int height = bonjourLayout.getHeight();
+					float scale = getResources().getDisplayMetrics().density;
+					int dpAsPixels = (int) (height*scale + 0.5f);
+					mTablesRecyclerView.setPadding(0,height,0,0);
+//                    mTablesRecyclerView.requestLayout();
+
+                }
+            });
+        }
+        //
         mAction = getActivity().getIntent().getStringExtra(SelectLocationActivity.KEY_SEARCH_BY);
         mUserId = SharedPreferencesHelper.getSharedPreferenceInt(getContext(), ConstantsHelper.KEY_USER_ID, -10);
         mCityName = SharedPreferencesHelper.getSharedPreferenceString(getContext(), ConstantsHelper.KEY_SELECTED_CITY, null);

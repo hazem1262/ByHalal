@@ -9,13 +9,26 @@
 
 	android:orientation="vertical"
 	android:background="@color/modifiedPrimaryColor">
-	<LinearLayout
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/rv_home_fragment_tables_list"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:clipToPadding="false"
+			app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+			/>
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
+			android:background="@color/halfTransparent"
 			android:paddingLeft="10dp"
 			android:paddingTop="20dp"
-			android:paddingRight="20dp">
+			android:paddingRight="20dp"
+			android:id="@+id/bonjourLayout">
 			<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -62,70 +75,65 @@
 				/>
 
 		</LinearLayout>
+	</FrameLayout>
+
 
 		<!--&lt;!&ndash;header restaurant&ndash;&gt;
 		<include
 			layout="@layout/home_restaurents_list_header"/>-->
 		<!--Tables Recycler View-->
-		<android.support.v7.widget.RecyclerView
-			android:id="@+id/rv_home_fragment_tables_list"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:clipToPadding="false"
-			app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
-
-			/>
 
 
-		<include
-			android:id="@+id/pb_home_fragment_loading_indicator"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			layout="@layout/layout_progress_bar"
-			android:visibility="gone"
-			/>
 
-		<include
-			android:id="@+id/home_fragment_permission_not_granted_layout"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			layout="@layout/layout_permission_not_granted"
-			android:visibility="gone"
-			/>
+	<include
+		android:id="@+id/pb_home_fragment_loading_indicator"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_progress_bar"
+		android:visibility="gone"
+		/>
 
-		<include
-			android:id="@+id/home_fragment_gps_disabled_layout"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			layout="@layout/layout_gps_disabled"
-			android:visibility="gone"
-			/>
+	<include
+		android:id="@+id/home_fragment_permission_not_granted_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_permission_not_granted"
+		android:visibility="gone"
+		/>
 
-		<include
-			android:id="@+id/home_fragment_data_not_found_layout"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			layout="@layout/layout_data_not_found_for_current_location"
-			android:visibility="gone"
-			/>
+	<include
+		android:id="@+id/home_fragment_gps_disabled_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_gps_disabled"
+		android:visibility="gone"
+		/>
 
-		<include
-			android:id="@+id/home_fragment_location_not_detected_layout"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			layout="@layout/layout_location_not_detected"
-			android:visibility="gone"
-			/>
+	<include
+		android:id="@+id/home_fragment_data_not_found_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_data_not_found_for_current_location"
+		android:visibility="gone"
+		/>
 
-		<TextView
-			android:id="@+id/tv_home_fragment_error_message"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:textSize="@dimen/app_text_size"
-			android:textColor="@color/black_2A2C34"
-			android:fontFamily="@font/opensans_regular"
-			android:gravity="center"
-			android:visibility="gone"
-			/>
+	<include
+		android:id="@+id/home_fragment_location_not_detected_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/layout_location_not_detected"
+		android:visibility="gone"
+		/>
+
+	<TextView
+		android:id="@+id/tv_home_fragment_error_message"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="@dimen/app_text_size"
+		android:textColor="@color/black_2A2C34"
+		android:fontFamily="@font/opensans_regular"
+		android:gravity="center"
+		android:visibility="gone"
+		/>
 
 </LinearLayout>

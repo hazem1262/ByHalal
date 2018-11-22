@@ -178,7 +178,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             headerResturantName.setText(headerRestaurent.getName());
             headerRestaurentType.setText(headerRestaurent.getCuisineName());
             if (headerRestaurent.getPromotionAmount() > 0){
-                headerDiscount.setText(headerRestaurent.getPromotionAmount() + "%");
+                headerDiscount.setText("-" + headerRestaurent.getPromotionAmount() + "%");
             }else{
                 discount.setVisibility(View.GONE);
             }
