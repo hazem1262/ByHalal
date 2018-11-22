@@ -634,7 +634,10 @@ public class RestaurantProfileActivity extends AppCompatActivity {
         mLanguage = Locale.getDefault().getDisplayLanguage();
         mUserId = SharedPreferencesHelper.getSharedPreferenceInt(this, ConstantsHelper.KEY_USER_ID, -10);
 
-        Picasso.with(this).load(mRestaurant.getPicture()).into(mRestaurantImageImageView);
+        Picasso.with(this)
+                .load(mRestaurant.getPicture())
+                .fit()
+                .into(mRestaurantImageImageView);
         int userId = SharedPreferencesHelper.getSharedPreferenceInt(RestaurantProfileActivity.this, ConstantsHelper.KEY_USER_ID, -10);
         if (userId == -10){
             mFavouriteIconImageView.setVisibility(View.INVISIBLE);
@@ -661,7 +664,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 //                mCertificateTextView.setText(mRestaurant.getCertification());
             }
             mWineTextView.setText(mRestaurant.getCertification() + " / " + String.valueOf(mRestaurant.getAlcohol()));
-            if ((mRestaurant.getVisitors()) > 1000){
+            if (false){
                 String formattedVistors = new DecimalFormat("##.#").format((mRestaurant.getVisitors()) / 1000 );
                 mVisitorsTextView.setText(formattedVistors + " K");
             }else{
@@ -682,7 +685,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 //                mCertificateTextView.setText(mRestaurant.getCertification());
             }
             mWineTextView.setText(mRestaurant.getCertification() + " / " + String.valueOf(mRestaurant.getAlcohol()));
-            if ((mRestaurant.getVisitors()) > 1000){
+            if (false){
                 String formattedVistors = new DecimalFormat("##.#").format((mRestaurant.getVisitors()) / 1000 );
                 mVisitorsTextView.setText(formattedVistors + " K");
             }else{

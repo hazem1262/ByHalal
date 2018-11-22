@@ -66,7 +66,7 @@ public class HomeRestaurantAdapter extends RecyclerView.Adapter<HomeRestaurantAd
                 .into(holder.restaurantImageImageView);
         int discount = mRestaurantList.get(position).getPromotionAmount();
         if (discount > 0){
-            holder.restaurantDiscount.setText(discount + " %");
+            holder.restaurantDiscount.setText("-" + discount + "%");
         }else {
             holder.discountLayout.setVisibility(View.INVISIBLE);
         }

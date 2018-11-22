@@ -37,6 +37,7 @@
             android:text="@string/tv_search_restaurant_header_label_text"
             android:textColor="@color/white"
             android:visibility="invisible"
+            android:gravity="center"
             android:textSize="@dimen/app_text_size"
             android:layout_marginStart="60dp"
             android:layout_toEndOf="@id/iv_search_restaurant_arrow_back"
@@ -47,34 +48,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
             android:layout_below="@id/tv_search_restaurant_header_label"
             android:id="@+id/search_edit_frame">
             <EditText
                 android:id="@+id/et_search_restaurant_search"
-                android:layout_width="384dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@color/search_edit_text_bg"
                 android:inputType="text"
                 android:maxLines="1"
-                android:fontFamily="@font/opensans_regular"
-                android:gravity="center"
-                android:paddingStart="50dp"
+                android:fontFamily="@font/avenir_roman"
+                android:gravity="left"
+                android:paddingStart="40dp"
                 android:paddingEnd="70dp"
-                android:hint="@string/et_search_restaurant_search_text_hint"
-                android:padding="10dp"
+                android:paddingTop="5dp"
+                android:hint="Restaurant, cuisine"
                 android:textColor="@color/white"
-                android:textColorHint="@color/grey_777777"
-                android:textSize="@dimen/app_text_size"
+                android:textColorHint="#E0DCDC"
+                android:textSize="20sp"
                 />
             <ImageView
                 android:id="@+id/search_restaurant_search_icon"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="10dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="12dp"
                 android:src="@drawable/ic_text_view_search"
                 />
 
@@ -104,32 +105,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:textSize="30sp"
+            android:textSize="28sp"
+            android:fontFamily="@font/avenir_heavy"
             android:layout_marginTop="10dp"
             android:text="@string/nos_categories"
             android:textColor="@color/white"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/categories_recycler_view"
-            android:layout_below="@id/cat_title"
-            android:layout_margin="30dp"
-            android:scrollbars="none"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:background="@color/modifiedPrimaryColor"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            />
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:layout_below="@id/cat_title">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/categories_recycler_view"
+                android:scrollbars="none"
+                android:layout_width="wrap_content"
+                android:background="@color/modifiedPrimaryColor"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                />
+        </LinearLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/search_recycler_view"
             android:layout_below="@id/search_edit_frame"
-            android:layout_margin="30dp"
             android:visibility="gone"
             android:scrollbars="vertical"
+            android:overScrollMode="never"
             android:layout_width="match_parent"
             android:background="@color/modifiedPrimaryColor"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
+            tools:visibility="visible"
+            tools:listitem = "@layout/search_restaurant_list_item"
             />
 
     </RelativeLayout>

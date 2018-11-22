@@ -79,6 +79,7 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter<SearchRestaura
         holder.restaurantCategoryTextView.setText(String.valueOf(mRestaurantList.get(position).getName()));
         Picasso.with(mContext)
                 .load(mRestaurantList.get(position).getPicture())
+                .fit()
                 .error(R.drawable.category)
                 .into(holder.restaurantImageImageView);
 

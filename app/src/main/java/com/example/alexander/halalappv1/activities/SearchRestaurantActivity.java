@@ -11,9 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +25,8 @@ import android.widget.Toast;
 import com.example.alexander.halalappv1.R;
 import com.example.alexander.halalappv1.adapters.CategoriesAdapter;
 import com.example.alexander.halalappv1.adapters.HomeRestaurantAdapter;
+import com.example.alexander.halalappv1.adapters.SearchRestaurantAdapter;
+import com.example.alexander.halalappv1.fragments.HomeFragment;
 import com.example.alexander.halalappv1.model.City;
 import com.example.alexander.halalappv1.model.newModels.Category;
 import com.example.alexander.halalappv1.model.newModels.Restaurant;
@@ -38,7 +42,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchRestaurantActivity extends AppCompatActivity implements HomeRestaurantAdapter.OnRestaurantClickListener {
+import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT_KEY;
+
+public class SearchRestaurantActivity extends AppCompatActivity implements SearchRestaurantAdapter.OnRestaurantListClickListener {
 
     public static final String CITY_LATITUDE_KEY = "CityLatitude";
     public static final String CITY_LONGITUDE_KEY = "CityLongitude";
@@ -67,7 +73,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
     // new design views and components
     private RecyclerView categoriesRecyclerView, searchRecyclerView;
     private CategoriesAdapter categoriesAdapter;
-    private HomeRestaurantAdapter searchResultAdapter;
+    private SearchRestaurantAdapter searchResultAdapter;
     private ArrayList<Category> categoriesList;
     private ArrayList<Restaurant> searchResultList;
     private TextView categoriesTitle, searchClear;
@@ -76,6 +82,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
     public static final String RESTAURENT_KEY = "RestaurentKey";
     public static final String SEARCH_KEY = "searchKey";
     private String mSearchKeywords;
+    private ArrayList<Restaurant> mRestaurantsList;
 
 
 
@@ -109,7 +116,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
         searchResultList = new ArrayList<>();
         // init recycler's adapter
         categoriesAdapter = new CategoriesAdapter(categoriesList,this);
-        searchResultAdapter = new HomeRestaurantAdapter(this,this);
+        searchResultAdapter = new SearchRestaurantAdapter(this,this);
         searchResultAdapter.setRestaurantList(searchResultList);
         // init recycler
         categoriesRecyclerView = findViewById(R.id.categories_recycler_view);
@@ -164,6 +171,19 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
                     searchClear.setVisibility(View.GONE);
             }
         });
+        mSearchRestaurantEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        mSearchRestaurantEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId==EditorInfo.IME_ACTION_DONE){
+                    //do something
+                    mSearchKeywords = mSearchRestaurantEditText.getText().toString();
+                    getSearchData(mSearchKeywords);
+                }
+                return false;
+            }
+        });
+
     }
 
     private void clearSearchET(){
@@ -171,6 +191,9 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
             @Override
             public void onClick(View view) {
                 mSearchRestaurantEditText.setText("");
+                categoriesRecyclerView.setVisibility(View.VISIBLE);
+                categoriesTitle.setVisibility(View.VISIBLE);
+                searchRecyclerView.setVisibility(View.GONE);
             }
         });
     }
@@ -345,12 +368,26 @@ public class SearchRestaurantActivity extends AppCompatActivity implements HomeR
         });
     }
 
-    // when search item clicked
+
     @Override
-    public void onRestaurantClick(int parentPosition, int childPosition) {
-        Intent intent = new Intent(this, RestaurantProfileActivity.class);
-        intent.putExtra(RESTAURENT_KEY, childPosition);
-        intent.setAction(ConstantsHelper.ACTION_SEARCH_ACTIVITY);
+    public void onFavoriteButtonClick(int itemPosition) {
+
+    }
+
+    @Override
+    public void onListItemClick(int itemPosition) {
+//        Intent intent = new Intent(this, RestaurantProfileActivity.class);
+//        intent.putExtra(RESTAURENT_KEY, itemPosition);
+//        intent.setAction(ConstantsHelper.ACTION_SEARCH_ACTIVITY);
+//        startActivity(intent);
+
+        Restaurant restaurant = searchResultList.get(itemPosition);
+        Intent intent = new Intent(SearchRestaurantActivity.this, RestaurantProfileActivity.class);
+//        intent.putExtra(HomeFragment.TABLE_ID_KEY, mTableId);
+//        intent.putExtra(HomeFragment.TABLE_OBJECT_KEY, mTable);
+        intent.putExtra(RESTAURENT_KEY, restaurant.getId());
+//                intent.putExtra(RESTAURANT_OBJECT_KEY, restaurant);
+        intent.setAction(ConstantsHelper.ACTION_TABLE_RESTAURANT_ACTIVITY);
         startActivity(intent);
     }
 }
