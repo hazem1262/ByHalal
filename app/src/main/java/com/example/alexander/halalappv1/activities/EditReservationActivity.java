@@ -126,9 +126,9 @@ public class EditReservationActivity extends AppCompatActivity {
     private void findViewsById() {
         restaurantAddress = findViewById(R.id.tv_restaurant_profile_location_address);
         restaurantProfile = findViewById(R.id.restaurant_profile_information_layout);
-        headerLayout = findViewById(R.id.headerLayout);
-        mRestaurantImageImageView = findViewById(R.id.iv_edit_reservation_activity_restaurant_image);
-        mFavouriteIconImageView = findViewById(R.id.iv_edit_reservation_activity_favourite);
+//        headerLayout = findViewById(R.id.headerLayout);
+//        mRestaurantImageImageView = findViewById(R.id.iv_edit_reservation_activity_restaurant_image);
+//        mFavouriteIconImageView = findViewById(R.id.iv_edit_reservation_activity_favourite);
         mLoadingIndicator = findViewById(R.id.pb_conditions_activity_loading_indicator);
 //        mArrowBackImageView = findViewById(R.id.iv_edit_reservation_activity_arrow_back);
         backText = findViewById(R.id.backText);
@@ -157,7 +157,7 @@ public class EditReservationActivity extends AppCompatActivity {
     }
 
     private void updateMainViewsWithRestaurantData() {
-        Picasso.with(this).load(mRestaurantRes.getPicture()).into(mRestaurantImageImageView);
+//        Picasso.with(this).load(mRestaurantRes.getPicture()).into(mRestaurantImageImageView);
         if (mRestaurantRes != null) {
 
             /*if (mRestaurant.getFavourite().equals("true")) {
@@ -166,24 +166,24 @@ public class EditReservationActivity extends AppCompatActivity {
                 mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_empty);
             }*/
             mRestaurantNameTextView.setText(mRestaurantRes.getName());
-            restaurantAddress.setText(mRestaurantRes.getAddress());
+//            restaurantAddress.setText(mRestaurantRes.getAddress());
         }
     }
 
     private void favouriteIconClick() {
-        mFavouriteIconImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                markAsFavourite(mUserId, mRestaurant.getId());
-                if (mRestaurant.getFavourite().equals("false")) {
-                    mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_pink);
-                    mRestaurant.setFavourite("true");
-                } else {
-                    mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_empty);
-                    mRestaurant.setFavourite("false");
-                }
-            }
-        });
+//        mFavouriteIconImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                markAsFavourite(mUserId, mRestaurant.getId());
+//                if (mRestaurant.getFavourite().equals("false")) {
+//                    mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_pink);
+//                    mRestaurant.setFavourite("true");
+//                } else {
+//                    mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_empty);
+//                    mRestaurant.setFavourite("false");
+//                }
+//            }
+//        });
     }
 
     private void arrowBackClick() {
@@ -583,7 +583,7 @@ public class EditReservationActivity extends AppCompatActivity {
         findViewsById();
         getData();
         //==========================================================================================
-        favouriteIconClick();
+//        favouriteIconClick();
 //        arrowBackClick();
 //        galleryIconClick();
         reserveButtonClick();
@@ -810,14 +810,14 @@ public class EditReservationActivity extends AppCompatActivity {
     private void showLoadingIndicator() {
 
         mLoadingIndicator.setVisibility(View.VISIBLE);
-        headerLayout.setVisibility(View.GONE);
+//        headerLayout.setVisibility(View.GONE);
         mCalendarLayout.setVisibility(View.GONE);
     }
 
     private void hideLoadingIndicator() {
 
         mLoadingIndicator.setVisibility(View.GONE);
-        headerLayout.setVisibility(View.VISIBLE);
+//        headerLayout.setVisibility(View.VISIBLE);
         mCalendarLayout.setVisibility(View.VISIBLE);
     }
 }

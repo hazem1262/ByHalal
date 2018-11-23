@@ -84,9 +84,16 @@ public class RestaurantMenuAdapter extends BaseExpandableListAdapter {
 //            convertView.findViewById(R.id.menu_header_line_separator).setVisibility(View.VISIBLE);
 //        }
 
-        int imageResourceId = isExpanded ? R.drawable.arrow_down : R.drawable.ic_arrow_right_white;
+//        int imageResourceId = isExpanded ? R.drawable.arrow_down : R.drawable.ic_arrow_right_white;
+        int imageResourceId = isExpanded ? R.drawable.ic_arrow_right_white : R.drawable.ic_arrow_right_white;
         ImageView arrowImageView = convertView.findViewById(R.id.iv_menu_header_arrow);
         arrowImageView.setImageResource(imageResourceId);
+
+        if (isExpanded){
+            arrowImageView.setRotation(90);
+        }else {
+            arrowImageView.setRotation(0);
+        }
 
         TextView menuHeaderTextView = convertView.findViewById(R.id.tv_menu_header_header);
         menuHeaderTextView.setText(String.valueOf(menuHeader));

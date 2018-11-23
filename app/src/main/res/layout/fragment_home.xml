@@ -130,8 +130,9 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:textSize="@dimen/app_text_size"
-		android:textColor="@color/black_2A2C34"
-		android:fontFamily="@font/opensans_regular"
+		android:textColor="@color/white"
+		android:fontFamily="@font/avenir_medium"
+		android:layout_marginTop="100dp"
 		android:gravity="center"
 		android:visibility="gone"
 		/>

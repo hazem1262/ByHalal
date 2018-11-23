@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.alexander.halalappv1"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0.5"
+        versionName "1.0.6"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "by Halal-$versionName")

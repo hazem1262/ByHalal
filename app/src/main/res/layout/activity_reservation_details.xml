@@ -560,6 +560,14 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/elv_menu_activity_menu_list"
+                android:scrollbars="none"
+                android:layout_width="match_parent"
+                android:background="@color/modifiedPrimaryColor"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -567,19 +575,20 @@
                 android:id="@+id/containnerLayout"
                 android:background="@color/modifiedPrimaryColor"
                 >
-                <ExpandableListView
-                    android:id="@+id/elv_menu_activity_menu_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:groupIndicator="@null"
-                    android:nestedScrollingEnabled="false"
-                    />
+
+                <!--<ExpandableListView-->
+                    <!--android:id="@+id/elv_menu_activity_menu_list"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:groupIndicator="@null"-->
+                    <!--android:nestedScrollingEnabled="false"-->
+                    <!--/>-->
                 <RelativeLayout
                     android:id="@+id/orderAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey_262A36"
-                    android:padding="10dp">
+                    android:background="#707070"
+                    android:padding="5dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

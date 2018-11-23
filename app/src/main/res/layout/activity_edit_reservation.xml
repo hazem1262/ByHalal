@@ -15,78 +15,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <FrameLayout
+        <LinearLayout
             android:id="@+id/headerLayout"
             android:layout_width="match_parent"
-            android:layout_height="230dp">
-            <ImageView
-                android:id="@+id/iv_edit_reservation_activity_restaurant_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/background_search_header"
-                />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center|top">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="right">
-                    <ImageView
-                        android:id="@+id/iv_edit_reservation_activity_favourite"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_favourite_empty"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="@dimen/screen_right_margin"
-                        android:visibility="invisible"
-                        />
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tv_edit_reservation_activity_restaurant_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pepenero"
-                    android:textColor="@color/white"
-                    android:textSize="35sp"
-                    android:gravity="center"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:includeFontPadding="false"
-                    />
-                <TextView
-                    android:id="@+id/tv_restaurant_profile_location_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="11 Rue d'eghtien 1265"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/opensans_regular"
-                    android:includeFontPadding="false"/>
-                <TextView
-                    android:id="@+id/tv_visitors_label"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_visitors_label_text"
-                    android:textSize="13sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/opensans_regular"
-                    android:includeFontPadding="false"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_visitors_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="12 K"
-                    android:textSize="25sp"
-                    android:textColor="@color/colorAccent"
-                    android:fontFamily="@font/opensans_regular"/>
-            </LinearLayout>
             <TextView
                 android:id="@+id/backText"
                 android:layout_width="wrap_content"
@@ -95,7 +29,19 @@
                 style="@style/backText"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"/>
-        </FrameLayout>
+            <TextView
+                android:id="@+id/tv_edit_reservation_activity_restaurant_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pepenero"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:gravity="center"
+                android:fontFamily="@font/avenir_heavy"
+                android:includeFontPadding="false"
+                />
+        </LinearLayout>
         <include
             android:id="@+id/pb_restaurant_profile_loading_indicator"
             android:layout_width="0dp"
@@ -362,7 +308,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/month_layout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:background="@color/modifiedPrimaryColor"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -373,9 +319,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="January 2018"
-                    android:textSize="@dimen/app_text_size"
+                    android:textSize="22sp"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/avenir_black"
                     android:layout_marginLeft="@dimen/screen_left_margin"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -384,6 +330,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:visibility="invisible"
                     android:background="@color/grey_D3D3D3"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

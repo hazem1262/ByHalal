@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,11 +25,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alexander.halalappv1.R;
+import com.example.alexander.halalappv1.adapters.OrderAdapter;
 import com.example.alexander.halalappv1.model.ReservationOrder;
 import com.example.alexander.halalappv1.model.User;
 
 import com.example.alexander.halalappv1.model.modifiedmodels.Restaurant;
 import com.example.alexander.halalappv1.model.newModels.RestaurantProfile;
+import com.example.alexander.halalappv1.model.newModels.reservation.details.Product;
 import com.example.alexander.halalappv1.reservation.UpComingReservation;
 import com.example.alexander.halalappv1.services.RestaurentProfileWebService;
 import com.example.alexander.halalappv1.services.RetrofitWebService;
@@ -55,6 +58,8 @@ import static com.example.alexander.halalappv1.fragments.HomeFragment.RESTAURENT
 public class SubmitReservationActivity extends AppCompatActivity {
 
     private EditText mSignInEmailEditText;
+    private RecyclerView mMenuListView;
+    private OrderAdapter mMenuAdapter;
     private EditText mSignInPasswordEditText;
     private Button mSignInButton;
     private EditText mSignUpFirstNameEditText;
@@ -110,6 +115,7 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private ConstraintLayout signUpLayout;
 
     private void findViewsById() {
+        mMenuListView = findViewById(R.id.elv_menu_activity_menu_list);
         promotionLayout = findViewById(R.id.promotionLayout);
         promotionText = findViewById(R.id.promotionAmount);
         reservationPromotionDay = findViewById(R.id.reservationPromotionDay);
@@ -524,7 +530,12 @@ public class SubmitReservationActivity extends AppCompatActivity {
         mSelectedTime = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_TIME_KEY);
         mSelectedNumberOfPeople = getIntent().getStringExtra(RestaurantProfileActivity.SELECTED_NUMBER_PEOPLE_KEY);
         mReservationOrdersList = getIntent().getParcelableArrayListExtra(MenuActivity.RESERVATION_ORDERS_LIST_KEY);
-
+        if (mReservationOrdersList != null){
+            ArrayList<Product> mProducts = new ArrayList<>();
+            for (int i = 0 ; i<mReservationOrdersList.size(); i++){
+//                mProducts.add(Product(mReservationOrdersList.get(i).))
+            }
+        }
 
 
         isLoggedIn = SharedPreferencesHelper.getSharedPreferenceBoolean(this, ConstantsHelper.KEY_IS_LOGGED_IN, false);

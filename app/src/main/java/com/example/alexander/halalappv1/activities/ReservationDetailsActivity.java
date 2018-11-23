@@ -9,6 +9,8 @@ import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.alexander.halalappv1.R;
+import com.example.alexander.halalappv1.adapters.OrderAdapter;
 import com.example.alexander.halalappv1.adapters.RestaurantMenuAdapter;
 import com.example.alexander.halalappv1.model.newModels.menues.MenuItem;
 import com.example.alexander.halalappv1.model.newModels.reservation.details.Product;
@@ -62,8 +65,9 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     private TextView chef;
     private TextView certficaionAlcohol;
     private LinearLayout menuLayout;
-    private ExpandableListView mMenuListView;
-    private RestaurantMenuAdapter mMenuAdapter;
+    private RecyclerView mMenuListView;
+//    private RestaurantMenuAdapter mMenuAdapter;
+    private OrderAdapter mMenuAdapter;
     private LinearLayout containner;
     private ScrollView scrollLayout;
     private LinearLayout btnLayout;
@@ -95,7 +99,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         getData();
         //set menu list
         mMenuListView = findViewById(R.id.elv_menu_activity_menu_list);
-        mMenuListView.setChildDivider(getResources().getDrawable(R.color.modifiedPrimaryColor));
+//        mMenuListView.setChildDivider(getResources().getDrawable(R.color.modifiedPrimaryColor));
         mListDataHeader = new ArrayList<>();
         mListDataChild = new HashMap<>();
         if (getIntent().getAction() != null){
@@ -148,10 +152,13 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             total += (menuItem.getQuantity() * Double.parseDouble(menuItem.getPrice()));
         }
         mListDataChild.put(header, menuItemsList);
-        mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild, false);
+//        mMenuAdapter = new RestaurantMenuAdapter(this, mListDataHeader, mListDataChild, false);
+        mMenuAdapter = new OrderAdapter(mReservationDetails.getProducts(),this);
         mMenuListView.setAdapter(mMenuAdapter);
+        mMenuListView.setLayoutManager(new LinearLayoutManager(ReservationDetailsActivity.this,LinearLayoutManager.VERTICAL, false));
+        mMenuAdapter.notifyDataSetChanged();
         if (menuItemsList.size()>0){
-            mMenuListView.expandGroup(0);
+//            mMenuListView.expandGroup(0);
             totalCost.setText(total + " €");
         }else{
             orderAmount.setVisibility(View.INVISIBLE);
