@@ -78,6 +78,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private ConstraintLayout mLoadingIndicator;
     private TextView mRestaurantNameTextView;
     private FrameLayout restaurantHeader;
+    private TextView callText;
 //    private RatingBar mRestaurantRateRatingBar;
 
     // Restaurant Information Layout
@@ -574,6 +575,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     }
     //==============================================================================================
     private void findViewsById() {
+        callText = findViewById(R.id.tv_restaurant_call);
         restName = findViewById(R.id.restName);
         calBackText = findViewById(R.id.calBackText);
         calHeader = findViewById(R.id.calenderHeader);
@@ -638,6 +640,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                 .load(mRestaurant.getPicture())
                 .fit()
                 .into(mRestaurantImageImageView);
+        callText.setText(mRestaurant.getPhone());
         int userId = SharedPreferencesHelper.getSharedPreferenceInt(RestaurantProfileActivity.this, ConstantsHelper.KEY_USER_ID, -10);
         if (userId == -10){
             mFavouriteIconImageView.setVisibility(View.INVISIBLE);
@@ -755,7 +758,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                 if (isNetworkOk) {
                     if (isLoggedIn) {
                         int userId = SharedPreferencesHelper.getSharedPreferenceInt(RestaurantProfileActivity.this, ConstantsHelper.KEY_USER_ID, -10);
-                        showLoadingIndicator();
+//                        showLoadingIndicator();
                         markAsFavourite(userId, mRestaurant.getId());
                     } else {
                         Intent intent = new Intent(RestaurantProfileActivity.this, FavouriteRestaurantsActivity.class);
@@ -903,7 +906,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
             resultCall.enqueue(new Callback<Object>() {
                 @Override
                 public void onResponse(Call<Object> call, Response<Object> response) {
-                    hideLoadingIndicator();
+//                    hideLoadingIndicator();
                     if (response.isSuccessful()) {
                         if (mRestaurant.getFavourite().equals("false")) {
                             mFavouriteIconImageView.setImageResource(R.drawable.ic_favourite_pink);
@@ -940,7 +943,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Object> call, Throwable t) {
-                    hideLoadingIndicator();
+//                    hideLoadingIndicator();
                     Toast.makeText(RestaurantProfileActivity.this, getResources().getString(R.string.toast_message_an_error_has_occurred), Toast.LENGTH_LONG).show();
                     Log.d(TAG, "Failed to get results");
                     Log.d(TAG, t.getMessage());

@@ -165,7 +165,7 @@
 				android:textStyle="bold"
 				android:textSize="20sp"
 				android:fontFamily="@font/avenir_heavy"
-				android:paddingStart="40dp"/>
+				android:paddingStart="20dp"/>
 			<TextView
 				android:id="@+id/tv_restaurant_profile_description"
 				android:layout_width="wrap_content"
@@ -187,7 +187,7 @@
 				android:layout_height="wrap_content"
 				android:text="@string/restaurentDescription"
 				android:textColor="@color/white"
-				android:paddingStart="40dp"
+				android:paddingStart="20dp"
 				android:textStyle="bold"
 				android:fontFamily="@font/avenir_heavy"
 				android:textSize="20sp"
@@ -206,14 +206,13 @@
 					android:layout_width="24dp"
 					android:layout_height="24dp"
 					android:layout_weight=".25"
-					android:layout_marginLeft="@dimen/screen_left_margin"
 					android:src="@drawable/ic_cuisine"
 					/>
 				<TextView
 					android:id="@+id/tv_cuisine_label"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_weight="1"
+					android:layout_weight="1.2"
 					android:text="@string/tv_cuisine_label_text"
 					android:textSize="15sp"
 					android:textColor="@color/white"
@@ -222,8 +221,9 @@
 				<TextView
 					android:id="@+id/tv_cuisine_value"
 					android:layout_width="0dp"
+					android:gravity="center"
 					android:layout_height="wrap_content"
-					android:layout_weight="1"
+					android:layout_weight=".8"
 					android:text="Italian"
 					android:textSize="15sp"
 					android:textColor="@color/white"
@@ -240,14 +240,13 @@
 					android:layout_width="24dp"
 					android:layout_height="24dp"
 					android:layout_weight=".25"
-					android:layout_marginLeft="@dimen/screen_left_margin"
 					android:src="@drawable/ic_executive_chef"
 					/>
 				<TextView
 					android:id="@+id/tv_executive_chef_label"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_weight="1"
+					android:layout_weight="1.2"
 					android:text="@string/tv_executive_chef_label_text"
 					android:textSize="15sp"
 					android:textColor="@color/white"
@@ -256,8 +255,9 @@
 				<TextView
 					android:id="@+id/tv_executive_chef_value"
 					android:layout_width="0dp"
+					android:gravity="center"
 					android:layout_height="wrap_content"
-					android:layout_weight="1"
+					android:layout_weight=".8"
 					android:text="Italian"
 					android:textSize="15sp"
 					android:textColor="@color/white"
@@ -275,13 +275,12 @@
 					android:layout_width="24dp"
 					android:layout_height="24dp"
 					android:layout_weight=".25"
-					android:layout_marginLeft="@dimen/screen_left_margin"
 					android:src="@drawable/ic_restaurant_website_pink"
 					/>
 				<TextView
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_weight="1"
+					android:layout_weight="1.2"
 					android:text="@string/certification"
 					android:textSize="15sp"
 					android:textColor="@color/white"
@@ -290,8 +289,9 @@
 				<TextView
 					android:id="@+id/tv_wine_value"
 					android:layout_width="0dp"
+					android:gravity="center"
 					android:layout_height="wrap_content"
-					android:layout_weight="1"
+					android:layout_weight=".8"
 					android:text="Italian"
 					android:textSize="13sp"
 					android:textColor="@color/white"
@@ -310,7 +310,6 @@
 					android:layout_width="24dp"
 					android:layout_height="24dp"
 					android:layout_weight=".25"
-					android:layout_marginLeft="@dimen/screen_left_margin"
 					android:src="@drawable/ic_restaurant_menu_pink"
 					/>
 				<TextView
@@ -345,7 +344,6 @@
 					android:layout_width="24dp"
 					android:layout_height="24dp"
 					android:layout_weight=".25"
-					android:layout_marginLeft="@dimen/screen_left_margin"
 					android:src="@drawable/ic_restaurant_website_pink"
 					/>
 				<TextView
@@ -381,7 +379,6 @@
 					android:layout_width="24dp"
 					android:layout_height="24dp"
 					android:layout_weight=".25"
-					android:layout_marginLeft="@dimen/screen_left_margin"
 					android:src="@drawable/ic_restaurant_call_pink"
 					/>
 				<TextView

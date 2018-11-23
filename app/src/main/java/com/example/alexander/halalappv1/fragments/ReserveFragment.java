@@ -307,8 +307,15 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                 mErrorMessageTextView.setText(getResources().getString(R.string.toast_message_no_internet_connection));
             }
         } else {
-            mReservationsLayout.setVisibility(View.GONE);
-            mSignInSignUpLayout.setVisibility(View.VISIBLE);
+//            mReservationsLayout.setVisibility(View.GONE);
+//            mSignInSignUpLayout.setVisibility(View.VISIBLE);
+            mUpcomingReservationsTextView.setVisibility(View.GONE);
+            mUpcomingReservationsListRecyclerView.setVisibility(View.GONE);
+            mPreviousReservationsTextView.setVisibility(View.GONE);
+            mPreviousReservationsListRecyclerView.setVisibility(View.GONE);
+
+            noReservationLayout.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -866,8 +873,14 @@ public class ReserveFragment extends Fragment implements UpcomingReservationsAda
                 mErrorMessageTextView.setText(getResources().getString(R.string.toast_message_no_internet_connection));
             }
         } else {
-            mReservationsLayout.setVisibility(View.GONE);
-            mSignInSignUpLayout.setVisibility(View.VISIBLE);
+//            mReservationsLayout.setVisibility(View.GONE);
+            mSignInSignUpLayout.setVisibility(View.GONE);
+            mUpcomingReservationsTextView.setVisibility(View.GONE);
+            mUpcomingReservationsListRecyclerView.setVisibility(View.GONE);
+            mPreviousReservationsTextView.setVisibility(View.GONE);
+            mPreviousReservationsListRecyclerView.setVisibility(View.GONE);
+
+            noReservationLayout.setVisibility(View.VISIBLE);
         }
     }
 

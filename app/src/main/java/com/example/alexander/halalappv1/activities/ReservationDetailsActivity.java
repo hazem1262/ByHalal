@@ -80,6 +80,9 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     private HashMap<String, List<MenuItem>> mListDataChild;
     TextView totalCost;
 
+    private TextView restaurentPhone;
+    private LinearLayout mWebsiteLayout;
+    private LinearLayout mPhoneNumberLayout;
     double total = 0.0;
 
     @Override
@@ -103,6 +106,28 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        mPhoneNumberLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phoneNumber = String.format("tel: %s", mRestaurantRes.getPhone());
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(phoneNumber));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
+        mWebsiteLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.valueOf(mRestaurantRes.getWebsite())));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -134,6 +159,9 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
     }
     private void findViewsById(){
+        restaurentPhone = findViewById(R.id.tv_restaurant_call);
+        mPhoneNumberLayout = findViewById(R.id.restaurant_profile_phone);
+        mWebsiteLayout = findViewById(R.id.restaurant_profile_website_layout);
         totalCost = findViewById(R.id.totalCost);
         orderAmount = findViewById(R.id.orderAmount);
         headerLayout = findViewById(R.id.upcoming_image_date_layout);
@@ -188,7 +216,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         restaurentAdress.setText(mRestaurantRes.getAddress());
         reservationDate.setText(mReservationDetails.getDate());
         reservationTime.setText(mReservationDetails.getTime());
-        reservationNumberOfPeople.setText(mReservationDetails.getGuests() + " Persons");
+        reservationNumberOfPeople.setText(mReservationDetails.getGuests() + " Personnes");
+        restaurentPhone.setText(mRestaurantRes.getPhone());
         Picasso.with(this).load(mRestaurantRes.getPicture()).into(restaurantImage);
 
         editButton.setOnClickListener(new View.OnClickListener() {

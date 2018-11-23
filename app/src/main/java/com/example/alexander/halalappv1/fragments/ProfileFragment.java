@@ -222,7 +222,7 @@ public class ProfileFragment extends Fragment implements HomeRestaurantAdapter.O
                 mRestaurantAdapter = new FavouriteRestaurentAdapter(getContext(), ProfileFragment.this);
                 mRestaurantAdapter.setRestaurantList(mFavResList);
                 mFavouriteRecyclerView.setAdapter(mRestaurantAdapter);
-                if (mFavResList == null){
+                if (mFavResList == null || mFavResList.isEmpty()){
 					noFavLayout.setVisibility(View.VISIBLE);
 				}
             }

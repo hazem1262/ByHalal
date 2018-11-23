@@ -178,7 +178,7 @@
 
     <!--Sign out Alert Dialog-->
     <string name="tv_sign_out_alert_dialog_sign_out_label_text">Déconnexion</string>
-    <string name="tv_sign_out_alert_dialog_dialog_message_text">Souhaitez-vous vous déconnecter ?</string>
+    <string name="tv_sign_out_alert_dialog_dialog_message_text">Vous êtes sur le point de vous déconnecter, êtes-vous sür(e) ?</string>
     <string name="tv_sign_out_alert_dialog_action_cancel_text">Annuler</string>
     <string name="tv_sign_out_alert_dialog_action_sign_out_text">Déconnexion</string>
 
@@ -238,7 +238,7 @@
     <string name="conditions">Conditions d’utilisation</string>
     <string name="signup">Inscription</string>
     <string name="signin">Connexion</string>
-    <string name="noFav">You Donot Have Any Favorites restaurents yet</string>
+    <string name="noFav">Pas des restaurent preferes</string>
     <string name="acceptSignup"><![CDATA[En cliquant sur « Réserver », l’utilisateur accepte  les conditions générales d’utilisation  et les politiques de confidentialité  de la société B&Y Halal.]]></string>
     <string name="retour">Retour</string>
     <string name="persons">Personnes</string>

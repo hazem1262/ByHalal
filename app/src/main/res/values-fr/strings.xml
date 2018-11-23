@@ -179,7 +179,7 @@
 
     <!--Sign out Alert Dialog-->
     <string name="tv_sign_out_alert_dialog_sign_out_label_text">Déconnexion</string>
-    <string name="tv_sign_out_alert_dialog_dialog_message_text">Souhaitez-vous vous déconnecter ?</string>
+    <string name="tv_sign_out_alert_dialog_dialog_message_text">Vous êtes sur le point de vous déconnecter, êtes-vous sür(e) ?</string>
     <string name="tv_sign_out_alert_dialog_action_cancel_text">Annuler</string>
     <string name="tv_sign_out_alert_dialog_action_sign_out_text">Déconnexion</string>
 
