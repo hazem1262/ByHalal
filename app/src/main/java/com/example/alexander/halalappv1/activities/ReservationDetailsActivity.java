@@ -79,7 +79,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     private List<String> mListDataHeader;
     private HashMap<String, List<MenuItem>> mListDataChild;
     TextView totalCost;
-
+    private LinearLayout discountPromotionLayout;
+    private TextView reservationDetailsAmount;
     private TextView restaurentPhone;
     private LinearLayout mWebsiteLayout;
     private LinearLayout mPhoneNumberLayout;
@@ -159,6 +160,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
     }
     private void findViewsById(){
+        discountPromotionLayout = findViewById(R.id.discountPromotionLayout);
+        reservationDetailsAmount = findViewById(R.id.reservationDetailsAmount);
         restaurentPhone = findViewById(R.id.tv_restaurant_call);
         mPhoneNumberLayout = findViewById(R.id.restaurant_profile_phone);
         mWebsiteLayout = findViewById(R.id.restaurant_profile_website_layout);
@@ -201,6 +204,10 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 mRestaurantRes = mReservationDetailsResponse.getRestaurant();
                 mReservationDetails = mReservationDetailsResponse.getReservation();
                 updateData();
+                if (!mReservationDetails.getPromotionText().isEmpty()){
+                    discountPromotionLayout.setVisibility(View.VISIBLE);
+                    reservationDetailsAmount.setText(mReservationDetails.getPromotionText());
+                }
 
             }
 

@@ -162,7 +162,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         categoriesAdapter = new CategoriesAdapter(categoriesList,getContext());
         categoriesRecyclerView = rootView.findViewById(R.id.categories_recycler_view);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
-        categoriesRecyclerView.setHasFixedSize(true);
+        categoriesRecyclerView.setHasFixedSize(ic_true);
         categoriesRecyclerView.setAdapter(categoriesAdapter);*/
     }
     //==============================================================================================

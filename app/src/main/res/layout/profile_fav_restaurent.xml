@@ -69,19 +69,18 @@
 		android:orientation="vertical"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		android:gravity="center"
+		android:gravity="left"
 		android:padding="5dp">
 
 		<TextView
 			android:id="@+id/tv_home_restaurant_name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:fontFamily="@font/opensans_semibold"
+			android:fontFamily="@font/avenir_heavy"
 			android:includeFontPadding="false"
 			android:text="Pepenero"
 			android:textColor="@color/white"
-			android:textSize="13dp"
+			android:textSize="20sp"
 
 
 			/>
@@ -90,11 +89,11 @@
 			android:id="@+id/tv_home_restaurant_category"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:fontFamily="@font/opensans_regular"
+			android:fontFamily="@font/avenir_medium"
 			android:includeFontPadding="false"
 			android:text="Italian"
 			android:textColor="@color/pink"
-			android:textSize="12sp" />
+			android:textSize="15sp" />
 	</LinearLayout>
 
 

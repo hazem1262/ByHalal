@@ -24,7 +24,7 @@
 				android:id="@+id/iv_restaurant_profile_restaurant_image"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:scaleType="fitXY"
+				android:scaleType="centerCrop"
 				android:src="@drawable/background_search_header"
 				/>
 			<LinearLayout
@@ -87,27 +87,65 @@
 						android:textColor="@color/white"
 						android:fontFamily="@font/avenir_roman"
 						android:includeFontPadding="false"/>
-					<TextView
-						android:id="@+id/tv_visitors_label"
-						android:layout_marginTop="20dp"
+					<LinearLayout
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="@string/tv_visitors_label_text"
-						android:textSize="15sp"
-						android:gravity="center"
-						android:textColor="@color/white"
-						android:fontFamily="@font/avenir_heavyoblique"
-						android:includeFontPadding="false"/>
+						android:orientation="vertical"
+						android:id="@+id/satisificationLayout"
+						android:gravity="center">
+						<TextView
+							android:id="@+id/tv_visitors_label"
+							android:layout_marginTop="20dp"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/tv_visitors_label_text"
+							android:textSize="15sp"
+							android:gravity="center"
+							android:textColor="@color/white"
+							android:fontFamily="@font/avenir_heavyoblique"
+							android:includeFontPadding="false"/>
 
-					<TextView
-						android:id="@+id/tv_visitors_value"
+						<TextView
+							android:id="@+id/tv_visitors_value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="12 K"
+							android:gravity="center"
+							android:textSize="25sp"
+							android:textColor="@color/colorAccent"
+							android:fontFamily="@font/opensans_regular"/>
+					</LinearLayout>
+
+					<LinearLayout
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="12 K"
-						android:gravity="center"
-						android:textSize="25sp"
-						android:textColor="@color/colorAccent"
-						android:fontFamily="@font/opensans_regular"/>
+						android:orientation="vertical"
+						android:id="@+id/promotionLayout"
+						android:visibility="gone"
+						android:layout_marginTop="30dp"
+						>
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="Aujourd’hui sur B&amp;Y"
+							android:textColor="@color/white"
+							android:textSize="15sp"
+							android:layout_marginBottom="10dp"
+							android:fontFamily="@font/avenir_heavyoblique"/>
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:paddingStart="8dp"
+							android:paddingEnd="8dp"
+							android:paddingTop="3dp"
+							android:paddingBottom="3dp"
+							android:id="@+id/promotionText"
+							android:text="-10% sur l’addition"
+							android:background="@color/pink"
+							android:textSize="15sp"
+							android:textColor="@color/white"
+							android:fontFamily="@font/avenir_book"/>
+					</LinearLayout>
 				</LinearLayout>
 			</LinearLayout>
 		</FrameLayout>
@@ -421,16 +459,59 @@
 				style="@style/backText"
 				android:layout_marginStart="10dp"
 				android:layout_marginTop="10dp"/>
-
-			<TextView
-				android:layout_width="wrap_content"
+			<LinearLayout
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:id="@+id/restName"
-				android:fontFamily="@font/avenir_heavy"
-				android:textColor="@color/white"
-				android:layout_marginStart="10dp"
-				android:textSize="28sp"
-				android:text="BCBG"/>
+				android:orientation="horizontal"
+				android:weightSum="2">
+				<LinearLayout
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:layout_weight="1">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/restName"
+						android:fontFamily="@font/avenir_heavy"
+						android:textColor="@color/white"
+						android:layout_marginStart="10dp"
+						android:textSize="28sp"
+						android:text="BCBG"/>
+				</LinearLayout>
+				<LinearLayout
+					android:id="@+id/reservationPromotionLayout"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:orientation="vertical"
+					android:background="@color/pink"
+					android:gravity="center"
+					android:visibility="gone"
+					tools:visibility="visible"
+					android:paddingTop="5dp"
+					android:paddingBottom="5dp"
+					>
+					<TextView
+						android:id="@+id/reservationPromotionText"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="-30% seulement le"
+						android:textColor="@color/white"
+						android:fontFamily="@font/avenir_book"
+						android:textSize="15sp"/>
+					<TextView
+						android:id="@+id/reservationPromotionDay"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="23/11/2018"
+						android:textColor="@color/white"
+						android:fontFamily="@font/avenir_book"
+						android:textSize="15sp"/>
+				</LinearLayout>
+			</LinearLayout>
+
 
 		</LinearLayout>
 		<!--calendar_layout-->

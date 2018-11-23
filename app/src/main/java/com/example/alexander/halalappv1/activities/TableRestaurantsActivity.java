@@ -153,7 +153,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
 //
 //                                mMarker = mGoogleMap.addMarker(new MarkerOptions()
 //                                        .position(latLng)
-//                                        .visible(true)
+//                                        .visible(ic_true)
 //                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_black)));
 //                                CameraPosition target = CameraPosition.builder().target(latLng).zoom(15).build();
 //                                mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target));
@@ -221,7 +221,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
 //                    mRestaurantsMapRecyclerView.setVisibility(View.GONE);
 //                    mMapButton.setText(getResources().getString(R.string.btn_search_fragment_map_text));
 //                } else {
-//                    isMapVisible = true;
+//                    isMapVisible = ic_true;
 //                    mRestaurantsRecyclerView.setVisibility(View.GONE);
 //                    mMapView.setVisibility(View.VISIBLE);
 //                    mRestaurantsMapRecyclerView.setVisibility(View.VISIBLE);
@@ -260,7 +260,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
 //
 //                        mMarker = mGoogleMap.addMarker(new MarkerOptions()
 //                                .position(latLng)
-//                                .visible(true)
+//                                .visible(ic_true)
 //                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_black)));
 //                        CameraPosition target = CameraPosition.builder().target(latLng).zoom(15).build();
 //                        mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(target));
@@ -347,7 +347,7 @@ public class TableRestaurantsActivity extends AppCompatActivity implements OnMap
 //                        if (mRestaurantsList.get(itemPosition).getFavourite().equals("false")) {
 //                            mSearchRestaurantAdapter.addItemToFavoriteItemsList(itemPosition);
 //                            mSearchRestaurantAdapter.removeItemFromUnFavoriteItemsList(itemPosition);
-//                            mRestaurantsList.get(itemPosition).setFavourite("true");
+//                            mRestaurantsList.get(itemPosition).setFavourite("ic_true");
 //                            mSearchRestaurantAdapter.notifyDataSetChanged();
 //                        } else {
 //                            mSearchRestaurantAdapter.addItemToUnFavoriteItemsList(itemPosition);

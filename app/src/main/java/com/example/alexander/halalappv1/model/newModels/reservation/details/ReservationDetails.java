@@ -35,27 +35,58 @@ public class ReservationDetails {
     @SerializedName("promotion")
     @Expose
     private Object promotion;
+
     @SerializedName("state")
     @Expose
     private String state;
+
     @SerializedName("date")
     @Expose
     private String date;
+
     @SerializedName("time")
     @Expose
     private String time;
+
     @SerializedName("dayName")
     @Expose
     private String dayName;
+
     @SerializedName("date2")
     @Expose
     private String date2;
+
     @SerializedName("time2")
     @Expose
     private String time2;
+
     @SerializedName("products")
     @Expose
     private ArrayList<Product> products = null;
+
+    @SerializedName("promotion_amount")
+    @Expose
+    private String promotion_amount;
+
+    public String getPromotion_amount() {
+        return promotion_amount;
+    }
+
+    public void setPromotion_amount(String promotion_amount) {
+        this.promotion_amount = promotion_amount;
+    }
+
+    public String getPromotionText() {
+        return promotionText;
+    }
+
+    public void setPromotionText(String promotionText) {
+        this.promotionText = promotionText;
+    }
+
+    @SerializedName("promotionText")
+    @Expose
+    private String promotionText;
 
     public Integer getId() {
         return id;

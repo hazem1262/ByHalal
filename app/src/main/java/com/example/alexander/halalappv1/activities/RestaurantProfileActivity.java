@@ -79,6 +79,8 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private TextView mRestaurantNameTextView;
     private FrameLayout restaurantHeader;
     private TextView callText;
+    private LinearLayout reservationPromotionLayout;
+    private TextView reservationPromotionText;
 //    private RatingBar mRestaurantRateRatingBar;
 
     // Restaurant Information Layout
@@ -95,6 +97,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 //    private TextView mRestaurantCityTextView;
 //    private TextView mRestaurantPhoneNumberTextView;
 //    private TextView mRestaurantNotesTextView;
+    private TextView reservationPromotionDay;
 
     private TextView backText;
     private ConstraintLayout mLocationLayout;
@@ -129,6 +132,7 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private ArrayList<Period> mTimeList = new ArrayList<>();
     private NumberOfPeopleAdapter mNumberOfPeopleAdapter;
     private ArrayList<String> mNumberOfPeopleList = new ArrayList<>();
+    private LinearLayout satisificationLayout;
 
     private boolean isCalendarVisible = false;
     private boolean isNetworkOk;
@@ -140,6 +144,8 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     private LinearLayout calHeader;
     private TextView calBackText;
     private TextView restName;
+    private LinearLayout promotionLayout;
+    private TextView promotionText;
     //==============================================================================================
 
     @Override
@@ -575,6 +581,12 @@ public class RestaurantProfileActivity extends AppCompatActivity {
     }
     //==============================================================================================
     private void findViewsById() {
+        reservationPromotionDay = findViewById(R.id.reservationPromotionDay);
+        reservationPromotionLayout = findViewById(R.id.reservationPromotionLayout);
+        reservationPromotionText = findViewById(R.id.reservationPromotionText);
+		satisificationLayout = findViewById(R.id.satisificationLayout);
+    	promotionLayout = findViewById(R.id.promotionLayout);
+    	promotionText = findViewById(R.id.promotionText);
         callText = findViewById(R.id.tv_restaurant_call);
         restName = findViewById(R.id.restName);
         calBackText = findViewById(R.id.calBackText);
@@ -641,6 +653,14 @@ public class RestaurantProfileActivity extends AppCompatActivity {
                 .fit()
                 .into(mRestaurantImageImageView);
         callText.setText(mRestaurant.getPhone());
+        if (mRestaurant.getPromotionAmount() > 0){
+        	promotionLayout.setVisibility(View.VISIBLE);
+        	promotionText.setText("-" + mRestaurant.getPromotionAmount() + "% sur l’addition");
+			satisificationLayout.setVisibility(View.GONE);
+            reservationPromotionLayout.setVisibility(View.VISIBLE);
+            reservationPromotionText.setText("-" + mRestaurant.getPromotionAmount() + "% seulement le");
+            reservationPromotionDay.setText(mRestaurant.getPromotionDay());
+		}
         int userId = SharedPreferencesHelper.getSharedPreferenceInt(RestaurantProfileActivity.this, ConstantsHelper.KEY_USER_ID, -10);
         if (userId == -10){
             mFavouriteIconImageView.setVisibility(View.INVISIBLE);
@@ -676,6 +696,8 @@ public class RestaurantProfileActivity extends AppCompatActivity {
 
 //            mNeighbourhoodTextView.setText(String.valueOf(mRestaurant.getCityNameFr()));
             mRestaurantAddressTextView.setText(String.valueOf(mRestaurant.getAddress()));
+
+
 //            mRestaurantCityTextView.setText(String.valueOf(mRestaurant.getCityNameFr()));
 //            mRestaurantPhoneNumberTextView.setText(String.valueOf(mRestaurant.getPhone()));
 //            mRestaurantNotesTextView.setText(String.valueOf(mRestaurant.getNotes()));

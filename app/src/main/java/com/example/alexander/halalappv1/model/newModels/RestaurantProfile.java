@@ -9,48 +9,75 @@ public class RestaurantProfile {
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("email")
     @Expose
     private String email;
+
     @SerializedName("description")
     @Expose
     private String description;
+
     @SerializedName("notes")
     @Expose
     private Object notes;
+
     @SerializedName("website")
     @Expose
     private Object website;
+
     @SerializedName("chef")
     @Expose
     private Object chef;
+
     @SerializedName("alcohol")
     @Expose
     private String alcohol;
+
     @SerializedName("certification")
     @Expose
     private Object certification;
+
     @SerializedName("address")
     @Expose
     private String address;
+
     @SerializedName("phone")
     @Expose
     private String phone;
+
     @SerializedName("picture")
     @Expose
     private String picture;
+
     @SerializedName("visitors")
     @Expose
     private Integer visitors;
+
     @SerializedName("cuisineName")
     @Expose
     private String cuisineName;
+
     @SerializedName("promotionAmount")
     @Expose
     private Integer promotionAmount;
+
+    @SerializedName("promotionDay")
+    @Expose
+    private String promotionDay;
+
+    public String getPromotionDay() {
+        return promotionDay;
+    }
+
+    public void setPromotionDay(String promotionDay) {
+        this.promotionDay = promotionDay;
+    }
+
     @SerializedName("favourite")
     @Expose
     private String favourite;

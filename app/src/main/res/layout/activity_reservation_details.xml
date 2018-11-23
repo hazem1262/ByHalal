@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:gravity="center_horizontal|center_vertical">
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/restaurant_name"
@@ -156,15 +156,37 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/backText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/retour"
-                    style="@style/backText"
-                    android:textColor="@color/white"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:gravity="left"
+                        android:text="Votre réservation"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/avenir_black"
+                        android:textSize="22sp"
+                        android:textColor="@color/white"
+                        />
+                    <TextView
+                        android:id="@+id/backText"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="X"
+                        android:fontFamily="@font/avenir_black"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
 
             </FrameLayout>
 
@@ -256,6 +278,47 @@
                 android:orientation="vertical"
                 android:background="@color/modifiedPrimaryColor"
                 android:id="@+id/restaurant_profile_information_layout">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:id="@+id/discountPromotionLayout">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Parce qu’on pense à vous "
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/avenir_heavy"
+                        android:textSize="20sp"
+                        android:paddingStart="40dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="50dp">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_true"
+                            />
+                        <TextView
+                            android:id="@+id/reservationDetailsAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lorem dummy text of the printing "
+                            android:textSize="15sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/avenir_book"
+                            android:gravity="center"
+                            android:paddingEnd="20dp"
+                            android:layout_marginLeft="@dimen/screen_left_margin"
+                            android:layout_marginRight="@dimen/screen_right_margin"
+                            />
+                    </LinearLayout>
+
+
+                </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -90,7 +90,7 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter<SearchRestaura
         if (mUnFavoriteItemsList.contains(position)) {
             holder.favoriteButtonImageView.setImageResource(R.drawable.ic_favourite_empty);
         }
-//        if (mRestaurantList.get(position).getFavourite().equals("true")) {
+//        if (mRestaurantList.get(position).getFavourite().equals("ic_true")) {
 //            holder.favoriteButtonImageView.setImageResource(R.drawable.ic_favourite_pink);
 //        }
 //        if (mRestaurantList.get(position).getFavourite().equals("false")) {

@@ -100,7 +100,9 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private String mPhoneNumber;
     private String mEmail;
     private String mComments;
-
+    private LinearLayout promotionLayout;
+    private TextView promotionText;
+    private TextView reservationPromotionDay;
     private boolean isNetworkOk;
     private LinearLayout notLoggedUser;
     private ArrayList<ReservationOrder> mReservationOrdersList;
@@ -108,6 +110,9 @@ public class SubmitReservationActivity extends AppCompatActivity {
     private ConstraintLayout signUpLayout;
 
     private void findViewsById() {
+        promotionLayout = findViewById(R.id.promotionLayout);
+        promotionText = findViewById(R.id.promotionAmount);
+        reservationPromotionDay = findViewById(R.id.reservationPromotionDay);
         signInLayOut = findViewById(R.id.signInLayOut);
         signUpLayout = findViewById(R.id.signUpLayout);
         notLoggedUser = findViewById(R.id.notLoggedUser);
@@ -918,6 +923,11 @@ public class SubmitReservationActivity extends AppCompatActivity {
                 mRestaurant = response.body();
                 mRestaurantId = mRestaurant.getId();
                 updateRestaurantInformationViews();
+                if (mRestaurant.getPromotionAmount() > 0){
+                    promotionLayout.setVisibility(View.VISIBLE);
+                    promotionText.setText( "-" + mRestaurant.getPromotionAmount() + "% seulement le");
+                    reservationPromotionDay.setText(mRestaurant.getPromotionDay());
+                }
             }
 
             @Override
