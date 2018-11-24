@@ -33,7 +33,7 @@ public class RestaurantsList1 implements Parcelable
 
 
         @SuppressWarnings({
-            "unchecked"
+                "unchecked"
         })
         public RestaurantsList1 createFromParcel(Parcel in) {
             return new RestaurantsList1(in);
@@ -44,7 +44,7 @@ public class RestaurantsList1 implements Parcelable
         }
 
     }
-    ;
+            ;
 
     protected RestaurantsList1(Parcel in) {
         this.listId = in.readInt();

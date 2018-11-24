@@ -26,7 +26,7 @@ public class Menu implements Parcelable
 
 
         @SuppressWarnings({
-            "unchecked"
+                "unchecked"
         })
         public Menu createFromParcel(Parcel in) {
             return new Menu(in);
@@ -37,7 +37,7 @@ public class Menu implements Parcelable
         }
 
     }
-    ;
+            ;
 
     protected Menu(Parcel in) {
         this.id = in.readInt();

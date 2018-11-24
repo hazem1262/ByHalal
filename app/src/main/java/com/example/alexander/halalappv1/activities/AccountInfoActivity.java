@@ -634,14 +634,14 @@ public class AccountInfoActivity extends AppCompatActivity {
                         String lastName = user.getLastName();
                         String email = user.getEmail();
                         String mobileNumber = user.getMobileNo();
-                        String password = user.getPassword();
+//                        String password = user.getPassword();
 
-                        if (firstName != null && lastName != null && email != null && mobileNumber != null && password != null) {
+                        if (firstName != null && lastName != null && email != null && mobileNumber != null ) {
                             saveUserDataInSharedPreferences(ConstantsHelper.KEY_FIRST_NAME, firstName.substring(0, 1).toUpperCase() + firstName.substring(1));
                             saveUserDataInSharedPreferences(ConstantsHelper.KEY_FAMILY_NAME, lastName.substring(0, 1).toUpperCase() + lastName.substring(1));
                             saveUserDataInSharedPreferences(ConstantsHelper.KEY_EMAIL, email);
                             saveUserDataInSharedPreferences(ConstantsHelper.KEY_MOBILE_NUMBER, mobileNumber);
-                            saveUserDataInSharedPreferences(ConstantsHelper.KEY_PASSWORD, password);
+//                            saveUserDataInSharedPreferences(ConstantsHelper.KEY_PASSWORD, password);
                             SharedPreferencesHelper.setSharedPreferenceInt(AccountInfoActivity.this, ConstantsHelper.KEY_USER_ID, userId);
                             SharedPreferencesHelper.setSharedPreferenceBoolean(AccountInfoActivity.this, ConstantsHelper.KEY_IS_LOGGED_IN, true);
 

@@ -8,38 +8,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class RestaurantsList {
 
-    @SerializedName("restaurantOfTheWeek")
-    @Expose
-    private RestaurantOfTheWeek restaurantOfTheWeek;
-    @SerializedName("categoriesWithRestaurants")
-    @Expose
-    private ArrayList<CategoriesWithRestaurant> categoriesWithRestaurants = null;
-    @SerializedName("categories")
-    @Expose
-    private ArrayList<Category> categories = null;
+  @SerializedName("restaurantOfTheWeek")
+  @Expose
+  private RestaurantOfTheWeek restaurantOfTheWeek;
+  @SerializedName("categoriesWithRestaurants")
+  @Expose
+  private ArrayList<CategoriesWithRestaurant> categoriesWithRestaurants = null;
+  @SerializedName("categories")
+  @Expose
+  private ArrayList<Category> categories = null;
 
-    public RestaurantOfTheWeek getRestaurantOfTheWeek() {
-        return restaurantOfTheWeek;
-    }
+  public RestaurantOfTheWeek getRestaurantOfTheWeek() {
+    return restaurantOfTheWeek;
+  }
 
-    public void setRestaurantOfTheWeek(RestaurantOfTheWeek restaurantOfTheWeek) {
-        this.restaurantOfTheWeek = restaurantOfTheWeek;
-    }
+  public void setRestaurantOfTheWeek(RestaurantOfTheWeek restaurantOfTheWeek) {
+    this.restaurantOfTheWeek = restaurantOfTheWeek;
+  }
 
-    public ArrayList<CategoriesWithRestaurant> getCategoriesWithRestaurants() {
-        return categoriesWithRestaurants;
-    }
+  public ArrayList<CategoriesWithRestaurant> getCategoriesWithRestaurants() {
+    return categoriesWithRestaurants;
+  }
 
-    public void setCategoriesWithRestaurants(ArrayList<CategoriesWithRestaurant> categoriesWithRestaurants) {
-        this.categoriesWithRestaurants = categoriesWithRestaurants;
-    }
+  public void setCategoriesWithRestaurants(ArrayList<CategoriesWithRestaurant> categoriesWithRestaurants) {
+    this.categoriesWithRestaurants = categoriesWithRestaurants;
+  }
 
-    public ArrayList<Category> getCategories() {
-        return categories;
-    }
+  public ArrayList<Category> getCategories() {
+    return categories;
+  }
 
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
-    }
+  public void setCategories(ArrayList<Category> categories) {
+    this.categories = categories;
+  }
 
 }

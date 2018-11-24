@@ -27,7 +27,7 @@ public class WorkDay implements Parcelable
 
 
         @SuppressWarnings({
-            "unchecked"
+                "unchecked"
         })
         public WorkDay createFromParcel(Parcel in) {
             return new WorkDay(in);
@@ -38,7 +38,7 @@ public class WorkDay implements Parcelable
         }
 
     }
-    ;
+            ;
 
     protected WorkDay(Parcel in) {
         this.dayName = in.readString();

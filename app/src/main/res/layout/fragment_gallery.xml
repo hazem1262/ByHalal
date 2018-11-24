@@ -8,13 +8,13 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp">
 
-    <GridView
-        android:id="@+id/gallery_fragment_grid_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="3"
-        android:horizontalSpacing="8dp"
-        android:verticalSpacing="8dp"
-        android:stretchMode="columnWidth"/>
+  <GridView
+      android:id="@+id/gallery_fragment_grid_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:numColumns="3"
+      android:horizontalSpacing="8dp"
+      android:verticalSpacing="8dp"
+      android:stretchMode="columnWidth"/>
 
 </LinearLayout>
