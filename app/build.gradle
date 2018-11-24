@@ -54,9 +54,9 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
     // Play Services Location
-    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
     // Play Services Maps
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
     // Circle Indicator
     implementation 'me.relex:circleindicator:1.2.2@aar'
     // rounded imageview
@@ -66,7 +66,7 @@ dependencies {
 
     implementation 'com.google.android:flexbox:0.3.0'
 
-//    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
 
 //    implementation 'com.google.firebase:firebase-messaging:17.0.0:15.0.0'
 }
